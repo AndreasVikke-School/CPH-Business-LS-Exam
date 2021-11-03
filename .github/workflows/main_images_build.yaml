@@ -1,0 +1,25 @@
+name: "main_images_build"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  call-workflow-build-push-test1-image:
+    name: Build and Push test1 Docker Image
+    uses: andreasvikke/CPH-Business-LS-Exam/.github/workflows/template_test.yaml@main
+    with:
+      image_name: test1
+      image_path: "applications/test1"
+    secrets:
+      ghcr_token: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}
+  
+  call-workflow-build-push-test2-image:
+    name: Build and Push test2 Docker Image
+    uses: andreasvikke/CPH-Business-LS-Exam/.github/workflows/template_test.yaml@main
+    with:
+      image_name: test2
+      image_path: "applications/test2"
+    secrets:
+      ghcr_token: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}
