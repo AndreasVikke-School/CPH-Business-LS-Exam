@@ -9,7 +9,7 @@ const options = {
 
 //create a server object:
 http.createServer(function (req, res) {
-    const req = http.request(options, ress => {
+    const reqq = http.request(options, ress => {
         console.log(`statusCode: ${ress.statusCode}`)
 
         ress.on('data', d => {

@@ -40,6 +40,37 @@ resource "kubernetes_deployment" "test" {
   }
 }
 
+resource "kubernetes_deployment" "test2" {
+  metadata {
+    name      = "test2"
+    namespace = kubernetes_namespace.test.metadata.0.name
+  }
+  spec {
+    replicas = 1
+    selector {
+      match_labels = {
+        app = "test2"
+      }
+    }
+    template {
+      metadata {
+        labels = {
+          app = "test2"
+        }
+      }
+      spec {
+        container {
+          image = "ghcr.io/andreasvikke/cph-business-ls-exam/test2:latest"
+          name  = "test2-container"
+          port {
+            container_port = 8080
+          }
+        }
+      }
+    }
+  }
+}
+
 resource "kubernetes_service" "test" {
   metadata {
     name      = "test1"
@@ -52,7 +83,24 @@ resource "kubernetes_service" "test" {
     type = "ClusterIP"
     port {
       port        = 80
-      target_port = 80
+      target_port = 8080
+    }
+  }
+}
+
+resource "kubernetes_service" "test2" {
+  metadata {
+    name      = "test2"
+    namespace = kubernetes_namespace.test.metadata.0.name
+  }
+  spec {
+    selector = {
+      app = kubernetes_deployment.test2.spec.0.template.0.metadata.0.labels.app
+    }
+    type = "LoadBalancer"
+    port {
+      port        = 80
+      target_port = 8080
     }
   }
 }
