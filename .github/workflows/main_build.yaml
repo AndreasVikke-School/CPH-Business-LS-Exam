@@ -29,8 +29,8 @@ jobs:
           push: true
           file: "applications/test1/Dockerfile"
           tags: |
-            ghcr.io/test1:${{ env.RELEASE_VERSION }}
-            ghcr.io/test1:latest
+            ghcr.io/${{ env.REPO }}/test1:${{ env.RELEASE_VERSION }}
+            ghcr.io/${{ env.REPO }}/test1:latest
   build_publish_docker_test2:
     name: Push Test2 Docker image to Github Container Reg
     runs-on: ubuntu-latest
@@ -52,5 +52,5 @@ jobs:
           push: true
           file: "applications/test1/Dockerfile"
           tags: |
-            ghcr.io/test2:${{ env.RELEASE_VERSION }}
-            ghcr.io/test2:latest
+            ghcr.io/${{ env.REPO }}/test2:${{ env.RELEASE_VERSION }}
+            ghcr.io/${{ env.REPO }}/test2:latest
