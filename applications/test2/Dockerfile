@@ -1,6 +1,6 @@
 FROM node:12.18.1
 
-LABEL org.opencontainers.image.source https://github.com/efio-dk/release-action-test
+LABEL org.opencontainers.image.source https://github.com/andreasvikke/CPH-Businnes-LS-Exam
 
 WORKDIR /app
 
