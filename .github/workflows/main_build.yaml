@@ -1,10 +1,10 @@
 ---
-name: "main-deploy"
+name: "main-build"
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   # Build the image and publishes it to Github Container Registry
