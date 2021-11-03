@@ -9,7 +9,7 @@ on:
 jobs:
   # Build the image and publishes it to Github Container Registry
   build_publish_docker_test1:
-    name: Push Docker image to Github Container Reg
+    name: Push Test1 Docker image to Github Container Reg
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -27,12 +27,12 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          file: "{context}/applications/test1/Dockerfile"
+          file: "${{context}}/applications/test1/Dockerfile"
           tags: |
             ghcr.io/test1:${{ env.RELEASE_VERSION }}
             ghcr.io/test1:latest
   build_publish_docker_test2:
-    name: Push Docker image to Github Container Reg
+    name: Push Test2 Docker image to Github Container Reg
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -50,7 +50,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          file: "{context}/applications/test1/Dockerfile"
+          file: "${{context}}/applications/test1/Dockerfile"
           tags: |
             ghcr.io/test2:${{ env.RELEASE_VERSION }}
             ghcr.io/test2:latest
