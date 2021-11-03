@@ -8,7 +8,7 @@ on:
 jobs:
   call-workflow-build-push-image:
     name: Build and Push Docker Image
-    uses: andreasvikke/cph-business-ls-exam/.github/workflows/templates/test.yml@main
+    uses: andreasvikke/CPH-Business-LS-Exam/.github/workflows/template_test.yaml@main
     with:
       repo_name: ${{ github.repository }}
       commit_sha: ${{ github.sha }}
