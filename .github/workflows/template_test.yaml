@@ -43,7 +43,7 @@ jobs:
           echo $EXISTING
 
       - name: Build and Push Docker Image
-        if: env.EXISTING == 0
+        if: env.EXISTING == 1
         uses: docker/build-push-action@v2
         with:
           push: true
