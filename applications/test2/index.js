@@ -1,16 +1,9 @@
 var http = require('http');
 var request = require("request");
 
-const options = {
-  hostname: 'test1.test',
-  port: 80,
-  path: '/',
-  method: 'GET'
-}
-
 //create a server object:
 http.createServer(function (req, res) {
-    request("http://www.myawesomepage.com/", function (error, response, body) {
+    request("test1.test", function (error, response, body) {
         if (!error) {
             res.write(body);
         } else {
