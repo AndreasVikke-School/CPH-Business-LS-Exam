@@ -3,7 +3,7 @@ var request = require("request");
 
 //create a server object:
 http.createServer(function (req, res) {
-    request("test1.test", function (error, response, body) {
+    request("http://test1.test/", function (error, response, body) {
         if (!error) {
             res.write(body);
         } else {
