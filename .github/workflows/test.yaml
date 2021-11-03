@@ -13,5 +13,5 @@ jobs:
       repo_name: ${{ github.repository }}
       commit_sha: ${{ github.sha }}
     secrets:
-      google_gar_repo: 1234
-      gar_json_key: 1234
+      google_gar_repo: "1234"
+      gar_json_key: "1234"
