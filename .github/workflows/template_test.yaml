@@ -32,10 +32,13 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.ghcr_token }}
 
-      - name: Create Digest and Check Docker Registry
+      - name: Create Digest and Existing flag
         run: |
           echo "EXISTING=0" >> $GITHUB_ENV &&
           echo "DIGEST=$(sha256sum <(find ./${{ inputs.image_path }}/. -type f -exec sha256sum {} \; | sort) | head -c 12)" >> $GITHUB_ENV &&
+      
+      - name: Check Docker if Digest already Existing
+        run: |
           docker manifest inspect ghcr.io/${{ env.REPO }}/${{ inputs.image_name }}:sha256-${{ env.DIGEST }} > /dev/null || echo "EXISTING=$?" >> $GITHUB_ENV &&
           echo $EXISTING
 
