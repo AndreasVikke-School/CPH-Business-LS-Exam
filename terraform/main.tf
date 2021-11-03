@@ -5,34 +5,34 @@ provider "kubernetes" {
 
 resource "kubernetes_namespace" "test" {
   metadata {
-    name = "nginx"
+    name = "test"
   }
 }
 
 resource "kubernetes_deployment" "test" {
   metadata {
-    name      = "nginx"
+    name      = "test1"
     namespace = kubernetes_namespace.test.metadata.0.name
   }
   spec {
-    replicas = 2
+    replicas = 1
     selector {
       match_labels = {
-        app = "MyTestApp"
+        app = "test1"
       }
     }
     template {
       metadata {
         labels = {
-          app = "MyTestApp"
+          app = "test1"
         }
       }
       spec {
         container {
-          image = "nginx"
-          name  = "nginx-container"
+          image = "ghcr.io/andreasvikke/cph-business-ls-exam/test1:latest"
+          name  = "test1-container"
           port {
-            container_port = 80
+            container_port = 8080
           }
         }
       }
@@ -42,16 +42,15 @@ resource "kubernetes_deployment" "test" {
 
 resource "kubernetes_service" "test" {
   metadata {
-    name      = "nginx"
+    name      = "test1"
     namespace = kubernetes_namespace.test.metadata.0.name
   }
   spec {
     selector = {
       app = kubernetes_deployment.test.spec.0.template.0.metadata.0.labels.app
     }
-    type = "NodePort"
+    type = "ClusterIP"
     port {
-      node_port   = 30080
       port        = 80
       target_port = 80
     }
