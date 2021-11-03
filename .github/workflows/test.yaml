@@ -1,0 +1,17 @@
+name: "main-deploy"
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  call-workflow-build-push-image:
+    name: Build and Push Docker Image
+    uses: andreasvikke/cph-business-ls-exam/.github/workflows/templates/test.yml@main
+    with:
+      repo_name: ${{ github.repository }}
+      commit_sha: ${{ github.sha }}
+    secrets:
+      google_gar_repo: 1234
+      gar_json_key: 1234
