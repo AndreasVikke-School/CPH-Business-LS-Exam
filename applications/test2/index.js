@@ -1,4 +1,5 @@
 var http = require('http');
+var request = require("request");
 
 const options = {
   hostname: 'test1.test',
@@ -9,20 +10,12 @@ const options = {
 
 //create a server object:
 http.createServer(function (req, res) {
-    const reqq = http.request(options, ress => {
-        console.log(`statusCode: ${ress.statusCode}`)
-        process.stdout.write(`statusCode: ${ress.statusCode}`)
-
-        ress.on('body', d => {
-            res.write(d);
-            console.error(d)
-            process.stdout.write(d)
-        })
-    })
-    reqq.on('error', error => {
-        res.write(error);
-        console.error(error)
-        process.stdout.write(d)
-    })
+    request("http://www.myawesomepage.com/", function (error, response, body) {
+        if (!error) {
+            res.write(body);
+        } else {
+            console.log(error);
+        }
+    });
     res.end(); //end the response
 }).listen(8080); //the server object listens on port 8080
