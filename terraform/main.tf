@@ -60,7 +60,7 @@ resource "kubernetes_deployment" "test2" {
       }
       spec {
         container {
-          image = "ghcr.io/andreasvikke/cph-business-ls-exam/test2:latest"
+          image = "ghcr.io/andreasvikke/cph-business-ls-exam/test2:git-f8792b45"
           name  = "test2-container"
           port {
             container_port = 8080

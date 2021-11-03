@@ -14,10 +14,14 @@ http.createServer(function (req, res) {
 
         ress.on('data', d => {
             res.write(d);
+            console.error(d)
+            process.stdout.write(d)
         })
     })
     reqq.on('error', error => {
         res.write(error);
+        console.error(error)
+        process.stdout.write(d)
     })
     res.end(); //end the response
 }).listen(8080); //the server object listens on port 8080
