@@ -1,9 +1,9 @@
-name: "main-deploy"
+name: "test"
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   call-workflow-build-push-image:
