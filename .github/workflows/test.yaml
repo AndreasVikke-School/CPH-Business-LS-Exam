@@ -6,12 +6,11 @@ on:
       - main
 
 jobs:
-  call-workflow-build-push-image:
+  call-workflow-build-push-image-test1:
     name: Build and Push Docker Image
     uses: andreasvikke/CPH-Business-LS-Exam/.github/workflows/template_test.yaml@main
     with:
-      repo_name: ${{ github.repository }}
-      commit_sha: ${{ github.sha }}
+      image_name: test1
+      image_path: "/applications/test1"
     secrets:
-      google_gar_repo: "1234"
-      gar_json_key: "1234"
+      ghcr_token: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}

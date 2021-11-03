@@ -9,9 +9,6 @@ on:
       image_path:
         required: true
         type: string
-      commit_sha:
-        required: true
-        type: string
     secrets:
       ghcr_token:
         required: true
