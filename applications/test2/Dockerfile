@@ -1,12 +1,12 @@
-FROM node:12.18.1
+# syntax=docker/dockerfile:1
 
-LABEL org.opencontainers.image.source https://github.com/andreasvikke/CPH-Business-LS-Exam
+FROM python:3.8-slim-buster
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
 
 COPY . .
 
-CMD [ "node", "index.js" ]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
