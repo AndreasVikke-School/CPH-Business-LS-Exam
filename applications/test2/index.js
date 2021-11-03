@@ -1,7 +1,7 @@
 var http = require('http');
 
 const options = {
-  hostname: 'test1',
+  hostname: 'test1.test',
   port: 80,
   path: '/',
   method: 'GET'
@@ -15,6 +15,9 @@ http.createServer(function (req, res) {
         ress.on('data', d => {
             res.write(d);
         })
+    })
+    reqq.on('error', error => {
+        res.write(error);
     })
     res.end(); //end the response
 }).listen(8080); //the server object listens on port 8080
