@@ -11,8 +11,9 @@ const options = {
 http.createServer(function (req, res) {
     const reqq = http.request(options, ress => {
         console.log(`statusCode: ${ress.statusCode}`)
+        process.stdout.write(`statusCode: ${ress.statusCode}`)
 
-        ress.on('data', d => {
+        ress.on('body', d => {
             res.write(d);
             console.error(d)
             process.stdout.write(d)
