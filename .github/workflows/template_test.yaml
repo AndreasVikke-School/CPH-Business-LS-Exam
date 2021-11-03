@@ -36,7 +36,7 @@ jobs:
         run: |
           echo "EXISTING=0" >> $GITHUB_ENV &&
           echo "DIGEST=$(sha256sum <(find ./${{ inputs.image_path }}/. -type f -exec sha256sum {} \; | sort) | head -c 12)" >> $GITHUB_ENV &&
-          docker manifest inspect ghcr.io/${{ env.REPO }}/:git-$GITHASH > /dev/null || echo "EXISTING=$?" >> $GITHUB_ENV
+          docker manifest inspect ghcr.io/${{ env.REPO }}/${{ inputs.image_name }}:git-$GITHASH > /dev/null || echo "EXISTING=$?" >> $GITHUB_ENV
 
       - name: Build and Push Docker Image
         if: env.EXISTING == 0
