@@ -32,7 +32,7 @@ resource "kubernetes_deployment" "test" {
           image = "ghcr.io/andreasvikke/cph-business-ls-exam/test1:latest"
           name  = "test1-container"
           port {
-            container_port = 5000
+            container_port = 50051
           }
         }
       }
@@ -82,8 +82,8 @@ resource "kubernetes_service" "test" {
     }
     type = "ClusterIP"
     port {
-      port        = 80
-      target_port = 5000
+      port        = 50051
+      target_port = 50051
     }
   }
 }
