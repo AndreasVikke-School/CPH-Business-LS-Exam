@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "Protos";
+
+package greeting;
+import "google/protobuf/wrappers.proto";
+
+// The greeting service definition.
+service GreetingProto {
+  rpc Greet (google.protobuf.StringValue) returns (Message);
+}
+
+message Message {
+  string value = 1;
+}
