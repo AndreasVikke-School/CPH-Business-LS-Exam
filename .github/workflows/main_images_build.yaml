@@ -6,12 +6,12 @@ on:
       - main
 
 jobs:
-  call-workflow-build-push-test1-image:
-    name: Build and Push test1 Docker Image
+  call-workflow-build-push-service-photos-image:
+    name: Build and Push service photos Docker Image
     uses: andreasvikke/CPH-Business-LS-Exam/.github/workflows/template_build_push.yaml@main
     with:
-      image_name: test1
-      image_path: "applications/test1"
+      image_name: service_photos
+      image_path: "applications/service_photos"
     secrets:
       ghcr_token: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}
   
