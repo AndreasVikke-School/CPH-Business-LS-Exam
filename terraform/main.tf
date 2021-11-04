@@ -40,30 +40,30 @@ resource "kubernetes_deployment" "test" {
   }
 }
 
-resource "kubernetes_deployment" "test2" {
+resource "kubernetes_deployment" "api" {
   metadata {
-    name      = "test2"
+    name      = "api"
     namespace = kubernetes_namespace.test.metadata.0.name
   }
   spec {
     replicas = 1
     selector {
       match_labels = {
-        app = "test2"
+        app = "api"
       }
     }
     template {
       metadata {
         labels = {
-          app = "test2"
+          app = "api"
         }
       }
       spec {
         container {
-          image = "ghcr.io/andreasvikke/cph-business-ls-exam/test2:latest"
-          name  = "test2-container"
+          image = "ghcr.io/andreasvikke/cph-business-ls-exam/api:latest"
+          name  = "api-container"
           port {
-            container_port = 5000
+            container_port = 8080
           }
         }
       }
@@ -88,19 +88,19 @@ resource "kubernetes_service" "test" {
   }
 }
 
-resource "kubernetes_service" "test2" {
+resource "kubernetes_service" "api" {
   metadata {
-    name      = "test2"
+    name      = "api"
     namespace = kubernetes_namespace.test.metadata.0.name
   }
   spec {
     selector = {
-      app = kubernetes_deployment.test2.spec.0.template.0.metadata.0.labels.app
+      app = kubernetes_deployment.api.spec.0.template.0.metadata.0.labels.app
     }
     type = "LoadBalancer"
     port {
       port        = 80
-      target_port = 5000
+      target_port = 8080
     }
   }
 }
