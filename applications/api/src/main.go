@@ -15,7 +15,7 @@ import (
 
 // getAlbums responds with the list of all albums as JSON.
 func getPhotos(c *gin.Context) {
-	conn, err := grpc.Dial("test1.test")
+	conn, err := grpc.Dial("service_photos.test")
 	if err != nil {
 		fmt.Println("fail to dial: %v", err)
 	}

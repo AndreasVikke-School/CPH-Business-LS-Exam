@@ -9,28 +9,28 @@ resource "kubernetes_namespace" "test" {
   }
 }
 
-resource "kubernetes_deployment" "test" {
+resource "kubernetes_deployment" "service_photos" {
   metadata {
-    name      = "test1"
+    name      = "service_photos"
     namespace = kubernetes_namespace.test.metadata.0.name
   }
   spec {
     replicas = 1
     selector {
       match_labels = {
-        app = "test1"
+        app = "service_photos"
       }
     }
     template {
       metadata {
         labels = {
-          app = "test1"
+          app = "service_photos"
         }
       }
       spec {
         container {
-          image = "ghcr.io/andreasvikke/cph-business-ls-exam/test1:latest"
-          name  = "test1-container"
+          image = "ghcr.io/andreasvikke/cph-business-ls-exam/service_photos:latest"
+          name  = "service_photos-container"
           port {
             container_port = 50051
           }
@@ -71,14 +71,14 @@ resource "kubernetes_deployment" "api" {
   }
 }
 
-resource "kubernetes_service" "test" {
+resource "kubernetes_service" "service_photos" {
   metadata {
-    name      = "test1"
+    name      = "service_photos"
     namespace = kubernetes_namespace.test.metadata.0.name
   }
   spec {
     selector = {
-      app = kubernetes_deployment.test.spec.0.template.0.metadata.0.labels.app
+      app = kubernetes_deployment.service_photos.spec.0.template.0.metadata.0.labels.app
     }
     type = "ClusterIP"
     port {
