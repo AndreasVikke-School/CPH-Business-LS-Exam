@@ -9,6 +9,6 @@ import rpc.greeting_pb2_grpc as greeting_pb2_grpc
 
 @app.route('/')
 def hello_world():
-    with grpc.insecure_channel('localhost:50051') as channel:
+    with grpc.insecure_channel('test1.test:50051') as channel:
         stub = greeting_pb2_grpc.GreetingProtoStub(channel)
         return stub.Greet(wrappers.StringValue(value='Hello World!')).value
