@@ -30,5 +30,5 @@ func main() {
 	router := gin.Default()
 	router.GET("/photos", getPhotos)
 
-	router.Run("localhost:8080")
+	router.Run("0.0.0.0:8080")
 }
