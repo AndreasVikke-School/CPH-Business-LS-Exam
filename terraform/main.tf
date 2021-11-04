@@ -11,26 +11,26 @@ resource "kubernetes_namespace" "test" {
 
 resource "kubernetes_deployment" "service_photos" {
   metadata {
-    name      = "service_photos"
+    name      = "service-photos"
     namespace = kubernetes_namespace.test.metadata.0.name
   }
   spec {
     replicas = 1
     selector {
       match_labels = {
-        app = "service_photos"
+        app = "service-photos"
       }
     }
     template {
       metadata {
         labels = {
-          app = "service_photos"
+          app = "service-photos"
         }
       }
       spec {
         container {
           image = "ghcr.io/andreasvikke/cph-business-ls-exam/service_photos:latest"
-          name  = "service_photos-container"
+          name  = "service-photos-container"
           port {
             container_port = 50051
           }
@@ -73,7 +73,7 @@ resource "kubernetes_deployment" "api" {
 
 resource "kubernetes_service" "service_photos" {
   metadata {
-    name      = "service_photos"
+    name      = "service-photos"
     namespace = kubernetes_namespace.test.metadata.0.name
   }
   spec {
