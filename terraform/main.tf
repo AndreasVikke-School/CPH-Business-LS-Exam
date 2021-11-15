@@ -29,7 +29,7 @@ resource "kubernetes_deployment" "service_photos" {
       }
       spec {
         container {
-          image = "ghcr.io/andreasvikke/cph-business-ls-exam/service_photos:latest"
+          image = "ghcr.io/andreasvikke/cph-business-ls-exam/service_photos:${var.service_photos_image}"
           name  = "service-photos-container"
           port {
             container_port = 50051
@@ -60,7 +60,7 @@ resource "kubernetes_deployment" "api" {
       }
       spec {
         container {
-          image = "ghcr.io/andreasvikke/cph-business-ls-exam/api:latest"
+          image = "ghcr.io/andreasvikke/cph-business-ls-exam/api:${var.api_image}"
           name  = "api-container"
           port {
             container_port = 8080

@@ -52,7 +52,7 @@ func getPhotoById(c *gin.Context) {
 func main() {
 	router := gin.Default()
 	router.GET("/photos", getPhotos)
-	router.GET("/photos/:id", getPhotos)
+	router.GET("/photos/:id", getPhotoById)
 
 	router.Run("0.0.0.0:8080")
 }
