@@ -3,6 +3,10 @@ provider "kubernetes" {
   config_context = "minikube"
 }
 
+module "kafka_module" {
+  source = "./modules/kafka"
+}
+
 resource "kubernetes_namespace" "test" {
   metadata {
     name = "test"
