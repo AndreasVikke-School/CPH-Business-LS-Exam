@@ -7,6 +7,10 @@ module "kafka_module" {
   source = "./modules/kafka"
 }
 
+module "postgres_module" {
+  source = "./modules/postgres"
+}
+
 resource "kubernetes_namespace" "test" {
   metadata {
     name = "test"

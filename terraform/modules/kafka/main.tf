@@ -1,3 +1,14 @@
+locals {
+  broker_env = {
+    "KAFKA_ADVERTISED_LISTENERS"             = "INTERNAL://kafka-broker:19092,EXTERNAL://kafka-broker:9092"
+    "KAFKA_ZOOKEEPER_CONNECT"                = "kafka-zookeeper:2181"
+    "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"   = "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
+    "KAFKA_INTER_BROKER_LISTENER_NAME"       = "INTERNAL"
+    "KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR" = "1"
+    "KAFKA_AUTO_CREATE_TOPICS_ENABLE"        = "true"
+  }
+}
+
 resource "kubernetes_namespace" "kafka" {
   metadata {
     name = "kafka"
@@ -49,7 +60,7 @@ resource "kubernetes_service" "kafka_zookeeper" {
     selector = {
       app = "kafka-zookeeper"
     }
-    type = "LoadBalancer"
+    type = "ClusterIP"
     port {
       port = 2181
     }
@@ -83,21 +94,12 @@ resource "kubernetes_deployment" "kafka_broker" {
           port {
             container_port = 9092
           }
-          env {
-            name  = "KAFKA_ADVERTISED_LISTENERS"
-            value = "INTERNAL://kafka-broker:19092,EXTERNAL://kafka-broker:9092"
-          }
-          env {
-            name  = "KAFKA_ZOOKEEPER_CONNECT"
-            value = "kafka-zookeeper:2181"
-          }
-          env {
-            name  = "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"
-            value = "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
-          }
-          env {
-            name  = "KAFKA_INTER_BROKER_LISTENER_NAME"
-            value = "INTERNAL"
+          dynamic "env" {
+            for_each = local.broker_env
+            content {
+              name  = env.key
+              value = env.value
+            }
           }
         }
       }
@@ -116,8 +118,12 @@ resource "kubernetes_service" "kafka_broker" {
     }
     type = "LoadBalancer"
     port {
-      name      = "kafka-port"
+      name      = "kafka-external"
       port      = 9092
+    }
+    port {
+      name      = "kafka-internal"
+      port      = 19092
     }
   }
 }
@@ -130,7 +136,7 @@ resource "kubernetes_deployment" "kafka_kafdrop" {
     namespace = kubernetes_namespace.kafka.metadata.0.name
   }
   spec {
-    replicas = 1
+    replicas = 2
     selector {
       match_labels = {
         app = "kafka-kafdrop"
