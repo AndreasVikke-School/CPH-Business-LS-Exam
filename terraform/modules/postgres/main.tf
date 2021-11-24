@@ -5,7 +5,7 @@ resource "kubernetes_namespace" "postgres" {
   }
 }
 
-# ==== POSTGRESS SERVICE ====
+# ==== POSTGRES SERVICE ====
 resource "kubernetes_deployment" "postgres" {
   metadata {
     name      = "postgres"
@@ -60,7 +60,7 @@ resource "kubernetes_service" "postgres" {
     }
   }
 }
-# ==== POSTGRESS SERVICE END ====
+# ==== POSTGRES SERVICE END ====
 
 # ==== PGADMIN SERVICE ====
 resource "kubernetes_deployment" "pgadmin" {

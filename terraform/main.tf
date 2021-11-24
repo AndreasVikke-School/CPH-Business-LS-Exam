@@ -6,11 +6,13 @@ provider "kubernetes" {
 module "kafka_module" {
   source = "./modules/kafka"
 }
-
 module "postgres_module" {
   source = "./modules/postgres"
 }
 
+module "redis_module" {
+  source = "./modules/redis"
+}
 resource "kubernetes_namespace" "test" {
   metadata {
     name = "test"

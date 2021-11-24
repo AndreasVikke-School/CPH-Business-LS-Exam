@@ -1,14 +1,14 @@
 variable "postgress_username" {
-  type = string
+  type    = string
   default = "postgres"
 }
 
 variable "postgress_email" {
-  type = string
+  type    = string
   default = "postgres@login.com"
 }
 
 variable "postgress_password" {
-  type = string
+  type    = string
   default = "P@ssword!"
 }

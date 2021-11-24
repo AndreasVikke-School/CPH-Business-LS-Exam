@@ -118,12 +118,12 @@ resource "kubernetes_service" "kafka_broker" {
     }
     type = "LoadBalancer"
     port {
-      name      = "kafka-external"
-      port      = 9092
+      name = "kafka-external"
+      port = 9092
     }
     port {
-      name      = "kafka-internal"
-      port      = 19092
+      name = "kafka-internal"
+      port = 19092
     }
   }
 }
