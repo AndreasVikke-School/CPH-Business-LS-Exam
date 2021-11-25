@@ -16,6 +16,10 @@
 ```
 $ minikube start
 ```
+#### In new terminal start up af minikube tunnel and let it run
+```
+$ minikube tunnel
+```
 #### Now run Terraform to apply the infrasturcture
 ```
 $ cd terraform
