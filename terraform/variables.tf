@@ -3,7 +3,7 @@ variable "api_image" {
   default = "latest"
 }
 
-variable "service_photos_image" {
+variable "redis_service_image" {
   type    = string
   default = "latest"
 }

@@ -19,28 +19,29 @@ resource "kubernetes_namespace" "test" {
   }
 }
 
-resource "kubernetes_deployment" "service_photos" {
+resource "kubernetes_deployment" "redis_service" {
   metadata {
-    name      = "service-photos"
-    namespace = kubernetes_namespace.test.metadata.0.name
+    name      = "redis-service"
+    # namespace = kubernetes_namespace.test.metadata.0.name
+    namespace = "redis"
   }
   spec {
     replicas = 1
     selector {
       match_labels = {
-        app = "service-photos"
+        app = "redis-service"
       }
     }
     template {
       metadata {
         labels = {
-          app = "service-photos"
+          app = "redis-service"
         }
       }
       spec {
         container {
-          image = "ghcr.io/andreasvikke/cph-business-ls-exam/service_photos:${var.service_photos_image}"
-          name  = "service-photos-container"
+          image = "ghcr.io/andreasvikke/cph-business-ls-exam/redis_service:${var.redis_service_image}"
+          name  = "redis-service-container"
           port {
             container_port = 50051
           }
@@ -70,7 +71,7 @@ resource "kubernetes_deployment" "api" {
       }
       spec {
         container {
-          image = "ghcr.io/andreasvikke/cph-business-ls-exam/api:${var.api_image}"
+          image = "ghcr.io/andreasvikke/cph-business-ls-exam/api_service:${var.api_image}"
           name  = "api-container"
           port {
             container_port = 8080
@@ -81,14 +82,14 @@ resource "kubernetes_deployment" "api" {
   }
 }
 
-resource "kubernetes_service" "service_photos" {
+resource "kubernetes_service" "service_redis" {
   metadata {
-    name      = "service-photos"
-    namespace = kubernetes_namespace.test.metadata.0.name
+    name      = "redis-service"
+    namespace = "redis"
   }
   spec {
     selector = {
-      app = kubernetes_deployment.service_photos.spec.0.template.0.metadata.0.labels.app
+      app = "redis-service"
     }
     type = "ClusterIP"
     port {
