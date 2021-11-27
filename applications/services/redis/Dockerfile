@@ -5,11 +5,11 @@ LABEL org.opencontainers.image.source https://github.com/andreasvikke/cph-busine
 
 WORKDIR /app
 
-COPY ./src/go.mod .
-COPY ./src/go.sum .
+COPY ./go.mod .
+COPY ./go.sum .
 RUN go mod download
 
-COPY ./src .
+COPY . .
 RUN go build -o /api
 
 CMD [ "/api", "prod" ]
