@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "Protos";
+
+package attendancecode;
+import "google/protobuf/wrappers.proto";
+
+// The greeting service definition.
+service AttendanceCodeProto {
+  rpc GetAttendanceCode (google.protobuf.Int64Value) returns (AttendanceCode);
+  rpc CreateAttendanceCode (AttendanceCodeCreate) returns (AttendanceCode);
+}
+
+message AttendanceCodeCreate {
+  int64 minutesToLive = 1;
+}
+
+message AttendanceCode {
+  int64 code = 1;
+  int64 unix = 2;
+}
