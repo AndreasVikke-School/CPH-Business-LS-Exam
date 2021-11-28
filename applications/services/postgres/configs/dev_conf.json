@@ -1,6 +1,6 @@
 {
     "postgres": {
-        "broker": "10.103.139.122",
+        "broker": "10.98.189.231",
         "port": "5432",
         "user": "postgres",
         "password": "P@ssword!"

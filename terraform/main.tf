@@ -52,6 +52,10 @@ module "redis_service" {
       target_port = 50051
     }
   }
+
+  depends_on = [
+    module.redis_module
+  ]
 }
 
 module "postgres_service" {
@@ -70,4 +74,8 @@ module "postgres_service" {
       target_port = 50051
     }
   }
+
+  depends_on = [
+    module.postgres_module
+  ]
 }

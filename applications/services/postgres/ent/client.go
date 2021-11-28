@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"log"
 
-	"redis_service/ent/migrate"
+	"postgres_service/ent/migrate"
 
-	"redis_service/ent/checkin"
+	"postgres_service/ent/checkin"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"

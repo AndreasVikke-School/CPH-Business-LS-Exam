@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
-	eh "redis_service/errorhandler"
+	eh "postgres_service/errorhandler"
 )
 
 type Configuration struct {

@@ -1,4 +1,4 @@
-module redis_service
+module postgres_service
 
 go 1.17
 

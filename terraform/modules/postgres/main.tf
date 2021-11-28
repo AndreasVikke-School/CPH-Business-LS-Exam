@@ -54,7 +54,7 @@ resource "kubernetes_service" "postgres" {
     selector = {
       app = "postgres"
     }
-    type = "ClusterIP"
+    type = "LoadBalancer" # "ClusterIP"
     port {
       port = 5432
     }

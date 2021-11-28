@@ -3,7 +3,7 @@
 package checkin
 
 import (
-	"redis_service/ent/predicate"
+	"postgres_service/ent/predicate"
 
 	"entgo.io/ent/dialect/sql"
 )

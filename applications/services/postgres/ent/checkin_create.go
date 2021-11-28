@@ -6,7 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"redis_service/ent/checkin"
+	"postgres_service/ent/checkin"
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"

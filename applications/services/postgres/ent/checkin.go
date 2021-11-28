@@ -4,7 +4,7 @@ package ent
 
 import (
 	"fmt"
-	"redis_service/ent/checkin"
+	"postgres_service/ent/checkin"
 	"strings"
 
 	"entgo.io/ent/dialect/sql"

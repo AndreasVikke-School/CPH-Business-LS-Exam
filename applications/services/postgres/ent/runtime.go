@@ -3,8 +3,8 @@
 package ent
 
 import (
-	"redis_service/ent/checkin"
-	"redis_service/ent/schema"
+	"postgres_service/ent/checkin"
+	"postgres_service/ent/schema"
 )
 
 // The init function reads all schema descriptors with runtime code

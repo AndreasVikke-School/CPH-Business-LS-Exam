@@ -5,8 +5,8 @@ package ent
 import (
 	"context"
 	"fmt"
-	"redis_service/ent/checkin"
-	"redis_service/ent/predicate"
+	"postgres_service/ent/checkin"
+	"postgres_service/ent/predicate"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"

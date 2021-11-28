@@ -5,7 +5,7 @@ package hook
 import (
 	"context"
 	"fmt"
-	"redis_service/ent"
+	"postgres_service/ent"
 )
 
 // The CheckInFunc type is an adapter to allow the use of ordinary

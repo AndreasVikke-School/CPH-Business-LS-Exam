@@ -1,16 +1,18 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"log"
 	"net"
 	"os"
 
-	eh "redis_service/errorhandler"
-	pb "redis_service/rpc"
+	eh "postgres_service/errorhandler"
+	pb "postgres_service/rpc"
 
 	"google.golang.org/grpc"
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 var (
@@ -22,13 +24,13 @@ type server struct {
 	pb.UnimplementedCheckInProtoServer
 }
 
-// func (s *server) GetCheckInById(ctx context.Context, in *wrapperspb.Int64Value) (*pb.CheckIn, error) {
-// 	// code, unix, err := GetAttendanceCodeFromRedis(in.Value, configuration)
-// 	// if err != nil {
-// 	// 	return nil, err
-// 	// }
-// 	return &pb.CheckIn{Code: code, Unix: unix}, nil
-// }
+func (s *server) GetCheckInById(ctx context.Context, in *wrapperspb.Int64Value) (*pb.CheckIn, error) {
+	checkIn, err := GetCheckInByIdFromPostgres(context.Background(), in.Value, configuration)
+	if err != nil {
+		return nil, err
+	}
+	return &pb.CheckIn{Id: int64(checkIn.ID), AttendanceCode: checkIn.AttendanceCode, StudentId: checkIn.StudentId}, nil
+}
 
 func main() {
 	flag.Parse()

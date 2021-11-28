@@ -4,9 +4,9 @@ package enttest
 
 import (
 	"context"
-	"redis_service/ent"
+	"postgres_service/ent"
 	// required by schema hooks.
-	_ "redis_service/ent/runtime"
+	_ "postgres_service/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
 )
