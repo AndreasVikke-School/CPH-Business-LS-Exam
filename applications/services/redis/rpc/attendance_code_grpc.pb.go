@@ -19,7 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AttendanceCodeProtoClient interface {
-	GetAttendanceCode(ctx context.Context, in *wrappers.Int64Value, opts ...grpc.CallOption) (*AttendanceCode, error)
+	GetAttendanceCodeById(ctx context.Context, in *wrappers.Int64Value, opts ...grpc.CallOption) (*AttendanceCode, error)
 	CreateAttendanceCode(ctx context.Context, in *AttendanceCodeCreate, opts ...grpc.CallOption) (*AttendanceCode, error)
 }
 
@@ -31,9 +31,9 @@ func NewAttendanceCodeProtoClient(cc grpc.ClientConnInterface) AttendanceCodePro
 	return &attendanceCodeProtoClient{cc}
 }
 
-func (c *attendanceCodeProtoClient) GetAttendanceCode(ctx context.Context, in *wrappers.Int64Value, opts ...grpc.CallOption) (*AttendanceCode, error) {
+func (c *attendanceCodeProtoClient) GetAttendanceCodeById(ctx context.Context, in *wrappers.Int64Value, opts ...grpc.CallOption) (*AttendanceCode, error) {
 	out := new(AttendanceCode)
-	err := c.cc.Invoke(ctx, "/rpc.AttendanceCodeProto/GetAttendanceCode", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/rpc.AttendanceCodeProto/GetAttendanceCodeById", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +53,7 @@ func (c *attendanceCodeProtoClient) CreateAttendanceCode(ctx context.Context, in
 // All implementations must embed UnimplementedAttendanceCodeProtoServer
 // for forward compatibility
 type AttendanceCodeProtoServer interface {
-	GetAttendanceCode(context.Context, *wrappers.Int64Value) (*AttendanceCode, error)
+	GetAttendanceCodeById(context.Context, *wrappers.Int64Value) (*AttendanceCode, error)
 	CreateAttendanceCode(context.Context, *AttendanceCodeCreate) (*AttendanceCode, error)
 	mustEmbedUnimplementedAttendanceCodeProtoServer()
 }
@@ -62,8 +62,8 @@ type AttendanceCodeProtoServer interface {
 type UnimplementedAttendanceCodeProtoServer struct {
 }
 
-func (UnimplementedAttendanceCodeProtoServer) GetAttendanceCode(context.Context, *wrappers.Int64Value) (*AttendanceCode, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAttendanceCode not implemented")
+func (UnimplementedAttendanceCodeProtoServer) GetAttendanceCodeById(context.Context, *wrappers.Int64Value) (*AttendanceCode, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAttendanceCodeById not implemented")
 }
 func (UnimplementedAttendanceCodeProtoServer) CreateAttendanceCode(context.Context, *AttendanceCodeCreate) (*AttendanceCode, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAttendanceCode not implemented")
@@ -81,20 +81,20 @@ func RegisterAttendanceCodeProtoServer(s grpc.ServiceRegistrar, srv AttendanceCo
 	s.RegisterService(&AttendanceCodeProto_ServiceDesc, srv)
 }
 
-func _AttendanceCodeProto_GetAttendanceCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _AttendanceCodeProto_GetAttendanceCodeById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(wrappers.Int64Value)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AttendanceCodeProtoServer).GetAttendanceCode(ctx, in)
+		return srv.(AttendanceCodeProtoServer).GetAttendanceCodeById(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/rpc.AttendanceCodeProto/GetAttendanceCode",
+		FullMethod: "/rpc.AttendanceCodeProto/GetAttendanceCodeById",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AttendanceCodeProtoServer).GetAttendanceCode(ctx, req.(*wrappers.Int64Value))
+		return srv.(AttendanceCodeProtoServer).GetAttendanceCodeById(ctx, req.(*wrappers.Int64Value))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -125,8 +125,8 @@ var AttendanceCodeProto_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*AttendanceCodeProtoServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetAttendanceCode",
-			Handler:    _AttendanceCodeProto_GetAttendanceCode_Handler,
+			MethodName: "GetAttendanceCodeById",
+			Handler:    _AttendanceCodeProto_GetAttendanceCodeById_Handler,
 		},
 		{
 			MethodName: "CreateAttendanceCode",
