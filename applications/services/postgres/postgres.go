@@ -11,7 +11,7 @@ import (
 )
 
 func MigratePostgres(config Configuration) {
-	conn := fmt.Sprintf("host=%s port=%s user=%s dbname=postgres password=%s", config.Postgres.Broker, config.Postgres.Port, config.Postgres.User, config.Postgres.Password)
+	conn := fmt.Sprintf("host=%s port=%s user=%s dbname=postgres password=%s sslmode=disable", config.Postgres.Broker, config.Postgres.Port, config.Postgres.User, config.Postgres.Password)
 	fmt.Println(conn)
 	client, err := ent.Open("postgres", conn)
 	if err != nil {
