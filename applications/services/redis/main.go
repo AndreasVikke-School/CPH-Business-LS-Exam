@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
 
 	pb "redis_service/attendancecode"
 	eh "redis_service/errorhandler"
@@ -15,7 +16,8 @@ import (
 )
 
 var (
-	port = flag.Int("port", 50051, "The server port")
+	configuration Configuration
+	port          = flag.Int("port", 50051, "The server port")
 )
 
 type server struct {
@@ -23,13 +25,13 @@ type server struct {
 }
 
 func (s *server) CreateAttendanceCode(ctx context.Context, in *pb.AttendanceCodeCreate) (*pb.AttendanceCode, error) {
-	code, unix, err := CreateAttendanceCodeInRedis(in.GetMinutesToLive())
+	code, unix, err := CreateAttendanceCodeInRedis(in.GetMinutesToLive(), configuration)
 	eh.PanicOnError(err, "Error when adding code to redis")
 	return &pb.AttendanceCode{Code: code, Unix: unix}, nil
 }
 
 func (s *server) GetAttendanceCode(ctx context.Context, in *wrapperspb.Int64Value) (*pb.AttendanceCode, error) {
-	code, unix, err := GetAttendanceCodeFromRedis(in.Value)
+	code, unix, err := GetAttendanceCodeFromRedis(in.Value, configuration)
 	eh.PanicOnError(err, "Error when getting code from redis")
 	return &pb.AttendanceCode{Code: code, Unix: unix}, nil
 }
@@ -41,6 +43,12 @@ func main() {
 
 	s := grpc.NewServer()
 	pb.RegisterAttendanceCodeProtoServer(s, &server{})
+
+	if len(os.Args) >= 2 {
+		configuration = getConfig(os.Args[1])
+	} else {
+		configuration = getConfig("dev")
+	}
 
 	log.Printf("server listening at %v", lis.Addr())
 	err = s.Serve(lis)

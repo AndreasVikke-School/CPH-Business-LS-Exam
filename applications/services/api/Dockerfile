@@ -10,6 +10,6 @@ COPY ./go.sum .
 RUN go mod download
 
 COPY . .
-RUN go build -o /api
+RUN go build -o ./api_service
 
-CMD [ "/api", "prod" ]
+CMD [ "./api_service", "prod" ]

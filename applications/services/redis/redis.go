@@ -12,13 +12,16 @@ import (
 )
 
 var (
-	rdb = redis.NewClient(&redis.Options{
-		Addr:     "redis-cluster.redis:6379",
+	redis_key = "attendance_code"
+)
+
+func GetRedisClient(config Configuration) *redis.Client {
+	return redis.NewClient(&redis.Options{
+		Addr:     config.Redis.Broker,
 		Password: "",
 		DB:       0,
 	})
-	redis_key = "attendance_code"
-)
+}
 
 func RandomCode() int64 {
 	low := 1000000
@@ -26,11 +29,12 @@ func RandomCode() int64 {
 	return int64(low + rand.Intn(hi-low))
 }
 
-func GetUniqueCode() int64 {
+func GetUniqueCode(config Configuration) int64 {
+	rdb := GetRedisClient(config)
 	code := RandomCode()
 	for {
 		exists := rdb.HExists(redis_key, strconv.FormatInt(code, 10)).Val()
-		if exists {
+		if !exists {
 			break
 		}
 		code = RandomCode()
@@ -38,8 +42,9 @@ func GetUniqueCode() int64 {
 	return code
 }
 
-func CreateAttendanceCodeInRedis(minsToLive int64) (int64, int64, error) {
-	code := GetUniqueCode()
+func CreateAttendanceCodeInRedis(minsToLive int64, config Configuration) (int64, int64, error) {
+	rdb := GetRedisClient(config)
+	code := GetUniqueCode(config)
 	unix := time.Now().Unix() + (minsToLive * 60 * 1000)
 
 	result := rdb.HSet(redis_key, strconv.FormatInt(code, 10), unix).Val()
@@ -50,7 +55,8 @@ func CreateAttendanceCodeInRedis(minsToLive int64) (int64, int64, error) {
 	return code, unix, nil
 }
 
-func GetAttendanceCodeFromRedis(code int64) (int64, int64, error) {
+func GetAttendanceCodeFromRedis(code int64, config Configuration) (int64, int64, error) {
+	rdb := GetRedisClient(config)
 	exists := rdb.HExists(redis_key, strconv.FormatInt(code, 10)).Val()
 	if !exists {
 		return 0, 0, errors.New("code not found in redis")

@@ -1,4 +1,4 @@
-variable "api_image" {
+variable "api_service_image" {
   type    = string
   default = "latest"
 }

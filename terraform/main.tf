@@ -71,7 +71,7 @@ resource "kubernetes_deployment" "api" {
       }
       spec {
         container {
-          image = "ghcr.io/andreasvikke/cph-business-ls-exam/api_service:${var.api_image}"
+          image = "ghcr.io/andreasvikke/cph-business-ls-exam/api_service:${var.api_service_image}"
           name  = "api-container"
           port {
             container_port = 8080
