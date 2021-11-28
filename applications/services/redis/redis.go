@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"math/rand"
 	"strconv"
 	"time"
@@ -16,11 +15,10 @@ var (
 	redis_key = "attendance_code"
 )
 
-func GetRedisClient(config Configuration) *redis.Client {
-	return redis.NewClient(&redis.Options{
-		Addr:     config.Redis.Broker,
+func GetRedisClient(config Configuration) *redis.ClusterClient {
+	return redis.NewClusterClient(&redis.ClusterOptions{
+		Addrs:    []string{config.Redis.Broker},
 		Password: "",
-		DB:       0,
 	})
 }
 
@@ -59,8 +57,6 @@ func CreateAttendanceCodeInRedis(minsToLive int64, config Configuration) (int64,
 func GetAttendanceCodeFromRedis(code int64, config Configuration) (int64, int64, error) {
 	rdb := GetRedisClient(config)
 	exists := rdb.HExists(redis_key, strconv.FormatInt(code, 10)).Val()
-	fmt.Println(strconv.FormatInt(code, 10))
-	fmt.Println(exists)
 	if !exists {
 		return 0, 0, errors.New("code not found in redis")
 	}
