@@ -8,6 +8,9 @@ import (
 )
 
 type Configuration struct {
+	Postgres struct {
+		Service string `json:"service"`
+	} `json:"postgres"`
 	Redis struct {
 		Service string `json:"service"`
 	} `json:"redis"`

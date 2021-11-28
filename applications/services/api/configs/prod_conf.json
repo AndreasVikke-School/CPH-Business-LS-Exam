@@ -1,4 +1,7 @@
 {
+    "postgres": {
+        "service": "postgres-service.services:50051"
+    },
     "redis": {
         "service": "redis-service.services:50051"
     }

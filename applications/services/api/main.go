@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"time"
 
-	pb "api_service/attendancecode"
 	eh "api_service/errorhandler"
+	pb "api_service/rpc"
 
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
@@ -38,7 +38,7 @@ func CreateAttendanceCode(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, attendancecode)
 }
 
-func GetAttendanceCode(c *gin.Context) {
+func GetAttendanceCodeById(c *gin.Context) {
 	codeStr := c.Param("code")
 	code, err := strconv.ParseInt(codeStr, 10, 64)
 	eh.PanicOnError(err, "Minutes to live is not an int")
@@ -49,16 +49,34 @@ func GetAttendanceCode(c *gin.Context) {
 
 	client := pb.NewAttendanceCodeProtoClient(conn)
 
-	attendancecode, err := client.GetAttendanceCode(c, &wrapperspb.Int64Value{Value: code})
+	attendancecode, err := client.GetAttendanceCodeById(c, &wrapperspb.Int64Value{Value: code})
 	eh.PanicOnError(err, "Failed to get attendance code")
 
 	c.IndentedJSON(http.StatusOK, attendancecode)
 }
 
+func GetCheckInById(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.ParseInt(idStr, 10, 64)
+	eh.PanicOnError(err, "Id is not an int")
+
+	conn, err := grpc.Dial(configuration.Postgres.Service, grpc.WithInsecure())
+	eh.PanicOnError(err, "fail to dial")
+	defer conn.Close()
+
+	client := pb.NewCheckInProtoClient(conn)
+
+	checkIn, err := client.GetCheckInById(c, &wrapperspb.Int64Value{Value: id})
+	eh.PanicOnError(err, "Failed to get attendance code")
+
+	c.IndentedJSON(http.StatusOK, checkIn)
+}
+
 func main() {
 	router := gin.Default()
-	router.GET("/api/attendance_code/:code", GetAttendanceCode)
+	router.GET("/api/attendance_code/:code", GetAttendanceCodeById)
 	router.POST("/api/attendance_code/:minutesToLive", CreateAttendanceCode)
+	router.GET("/api/checkin/:id", GetCheckInById)
 
 	if len(os.Args) >= 2 {
 		configuration = getConfig(os.Args[1])

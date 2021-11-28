@@ -1,4 +1,7 @@
 {
+    "postgres": {
+        "service": "localhost:50051"
+    },
     "redis": {
         "service": "localhost:50051"
     }

@@ -7,7 +7,7 @@ import "google/protobuf/wrappers.proto";
 
 // The greeting service definition.
 service AttendanceCodeProto {
-  rpc GetAttendanceCode (google.protobuf.Int64Value) returns (AttendanceCode);
+  rpc GetAttendanceCodeById (google.protobuf.Int64Value) returns (AttendanceCode);
   rpc CreateAttendanceCode (AttendanceCodeCreate) returns (AttendanceCode);
 }
 

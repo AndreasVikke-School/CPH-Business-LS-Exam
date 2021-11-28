@@ -33,7 +33,7 @@ func (s *server) CreateAttendanceCode(ctx context.Context, in *pb.AttendanceCode
 	return &pb.AttendanceCode{Code: code, Unix: unix}, nil
 }
 
-func (s *server) GetAttendanceCode(ctx context.Context, in *wrapperspb.Int64Value) (*pb.AttendanceCode, error) {
+func (s *server) GetAttendanceCodeById(ctx context.Context, in *wrapperspb.Int64Value) (*pb.AttendanceCode, error) {
 	code, unix, err := GetAttendanceCodeFromRedis(in.Value, configuration)
 	// eh.PanicOnError(err, "Error when getting code from redis")
 	if err != nil {
