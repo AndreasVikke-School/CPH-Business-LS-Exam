@@ -8,8 +8,8 @@ import (
 	"net"
 	"os"
 
-	pb "redis_service/attendancecode"
 	eh "redis_service/errorhandler"
+	pb "redis_service/rpc"
 
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/wrapperspb"

@@ -23,3 +23,12 @@ jobs:
       image_path: "applications/services/redis"
     secrets:
       ghcr_token: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}
+
+  call-workflow-build-push-postgres-service:
+    name: Build and Push postgres service Docker Image
+    uses: andreasvikke/CPH-Business-LS-Exam/.github/workflows/template_build_push.yaml@main
+    with:
+      image_name: postgres_service
+      image_path: "applications/services/postgres"
+    secrets:
+      ghcr_token: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option csharp_namespace = "Protos";
 
-package attendancecode;
+package rpc;
 import "google/protobuf/wrappers.proto";
 
 // The greeting service definition.

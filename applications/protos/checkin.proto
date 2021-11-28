@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "Protos";
+
+package rpc;
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+
+// The greeting service definition.
+service CheckInProto {
+  rpc GetCheckInById (google.protobuf.Int64Value) returns (CheckIn);
+  rpc GetAllCheckIns (google.protobuf.Empty) returns (CheckIns);
+}
+
+message CheckIns {
+  repeated CheckIn checkIn = 1;
+}
+
+message CheckIn {
+  int64 id = 2;
+  int64 attendanceCode = 1;
+  int64 studentId = 3;
+}
