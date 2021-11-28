@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"math/rand"
 	"strconv"
 	"time"
@@ -45,7 +46,7 @@ func GetUniqueCode(config Configuration) int64 {
 func CreateAttendanceCodeInRedis(minsToLive int64, config Configuration) (int64, int64, error) {
 	rdb := GetRedisClient(config)
 	code := GetUniqueCode(config)
-	unix := time.Now().Unix() + (minsToLive * 60 * 1000)
+	unix := time.Now().Unix() + (minsToLive * 60)
 
 	result := rdb.HSet(redis_key, strconv.FormatInt(code, 10), unix).Val()
 	if !result {
@@ -58,6 +59,8 @@ func CreateAttendanceCodeInRedis(minsToLive int64, config Configuration) (int64,
 func GetAttendanceCodeFromRedis(code int64, config Configuration) (int64, int64, error) {
 	rdb := GetRedisClient(config)
 	exists := rdb.HExists(redis_key, strconv.FormatInt(code, 10)).Val()
+	fmt.Println(strconv.FormatInt(code, 10))
+	fmt.Println(exists)
 	if !exists {
 		return 0, 0, errors.New("code not found in redis")
 	}
