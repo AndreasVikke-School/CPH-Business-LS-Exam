@@ -18,7 +18,7 @@ resource "kubernetes_config_map" "redis_cluster" {
         sed -i -e "/myself/ s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$${POD_IP}/" $${REDIS_NODES}
         exec "$@"
     EOF
-    "redis.conf" = <<-EOF
+    "redis.conf"     = <<-EOF
         cluster-enabled yes
         cluster-require-full-coverage no
         cluster-node-timeout 5000
@@ -32,7 +32,7 @@ resource "kubernetes_config_map" "redis_cluster" {
 
 resource "kubernetes_stateful_set" "redis_cluster" {
   metadata {
-    name = "redis-cluster"
+    name      = "redis-cluster"
     namespace = kubernetes_namespace.redis.metadata.0.name
   }
 
@@ -144,52 +144,3 @@ resource "kubernetes_service" "redis_cluster" {
     }
   }
 }
-
-# # ==== REDIS SERVICE ====
-resource "kubernetes_deployment" "redis_count" {
-  metadata {
-    name      = "redis-count"
-    namespace = kubernetes_namespace.redis.metadata.0.name
-  }
-  spec {
-    replicas = 1
-    selector {
-      match_labels = {
-        app = "redis-count"
-      }
-    }
-    template {
-      metadata {
-        labels = {
-          app = "redis-count"
-        }
-      }
-      spec {
-        container {
-          image = "calinrus/api-redis-ha:1.0"
-          name  = "redis-count"
-          port {
-            container_port = 5000
-          }
-        }
-      }
-    }
-  }
-}
-
-resource "kubernetes_service" "redis_count" {
-  metadata {
-    name      = "redis-count"
-    namespace = kubernetes_namespace.redis.metadata.0.name
-  }
-  spec {
-    selector = {
-      app = "redis-count"
-    }
-    type = "LoadBalancer"
-    port {
-      port = 5000
-    }
-  }
-}
-# # ==== POSTGRESS SERVICE END ====
