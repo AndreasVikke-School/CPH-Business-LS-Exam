@@ -1,2 +1,2 @@
-api_service_image            = "sha256-682e0e7afc6e"
-redis_service_image  = "sha256-bc1177f537a8"
+api_service_image    = "sha256-009609718257"
+redis_service_image  = "sha256-050891d7f385"

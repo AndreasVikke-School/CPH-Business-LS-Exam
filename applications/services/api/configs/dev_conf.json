@@ -1,0 +1,5 @@
+{
+    "redis": {
+        "service": "localhost:50051"
+    }
+}

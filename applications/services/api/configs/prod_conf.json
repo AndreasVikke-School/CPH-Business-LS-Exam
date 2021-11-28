@@ -1,0 +1,5 @@
+{
+    "redis": {
+        "service": "redis-service.redis:50051"
+    }
+}
