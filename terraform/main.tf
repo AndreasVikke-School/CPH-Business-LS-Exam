@@ -3,6 +3,18 @@ provider "kubernetes" {
   config_context = "minikube"
 }
 
+provider "kubectl" {
+  config_path    = "~/.kube/config"
+  config_context = "minikube"
+}
+
+provider "helm" {
+  kubernetes {
+    config_path    = "~/.kube/config"
+    config_context = "minikube"
+  }
+}
+
 module "kafka_module" {
   source = "./modules/kafka"
 }
