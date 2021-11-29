@@ -48,6 +48,25 @@ module "api_service" {
     }
   }
 }
+
+module "frontend_service" {
+  source = "./modules/service"
+
+  name_prefix            = "frontend-"
+  namespace              = kubernetes_namespace.services.metadata.0.name
+  image_name             = "frontend_service"
+  image_version          = var.frontend_service_image_version
+  container_port         = 3000
+  container_replications = 2
+  service_type           = "LoadBalancer"
+  service_ports = {
+    server = {
+      port        = 80,
+      target_port = 3000
+    }
+  }
+}
+
 module "redis_service" {
   source = "./modules/service"
 

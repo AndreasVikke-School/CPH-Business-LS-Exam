@@ -1,6 +1,6 @@
 
 
-const CheckInTable = ({ data }) => {
+const CheckInTable = ({ data }: { data: any }) => {
     return (
         <table className="table">
             <thead>
@@ -11,7 +11,7 @@ const CheckInTable = ({ data }) => {
                 </tr>
             </thead>
             <tbody>
-                {data.map((d) => {
+                {data.map((d:any) => {
                     var c = d.status == "success" ? "success" : d.status == "oot" ? "warning" : "danger"
                     var date = new Date(d.unix * 1000)
                     return (

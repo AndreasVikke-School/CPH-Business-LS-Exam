@@ -4,6 +4,7 @@ import Image from 'next/image'
 import React from 'react'
 import Menu from '../components/menu'
 import styles from '../styles/Home.module.css'
+import Link from 'next/link'
 
 const Home: NextPage = () => {
   return (
@@ -18,7 +19,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="/">Attendance App</a>
+          Welcome to <Link href="/"><a>Attendance App</a></Link>
         </h1>
       </main>
     </div>

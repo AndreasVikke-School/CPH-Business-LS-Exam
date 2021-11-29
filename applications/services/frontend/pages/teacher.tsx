@@ -5,6 +5,7 @@ import React from 'react'
 import CodeCreateForm from '../components/codecreate_form'
 import Menu from '../components/menu'
 import styles from '../styles/Home.module.css'
+import Link from 'next/link'
 
 const Teacher: NextPage = () => {
     return (
@@ -19,7 +20,7 @@ const Teacher: NextPage = () => {
 
             <main className={styles.main}>
                 <h1 className={styles.title}>
-                    Welcome to <a href="/teacher">Teacher</a> page
+                    Welcome to <Link href="/teacher"><a>Teacher</a></Link> page
                 </h1>
 
                 <p className={styles.description}>

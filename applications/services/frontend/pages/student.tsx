@@ -6,6 +6,7 @@ import CheckInTable from '../components/checkins_table'
 import CheckInForm from '../components/checkin_form'
 import Menu from '../components/menu'
 import styles from '../styles/Home.module.css'
+import Link from 'next/link'
 
 const data = [
     {
@@ -47,7 +48,7 @@ const Student: NextPage = () => {
 
             <main className={styles.main}>
                 <h1 className={styles.title}>
-                    Welcome to <a href="/student">Student</a> page
+                    Welcome to <Link href="/student"><a>Student</a></Link> page
                 </h1>
 
                 <p className={styles.description}>

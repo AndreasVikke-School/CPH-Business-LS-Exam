@@ -4,6 +4,7 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Countdown from 'react-countdown'
 import styles from '../styles/Home.module.css'
+import Link from 'next/link'
 
 const CodeShow: NextPage = () => {
     const [code, setCode] = useState({code: 0, unix: 999999999999999});
@@ -13,7 +14,7 @@ const CodeShow: NextPage = () => {
         setCode(JSON.parse(localStorage.getItem("code") || '{}'))
     }, []);
 
-    const renderer = ({ minutes, seconds, completed }) => {
+    const renderer = ({ minutes, seconds, completed }: { minutes: number, seconds: number, completed: boolean }) => {
         if (completed) {
             return <span className="badge bg-danger">TIMES UP</span>;
         } else {
@@ -31,7 +32,7 @@ const CodeShow: NextPage = () => {
 
             <main className={styles.main}>
                 <h1 className={styles.title}>
-                    <a href="/code_show">{code.code}</a>
+                    <Link href="/code_show"><a>{code.code}</a></Link>
                 </h1>
 
                 <p className={styles.description}>

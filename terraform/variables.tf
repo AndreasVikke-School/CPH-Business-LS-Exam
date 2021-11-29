@@ -12,3 +12,8 @@ variable "postgres_service_image_version" {
   type    = string
   default = "latest"
 }
+
+variable "frontend_service_image_version" {
+  type    = string
+  default = "latest"
+}
