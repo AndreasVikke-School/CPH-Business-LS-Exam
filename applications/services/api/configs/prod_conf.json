@@ -4,5 +4,8 @@
     },
     "redis": {
         "service": "redis-service.services:50051"
+    },
+    "kafka": {
+        "service": "kafka-broker.kafka:19092"
     }
 }

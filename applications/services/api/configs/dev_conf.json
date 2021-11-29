@@ -4,5 +4,8 @@
     },
     "redis": {
         "service": "localhost:50051"
+    },
+    "kafka": {
+        "service": "localhost:9094"
     }
 }

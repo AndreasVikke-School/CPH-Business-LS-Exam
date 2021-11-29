@@ -14,6 +14,9 @@ type Configuration struct {
 	Redis struct {
 		Service string `json:"service"`
 	} `json:"redis"`
+	Kafka struct {
+		Service string `json:"service"`
+	} `json:"kafka"`
 }
 
 func getConfig(env string) Configuration {
