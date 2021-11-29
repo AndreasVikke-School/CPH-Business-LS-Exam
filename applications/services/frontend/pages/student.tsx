@@ -1,7 +1,38 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import React from 'react'
+import CheckInTable from '../components/checkins_table'
+import CheckInForm from '../components/checkin_form'
 import styles from '../styles/Home.module.css'
+
+const data = [
+    {
+        attendance_code: "6453785",
+        unix: "1638187500",
+        status: "success"
+    },
+    {
+        attendance_code: "7564873",
+        unix: "1638183900",
+        status: "success"
+    },
+    {
+        attendance_code: "1364859",
+        unix: "1638180300",
+        status: "oot"
+    },
+    {
+        attendance_code: "2341562",
+        unix: "1638176700",
+        status: "error"
+    },
+    {
+        attendance_code: "7564859",
+        unix: "	1638173100",
+        status: "success"
+    }
+]
 
 const Home: NextPage = () => {
     return (
@@ -12,35 +43,22 @@ const Home: NextPage = () => {
             </Head>
 
             <main className={styles.main}>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h1 className={styles.title}>
+                    Welcome to <a href="/student">Student</a> page
+                </h1>
+
+                <p className={styles.description}>
+                    Logged in as{' '}
+                    <code className={styles.code}>cph-av105</code>
+                </p>
+
+                <div className={styles.table}>
+                    <CheckInForm />
+                </div>
+
+                <div className={styles.table}>
+                    <CheckInTable data={data} />
+                </div>
             </main>
         </div>
     )

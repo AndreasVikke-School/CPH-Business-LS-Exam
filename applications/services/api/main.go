@@ -9,6 +9,7 @@ import (
 
 	eh "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/api/errorhandler"
 	pb "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/api/rpc"
+	"github.com/gin-contrib/cors"
 
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
@@ -40,6 +41,8 @@ func GetCheckInById(c *gin.Context) {
 
 func main() {
 	router := gin.Default()
+	router.Use(cors.Default())
+
 	router.GET("/api/attendance_code/:code", GetAttendanceCodeById)
 	router.POST("/api/attendance_code/:minutesToLive", CreateAttendanceCode)
 	router.GET("/api/checkin/:id", GetCheckInById)

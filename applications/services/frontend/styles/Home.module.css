@@ -12,6 +12,22 @@
   align-items: center;
 }
 
+.main .table {
+  width: 65%;
+  background-color: #fafafa;
+  padding: 1.5rem;
+  border-radius: 2rem;
+  margin-bottom: 2rem;
+}
+
+.main .table form>div {
+  justify-content: center;
+}
+
+.main .table form>h3 {
+  text-align: center;
+}
+
 .footer {
   display: flex;
   flex: 1;
@@ -63,14 +79,6 @@
   font-size: 1.1rem;
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
     Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
 }
 
 .card {

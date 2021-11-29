@@ -55,7 +55,7 @@ resource "kubernetes_stateful_set" "redis_cluster" {
       spec {
         container {
           name    = "redis"
-          image   = "redis:5.0.1-alpine"
+          image   = "redis:5.0.5-alpine"
           command = ["/conf/update-node.sh", "redis-server", "/conf/redis.conf"]
 
           port {
