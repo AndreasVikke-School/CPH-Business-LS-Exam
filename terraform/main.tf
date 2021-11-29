@@ -38,13 +38,13 @@ module "api_service" {
   namespace              = kubernetes_namespace.services.metadata.0.name
   image_name             = "api_service"
   image_version          = var.api_service_image_version
-  container_port         = 8080
+  container_port         = 8081
   container_replications = 2
   service_type           = "LoadBalancer"
   service_ports = {
     server = {
       port        = 8080,
-      target_port = 8080
+      target_port = 8081
     }
   }
 }

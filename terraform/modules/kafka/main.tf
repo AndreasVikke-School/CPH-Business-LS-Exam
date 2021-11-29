@@ -288,7 +288,7 @@ resource "kubernetes_deployment" "kafka_kafdrop" {
           }
           env {
             name  = "KAFKA_BROKERCONNECT"
-            value = "kafka:9094"
+            value = "kafka:9092"
           }
         }
       }
