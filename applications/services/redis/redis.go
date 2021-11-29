@@ -45,7 +45,7 @@ func GetUniqueCode(config Configuration) int64 {
 func CreateAttendanceCodeInRedis(minsToLive int64, config Configuration) (int64, int64, error) {
 	rdb := GetRedisClient(config)
 	code := GetUniqueCode(config)
-	unix := time.Now().Unix() + (minsToLive * 60)
+	unix := time.Now().UnixNano() + (minsToLive * 60)
 
 	result := rdb.HSet(redis_key, strconv.FormatInt(code, 10), unix).Val()
 	if !result {

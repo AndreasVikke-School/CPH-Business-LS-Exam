@@ -5,7 +5,7 @@ import React from 'react'
 import CodeCreateForm from '../components/codecreate_form'
 import styles from '../styles/Home.module.css'
 
-const Home: NextPage = () => {
+const Teacher: NextPage = () => {
     return (
         <div className={styles.container}>
             <Head>
@@ -32,4 +32,4 @@ const Home: NextPage = () => {
     )
 }
 
-export default Home
+export default Teacher

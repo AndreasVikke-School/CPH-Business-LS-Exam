@@ -34,7 +34,7 @@ const data = [
     }
 ]
 
-const Home: NextPage = () => {
+const Student: NextPage = () => {
     return (
         <div className={styles.container}>
             <Head>
@@ -64,4 +64,4 @@ const Home: NextPage = () => {
     )
 }
 
-export default Home
+export default Student

@@ -32,6 +32,6 @@ const checkin = async (event: FormEvent) => {
         method: 'POST'
     })
     const code = await res.json()
-    console.log(code)
-    // Router.push('/thanks')
+    localStorage.setItem("code", JSON.stringify(code))
+    Router.push('/code_show')
 }
