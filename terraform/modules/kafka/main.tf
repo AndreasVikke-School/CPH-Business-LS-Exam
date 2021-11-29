@@ -1,26 +1,72 @@
-# locals {
-#   broker_env = {
-#     "KAFKA_LISTENERS"                        = "INTERNAL://kafka-broker:29092,EXTERNAL://kafka-broker:9092"
-#     "KAFKA_ADVERTISED_LISTENERS"             = "INTERNAL://kafka-broker:29092,EXTERNAL://kafka-broker:9092"
-#     "KAFKA_ZOOKEEPER_CONNECT"                = "kafka-zookeeper:2181"
-#     "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"   = "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
-#     "KAFKA_INTER_BROKER_LISTENER_NAME"       = "INTERNAL"
-#     "KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR" = "1"
-#     "KAFKA_AUTO_CREATE_TOPICS_ENABLE"        = "true"
-#   }
-# }
-
-
-resource "kubectl_manifest" "zookeeper" {
-    yaml_body = file("${path.module}/zoo.yaml")
+locals {
+  broker_env = {
+    "BROKER_ID_COMMAND"                      = "hostname | awk -F'-' '{print $2}'"
+    "KAFKA_ZOOKEEPER_CONNECT"                = "zookeeper:2181"
+    "KAFKA_LISTENERS"                        = "INTERNAL://:9092,EXTERNAL://:9094"
+    "KAFKA_ADVERTISED_LISTENERS"             = "INTERNAL://:9092,EXTERNAL://_{HOSTNAME_COMMAND}:9094"
+    "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"   = "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
+    "KAFKA_INTER_BROKER_LISTENER_NAME"       = "INTERNAL"
+    "KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR" = "1"
+    "KAFKA_PORT"                             = "9092"
+    "KAFKA_AUTO_CREATE_TOPICS_ENABLE"        = "true"
+  }
 }
 
-resource "kubectl_manifest" "kafka" {
-    yaml_body = file("${path.module}/kafka.yaml")
+resource "kubernetes_stateful_set" "kafka" {
+  metadata {
+    name      = "kafka"
+    namespace = kubernetes_namespace.kafka.metadata.0.name
+  }
 
-    depends_on = [
-      kubectl_manifest.zookeeper
-    ]
+  spec {
+    replicas     = 1
+    service_name = "kafka"
+
+    selector {
+      match_labels = {
+        app = "kafka"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          app = "kafka"
+        }
+      }
+      spec {
+        container {
+          name    = "kafka"
+          image   = "wurstmeister/kafka:2.11-1.1.0"
+          port {
+            container_port = 9094
+            name           = "external"
+          }
+          port {
+            container_port = 9092
+            name           = "internal"
+          }
+
+          env {
+            name  = "HOSTNAME_COMMAND"
+            value = "echo ${kubernetes_service.kafka.status.0.load_balancer.0.ingress.0.ip}"
+          }
+          dynamic "env" {
+            for_each = local.broker_env
+            content {
+              name  = env.key
+              value = env.value
+            }
+          }
+        }
+      }
+    }
+  }
+
+  depends_on = [
+    kubernetes_service.kafka,
+    kubernetes_deployment.zookeeper
+  ]
 }
 
 resource "kubernetes_service" "kafka" {
@@ -34,7 +80,11 @@ resource "kubernetes_service" "kafka" {
     }
     type = "LoadBalancer"
     port {
-      name = "kafka"
+      name = "internal"
+      port = 9092
+    }
+    port {
+      name = "external"
       port = 9094
     }
   }
@@ -73,40 +123,55 @@ resource "kubernetes_namespace" "kafka" {
 }
 
 # # ==== KAFKA ZOOKEEPER ====
-# resource "kubernetes_deployment" "kafka_zookeeper" {
-#   metadata {
-#     name      = "kafka-zookeeper"
-#     namespace = kubernetes_namespace.kafka.metadata.0.name
-#   }
-#   spec {
-#     replicas = 2
-#     selector {
-#       match_labels = {
-#         app = "kafka-zookeeper"
-#       }
-#     }
-#     template {
-#       metadata {
-#         labels = {
-#           app = "kafka-zookeeper"
-#         }
-#       }
-#       spec {
-#         container {
-#           image = "confluentinc/cp-zookeeper"
-#           name  = "kafka-zookeeper"
-#           port {
-#             container_port = 2181
-#           }
-#           env {
-#             name  = "ZOOKEEPER_CLIENT_PORT"
-#             value = "2181"
-#           }
-#         }
-#       }
-#     }
-#   }
-# }
+resource "kubernetes_deployment" "zookeeper" {
+  metadata {
+    name      = "zookeeper"
+    namespace = kubernetes_namespace.kafka.metadata.0.name
+  }
+  spec {
+    replicas = 1
+    selector {
+      match_labels = {
+        app = "zookeeper"
+      }
+    }
+    template {
+      metadata {
+        labels = {
+          app = "zookeeper"
+        }
+      }
+      spec {
+        container {
+          image = "zookeeper:3.4.12"
+          name  = "zookeeper"
+          command = [
+            "/bin/sh",
+            "-c",
+            "export ZOO_MY_ID=$(expr $(hostname | grep -o \"[[:digit:]]*$\") + 1) && /docker-entrypoint.sh zkServer.sh start-foreground"
+          ]
+          port {
+            container_port = 2181
+            name           = "client"
+          }
+          port {
+            container_port = 2888
+            name           = "server"
+          }
+          port {
+            container_port = 3888
+            name           = "leader-election"
+          }
+
+          env {
+            name  = "ZOO_SERVERS"
+            value = "server.1=zookeeper.kafka:2888:3888"
+          }
+        }
+      }
+    }
+  }
+}
 
 # resource "kubernetes_service" "kafka_zookeeper" {
 #   metadata {
@@ -223,7 +288,7 @@ resource "kubernetes_deployment" "kafka_kafdrop" {
           }
           env {
             name  = "KAFKA_BROKERCONNECT"
-            value = "10.111.221.127:9094"
+            value = "kafka:9094"
           }
         }
       }
