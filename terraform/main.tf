@@ -31,7 +31,7 @@ module "api_service" {
   service_type           = "LoadBalancer"
   service_ports = {
     server = {
-      port        = 80,
+      port        = 8080,
       target_port = 8080
     }
   }

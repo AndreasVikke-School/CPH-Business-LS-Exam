@@ -1,6 +1,6 @@
 locals {
   broker_env = {
-    "KAFKA_ADVERTISED_LISTENERS"             = "INTERNAL://kafka-broker:19092,EXTERNAL://kafka-broker:9092"
+    "KAFKA_ADVERTISED_LISTENERS"             = "INTERNAL://kafka-broker.kafka:19092,EXTERNAL://kafka-broker.kafka:9092"
     "KAFKA_ZOOKEEPER_CONNECT"                = "kafka-zookeeper:2181"
     "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"   = "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
     "KAFKA_INTER_BROKER_LISTENER_NAME"       = "INTERNAL"
@@ -157,7 +157,7 @@ resource "kubernetes_deployment" "kafka_kafdrop" {
           }
           env {
             name  = "KAFKA_BROKERCONNECT"
-            value = "kafka-broker:19092"
+            value = "kafka-broker.kafka:19092"
           }
         }
       }
