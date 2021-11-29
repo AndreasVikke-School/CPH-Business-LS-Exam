@@ -39,6 +39,6 @@ func ProduceMessageToKafka(c *gin.Context) {
 	// validate json from body against struct
 	err := c.BindJSON(&checkIn)
 	eh.PanicOnError(err, "Couldn't bind JSON")
-	checkIn.CurrentUnixTime = time.Now().UnixNano()
+	checkIn.CurrentUnixTime = time.Now().UnixNano() / 1000000
 	Produce(checkIn)
 }

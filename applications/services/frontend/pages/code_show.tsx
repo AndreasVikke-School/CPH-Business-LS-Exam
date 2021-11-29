@@ -34,17 +34,12 @@ const CodeShow: NextPage = () => {
                 </h1>
 
                 <p className={styles.description}>
-                    {code.unix}
+                    {Math.floor(code.unix / 1000000)}
                     <br />
-                    {Date.now()}
+                    {Date.now() + (Math.floor(code.unix / 1000000) - Date.now())}
                     <br />
-                    {Date.now() + (code.unix * 1000 - Date.now())}
-                    <br />
-                    {code.unix * 1000}
-                    <br />
-                    {Date.now() + 120000}
-                    <br />
-                    Time left: <Countdown date={Date.now() + (code.unix * 1000 - Date.now())} renderer={renderer} />
+                    {Math.floor(code.unix / 1000000)}
+                    Time left: <Countdown date={code.unix} renderer={renderer} />
                 </p>
             </main>
         </div>
