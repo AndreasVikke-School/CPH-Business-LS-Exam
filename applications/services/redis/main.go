@@ -8,8 +8,8 @@ import (
 	"net"
 	"os"
 
-	eh "redis_service/errorhandler"
-	pb "redis_service/rpc"
+	eh "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/redis/errorhandler"
+	pb "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/redis/rpc"
 
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/wrapperspb"

@@ -5,10 +5,10 @@ package ent
 import (
 	"errors"
 	"fmt"
-	"postgres_service/ent/checkin"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
+	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
 )
 
 // ent aliases to avoid import conflicts in user's code.

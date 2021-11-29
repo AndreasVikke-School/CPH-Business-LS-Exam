@@ -4,10 +4,10 @@ package ent
 
 import (
 	"fmt"
-	"postgres_service/ent/checkin"
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
+	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
 )
 
 // CheckIn is the model entity for the CheckIn schema.

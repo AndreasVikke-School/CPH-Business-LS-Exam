@@ -8,8 +8,8 @@ import (
 	"net"
 	"os"
 
-	eh "postgres_service/errorhandler"
-	pb "postgres_service/rpc"
+	eh "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/errorhandler"
+	pb "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/rpc"
 
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/wrapperspb"

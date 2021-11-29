@@ -5,12 +5,12 @@ package ent
 import (
 	"context"
 	"fmt"
-	"postgres_service/ent/checkin"
-	"postgres_service/ent/predicate"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
+	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/predicate"
 )
 
 // CheckInDelete is the builder for deleting a CheckIn entity.

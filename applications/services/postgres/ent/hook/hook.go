@@ -5,7 +5,8 @@ package hook
 import (
 	"context"
 	"fmt"
-	"postgres_service/ent"
+
+	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent"
 )
 
 // The CheckInFunc type is an adapter to allow the use of ordinary

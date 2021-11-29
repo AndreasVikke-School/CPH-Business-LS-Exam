@@ -7,12 +7,12 @@ import (
 	"errors"
 	"fmt"
 	"math"
-	"postgres_service/ent/checkin"
-	"postgres_service/ent/predicate"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
+	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/predicate"
 )
 
 // CheckInQuery is the builder for querying CheckIn entities.

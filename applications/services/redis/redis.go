@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	eh "redis_service/errorhandler"
+	eh "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/redis/errorhandler"
 
 	"github.com/go-redis/redis"
 )

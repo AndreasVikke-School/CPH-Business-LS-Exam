@@ -6,10 +6,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"postgres_service/ent/checkin"
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
 )
 
 // CheckInCreate is the builder for creating a CheckIn entity.

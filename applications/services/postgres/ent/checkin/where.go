@@ -3,9 +3,8 @@
 package checkin
 
 import (
-	"postgres_service/ent/predicate"
-
 	"entgo.io/ent/dialect/sql"
+	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/predicate"
 )
 
 // ID filters vertices based on their ID field.

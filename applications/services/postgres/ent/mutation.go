@@ -5,9 +5,10 @@ package ent
 import (
 	"context"
 	"fmt"
-	"postgres_service/ent/checkin"
-	"postgres_service/ent/predicate"
 	"sync"
+
+	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
+	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/predicate"
 
 	"entgo.io/ent"
 )
