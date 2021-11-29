@@ -23,6 +23,7 @@ $ minikube tunnel
 #### Now run Terraform to apply the infrasturcture
 ```
 $ cd terraform
+$ terraform init
 $ terraform apply --var-file=dev.tfvars -auto-approve
 ```
 

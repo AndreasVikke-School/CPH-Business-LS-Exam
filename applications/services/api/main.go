@@ -15,7 +15,9 @@ import (
 	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
-var configuration Configuration
+var (
+	configuration Configuration
+)
 
 // getAlbums responds with the list of all albums as JSON.
 func CreateAttendanceCode(c *gin.Context) {
@@ -29,7 +31,7 @@ func CreateAttendanceCode(c *gin.Context) {
 
 	client := pb.NewAttendanceCodeProtoClient(conn)
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	newAttendanceCode := &pb.AttendanceCodeCreate{MinutesToLive: minutesToLive}
 	attendancecode, err := client.CreateAttendanceCode(ctx, newAttendanceCode)
@@ -49,7 +51,9 @@ func GetAttendanceCodeById(c *gin.Context) {
 
 	client := pb.NewAttendanceCodeProtoClient(conn)
 
-	attendancecode, err := client.GetAttendanceCodeById(c, &wrapperspb.Int64Value{Value: code})
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	attendancecode, err := client.GetAttendanceCodeById(ctx, &wrapperspb.Int64Value{Value: code})
 	eh.PanicOnError(err, "Failed to get attendance code")
 
 	c.IndentedJSON(http.StatusOK, attendancecode)
@@ -66,7 +70,9 @@ func GetCheckInById(c *gin.Context) {
 
 	client := pb.NewCheckInProtoClient(conn)
 
-	checkIn, err := client.GetCheckInById(c, &wrapperspb.Int64Value{Value: id})
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	checkIn, err := client.GetCheckInById(ctx, &wrapperspb.Int64Value{Value: id})
 	eh.PanicOnError(err, "Failed to get attendance code")
 
 	c.IndentedJSON(http.StatusOK, checkIn)
