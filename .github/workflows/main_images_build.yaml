@@ -32,3 +32,12 @@ jobs:
       image_path: "applications/services/postgres"
     secrets:
       ghcr_token: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}
+
+  call-workflow-build-push-frontend-service:
+    name: Build and Push frontend service Docker Image
+    uses: andreasvikke/CPH-Business-LS-Exam/.github/workflows/template_build_push.yaml@main
+    with:
+      image_name: frontend_service
+      image_path: "applications/services/frontend"
+    secrets:
+      ghcr_token: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}

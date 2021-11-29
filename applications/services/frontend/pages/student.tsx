@@ -4,6 +4,7 @@ import Image from 'next/image'
 import React from 'react'
 import CheckInTable from '../components/checkins_table'
 import CheckInForm from '../components/checkin_form'
+import Menu from '../components/menu'
 import styles from '../styles/Home.module.css'
 
 const data = [
@@ -38,9 +39,11 @@ const Student: NextPage = () => {
     return (
         <div className={styles.container}>
             <Head>
-                <title>Student Page</title>
+                <title>AA - Student Page</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+
+            <Menu />
 
             <main className={styles.main}>
                 <h1 className={styles.title}>
