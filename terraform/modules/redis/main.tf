@@ -116,7 +116,8 @@ resource "kubernetes_stateful_set" "redis_cluster" {
   }
 
   provisioner "local-exec" {
-    command = "kubectl exec -it redis-cluster-0 -- redis-cli --cluster create --cluster-replicas 1 $(kubectl get pods -l app=redis-cluster -o jsonpath='{range.items[*]}{.status.podIP}:6379 ') --cluster-yes || echo Cluster Already SetUp"
+    command = "kubectl exec -it redis-cluster-0 -- sh -c \"redis-cli --cluster create --cluster-replicas 1 $(kubectl get pods -l app=redis-cluster -o jsonpath=\"{range.items[?(@.kind=='Pod')]}{.status.podIP}:6379 {end}\") --cluster-yes\" || echo Cluster Already SetUp"
+    interpreter = ["pwsh", "-Command"]
   }
 
   depends_on = [
