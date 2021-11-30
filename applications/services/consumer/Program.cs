@@ -1,10 +1,7 @@
 ﻿using Grpc.Net.Client;
-using LSExam.Configs;
-using LSExam.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Protos;
 
 IHostBuilder host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>

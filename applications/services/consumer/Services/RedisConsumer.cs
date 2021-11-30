@@ -1,9 +1,4 @@
 ﻿using Google.Protobuf.WellKnownTypes;
-using LSExam.Configs;
-using LSExam.Models;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Protos;
 
 namespace LSExam.Services;
 

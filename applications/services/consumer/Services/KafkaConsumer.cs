@@ -1,8 +1,4 @@
 ﻿using Confluent.Kafka;
-using LSExam.Configs;
-using LSExam.Models;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System.Text.Json;
 
 namespace LSExam.Services;
