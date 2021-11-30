@@ -1,5 +1,7 @@
 FROM node:12
 
+LABEL org.opencontainers.image.source https://github.com/andreasvikke/cph-business-ls-exam
+
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
