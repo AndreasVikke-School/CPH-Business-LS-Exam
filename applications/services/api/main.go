@@ -46,7 +46,7 @@ func main() {
 	router.GET("/api/attendance_code/:code", GetAttendanceCodeById)
 	router.POST("/api/attendance_code/:minutesToLive", CreateAttendanceCode)
 	router.GET("/api/checkin/:id", GetCheckInById)
-	router.POST("/api/produce", ProduceMessageToKafka)
+	router.POST("/api/checkin", ProduceCheckIn)
 
 	if len(os.Args) >= 2 {
 		configuration = getConfig(os.Args[1])

@@ -22,4 +22,15 @@ export default CheckInForm
 
 const checkin = async (event: FormEvent) => {
     event.preventDefault()
+
+    const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_IP}/api/checkin/`, {
+        body: JSON.stringify({
+            attendanceCode: (event.target as any).attendance_code.value,
+            studentId: "cph-av105"
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'POST'
+    })
 }
