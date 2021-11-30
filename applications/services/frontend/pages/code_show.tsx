@@ -17,9 +17,9 @@ const CodeShow: NextPage = () => {
 
     const renderer = ({ minutes, seconds, completed }: { minutes: number, seconds: number, completed: boolean }) => {
         if (completed) {
-            return <span className="badge bg-danger">TIMES UP</span>;
+            return <span className="badge bg-danger"><h1>TIMES UP</h1></span>;
         } else {
-            return <span className="badge bg-success">{minutes}:{seconds}</span>;
+            return <span className="badge bg-success"><h1>{minutes}:{seconds}</h1></span>;
         }
     };
 
@@ -39,7 +39,7 @@ const CodeShow: NextPage = () => {
                 </h1>
 
                 <p className={styles.description}>
-                    Time left: <Countdown date={code.unix} renderer={renderer} />
+                    <Countdown date={code.unix} renderer={renderer} />
                 </p>
             </main>
         </div>
