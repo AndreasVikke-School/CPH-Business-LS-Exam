@@ -59,8 +59,8 @@ module "frontend_service" {
   container_port         = 3000
   container_replications = 2
   service_type           = "LoadBalancer"
-  container_for_each = {
-    API_IP = module.api_service.service_ip
+  container_env = {
+    NEXT_PUBLIC_API_IP = module.api_service.service_ip
   }
   service_ports = {
     server = {
