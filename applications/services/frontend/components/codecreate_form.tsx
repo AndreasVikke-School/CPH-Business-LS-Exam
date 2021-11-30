@@ -25,7 +25,7 @@ export default CodeCreateForm
 const checkin = async (event: FormEvent) => {
     event.preventDefault()
 
-    const res = await fetch('http://api-service.services:8080/api/attendance_code/' + (event.target as any).attendance_code.value, {
+    const res = await fetch(`http://${process.env.API_IP}/api/attendance_code/${(event.target as any).attendance_code.value}`, {
         headers: {
             'Content-Type': 'application/json'
         },

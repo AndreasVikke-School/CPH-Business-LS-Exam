@@ -37,3 +37,8 @@ variable "service_ports" {
     target_port = string
   }))
 }
+
+variable "container_env" {
+  type = map(string)
+}
+
