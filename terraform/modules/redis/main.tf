@@ -1,3 +1,7 @@
+locals {
+  # Directories start with "C:..." on Windows; All other OSs use "/" for root.
+  is_windows = substr(pathexpand("~"), 0, 1) == "/" ? false : true
+}
 
 resource "kubernetes_namespace" "redis" {
   metadata {
@@ -117,6 +121,7 @@ resource "kubernetes_stateful_set" "redis_cluster" {
 
   provisioner "local-exec" {
     command = "kubectl exec -it redis-cluster-0 -- redis-cli --cluster create --cluster-replicas 1 $(kubectl get pods -l app=redis-cluster -o jsonpath='{range.items[*]}{.status.podIP}:6379 ') --cluster-yes || echo Cluster Already SetUp"
+    interpreter = local.is_windows ? ["pwsh", "-Command"] : []
   }
 
   depends_on = [
