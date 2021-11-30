@@ -70,6 +70,24 @@ module "frontend_service" {
   }
 }
 
+module "consumer_service" {
+  source = "./modules/service"
+
+  name_prefix = "consumer-"
+  namespace = kubernetes_namespace.services.metadata.0.name
+  image_name             = "consumer_service"
+  image_version          = var.consumer_service_image_version
+  container_port         = 5000
+  container_replications = 2
+  service_type           = "ClusterIP"
+  service_ports = {
+    server = {
+      port        = 5000,
+      target_port = 5000
+    }
+  }
+}
+
 module "redis_service" {
   source = "./modules/service"
 
