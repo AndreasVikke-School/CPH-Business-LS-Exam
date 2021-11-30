@@ -31,6 +31,7 @@ const checkin = async (event: FormEvent) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        method: 'POST'
+        method: 'POST',
+        mode: "no-cors"
     })
 }
