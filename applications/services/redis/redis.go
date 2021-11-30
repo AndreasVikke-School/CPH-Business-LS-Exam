@@ -49,7 +49,7 @@ func CreateAttendanceCodeInRedis(minsToLive int64, config Configuration) (int64,
 
 	result := rdb.HSet(redis_key, strconv.FormatInt(code, 10), unix).Val()
 	if !result {
-		log.Panicf("error when adding code to redis")
+		log.Printf("error when adding code to redis")
 		return 0, 0, errors.New("error when adding code to redis")
 	}
 
@@ -60,7 +60,7 @@ func GetAttendanceCodeFromRedis(code int64, config Configuration) (int64, int64,
 	rdb := GetRedisClient(config)
 	exists := rdb.HExists(redis_key, strconv.FormatInt(code, 10)).Val()
 	if !exists {
-		log.Panicf("code not found in redis")
+		log.Printf("code not found in redis")
 		return 0, 0, errors.New("code not found in redis")
 	}
 
