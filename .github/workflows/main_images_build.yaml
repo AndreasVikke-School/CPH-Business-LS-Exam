@@ -41,3 +41,12 @@ jobs:
       image_path: "applications/services/frontend"
     secrets:
       ghcr_token: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}
+  
+  call-workflow-build-push-consumer-service:
+    name: Build and Push consumer service Docker Image
+    uses: andreasvikke/CPH-Business-LS-Exam/.github/workflows/template_build_push.yaml@main
+    with:
+      image_name: consumer_service
+      image_path: "applications/services/consumer"
+    secrets:
+      ghcr_token: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}
