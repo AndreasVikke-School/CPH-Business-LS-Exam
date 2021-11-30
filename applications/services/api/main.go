@@ -41,11 +41,12 @@ func GetCheckInById(c *gin.Context) {
 
 func main() {
 	router := gin.Default()
+	router.Use(cors.Default())
 
 	router.GET("/api/attendance_code/:code", GetAttendanceCodeById)
 	router.POST("/api/attendance_code/:minutesToLive", CreateAttendanceCode)
 	router.GET("/api/checkin/:id", GetCheckInById)
-	router.POST("/api/checkin", ProduceCheckIn)
+	router.POST("/api/checkin/", ProduceCheckIn)
 
 	if len(os.Args) >= 2 {
 		configuration = getConfig(os.Args[1])
@@ -53,9 +54,5 @@ func main() {
 		configuration = getConfig("dev")
 	}
 
-	config := cors.DefaultConfig()
-	config.AllowAllOrigins = true
-
-	router.Use(cors.New(config))
 	router.Run("0.0.0.0:8081")
 }
