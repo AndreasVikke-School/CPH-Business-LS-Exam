@@ -1,9 +1,29 @@
-import { FormEvent } from "react"
+import React, { FormEvent, useState } from "react"
 import Router from 'next/router'
+import ErrorBadge from "./error_badge"
 
 const CheckInForm = () => {
+    const [status, setStatus] = useState(0)
+
+    const checkin = async (event: FormEvent) => {
+        event.preventDefault()
+
+        const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_IP}/api/checkin/`, {
+            body: JSON.stringify({
+                attendanceCode: (event.target as any).attendance_code.value,
+                studentId: "cph-av105"
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST'
+        })
+        setStatus(res.status)
+    }
+
     return (
         <form onSubmit={checkin}>
+            <div className="row align-items-center mb-2"><ErrorBadge status={status} /></div>
             <div className="row g-3 align-items-center">
                 <div className="col-auto">
                     <label className="col-form-label">Attendance Code:</label>
@@ -19,19 +39,3 @@ const CheckInForm = () => {
     )
 }
 export default CheckInForm
-
-const checkin = async (event: FormEvent) => {
-    event.preventDefault()
-
-    const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_IP}/api/checkin/`, {
-        body: JSON.stringify({
-            attendanceCode: (event.target as any).attendance_code.value,
-            studentId: "cph-av105"
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        mode: "no-cors"
-    })
-}
