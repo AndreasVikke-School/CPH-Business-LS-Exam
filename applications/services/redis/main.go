@@ -35,7 +35,7 @@ func (s *server) CreateAttendanceCode(ctx context.Context, in *pb.AttendanceCode
 func (s *server) GetAttendanceCodeById(ctx context.Context, in *wrapperspb.Int64Value) (*pb.AttendanceCode, error) {
 	code, unix, err := GetAttendanceCodeFromRedis(in.Value, configuration)
 	if err != nil {
-		return nil, nil
+		return &pb.AttendanceCode{Code: -1, Unix: -1}, nil
 	}
 	return &pb.AttendanceCode{Code: code, Unix: unix}, nil
 }
