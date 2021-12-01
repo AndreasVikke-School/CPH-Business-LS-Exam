@@ -50,5 +50,9 @@ func GetAttendanceCodeById(c *gin.Context) {
 	attendancecode, err := client.GetAttendanceCodeById(ctx, &wrapperspb.Int64Value{Value: code})
 	eh.PanicOnError(err, "Failed to get attendance code")
 
-	c.IndentedJSON(http.StatusOK, attendancecode)
+	if attendancecode != nil {
+		c.IndentedJSON(http.StatusOK, attendancecode)
+	} else {
+		c.Status(http.StatusOK)
+	}
 }
