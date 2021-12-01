@@ -1,6 +1,5 @@
 # CPH-Businnes-LS-Exam
 
-
 # Table of Contents
   - [How to run](#how-to-run)
   - [The team](#the-team)
@@ -39,9 +38,3 @@ TODO: Write this
 
 ## Project Achitecture
 ![image](assets/achitecture.png)
-
-
-av-105
-
-
-python -m grpc_tools.protoc -I../../protos --python_out=. --grpc_python_out=. ../../protos/route_guide.proto

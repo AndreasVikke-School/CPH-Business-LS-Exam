@@ -9,7 +9,6 @@ import Menu from '../components/menu'
 
 const CodeShow: NextPage = () => {
     const [code, setCode] = useState({code: 0, unix: 999999999999999});
-    // const cc = JSON.parse(localStorage.getItem("code") || '{}')
 
     useEffect(() => {
         setCode(JSON.parse(localStorage.getItem("code") || '{}'))

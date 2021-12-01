@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CheckInTable from '../components/checkins_table'
 import CheckInForm from '../components/checkin_form'
 import Menu from '../components/menu'
@@ -12,7 +12,7 @@ const data = [
     {
         attendance_code: "6453785",
         unix: "1638187500",
-        status: "success"
+        status: "not found"
     },
     {
         attendance_code: "7564873",
@@ -37,6 +37,12 @@ const data = [
 ]
 
 const Student: NextPage = () => {
+    const [userId, setUserId] = useState("");
+
+    useEffect(() => {
+        setUserId(localStorage.getItem("studentId") || "")
+    }, []);
+    
     return (
         <div className={styles.container}>
             <Head>
@@ -53,7 +59,7 @@ const Student: NextPage = () => {
 
                 <p className={styles.description}>
                     Logged in as{' '}
-                    <code className={styles.code}>cph-av105</code>
+                    <code className={styles.code}>{userId}</code>
                 </p>
 
                 <div className={styles.table}>

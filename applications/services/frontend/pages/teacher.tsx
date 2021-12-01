@@ -1,13 +1,19 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CodeCreateForm from '../components/codecreate_form'
 import Menu from '../components/menu'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 
 const Teacher: NextPage = () => {
+    const [userId, setUserId] = useState("");
+
+    useEffect(() => {
+        setUserId(localStorage.getItem("studentId") || "")
+    }, []);
+    
     return (
         <div className={styles.container}>
             <Head>
@@ -25,7 +31,7 @@ const Teacher: NextPage = () => {
 
                 <p className={styles.description}>
                     Logged in as{' '}
-                    <code className={styles.code}>teacher</code>
+                    <code className={styles.code}>{userId}</code>
                 </p>
 
                 <div className={styles.table}>

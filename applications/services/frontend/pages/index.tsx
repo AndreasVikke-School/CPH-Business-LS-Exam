@@ -5,6 +5,7 @@ import React from 'react'
 import Menu from '../components/menu'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
+import LoginForm from '../components/login_form'
 
 const Home: NextPage = () => {
   return (
@@ -21,6 +22,12 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Welcome to <Link href="/"><a>Attendance App</a></Link>
         </h1>
+        <p className={styles.description}>
+          Login as teacher or student
+        </p>
+        <div className={styles.table}>
+          <LoginForm />
+        </div>
       </main>
     </div>
   )
