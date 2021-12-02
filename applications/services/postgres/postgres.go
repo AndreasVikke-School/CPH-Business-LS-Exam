@@ -27,15 +27,17 @@ func MigratePostgres(config Configuration) {
 	if err != nil {
 		log.Fatalf("failed creating schema resources: %v", err)
 	}
-	CreateUser(context.Background(), client)
 	defer client.Close()
 }
 
-func CreateUser(ctx context.Context, client *ent.Client) (*ent.CheckIn, error) {
+func InsertNewCheckin(ctx context.Context, checkin *ent.CheckIn, config Configuration) (*ent.CheckIn, error) {
+	client := GetPostgresClient(config)
 	ci, err := client.CheckIn.
 		Create().
-		SetAttendanceCode(1234567).
-		SetStudentId(1).
+		SetAttendanceCode(checkin.AttendanceCode).
+		SetStudentId(checkin.StudentId).
+		SetStatus(checkin.Status).
+		SetCheckinTime(checkin.CheckinTime).
 		Save(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("failed creating user: %w", err)
@@ -51,9 +53,61 @@ func GetCheckInByIdFromPostgres(ctx context.Context, id int64, config Configurat
 		Where(checkin.ID(int(id))).
 		Only(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("failed querying user: %w", err)
+		return nil, fmt.Errorf("failed querying checkin: %w", err)
 	}
 	log.Println("checkin returned: ", ci)
 	defer client.Close()
 	return ci, nil
+}
+
+func GetCheckIns(ctx context.Context, config Configuration) ([]*ent.CheckIn, error) {
+	client := GetPostgresClient(config)
+	cis, err := client.CheckIn.Query().All(ctx)
+
+	defer client.Close()
+	if err != nil {
+		return nil, fmt.Errorf("failed querying all checkins: %w", err)
+	}
+
+	return cis, nil
+}
+
+func GetByAttendanceCode(ctx context.Context, attendanceCode int64, config Configuration) ([]*ent.CheckIn, error) {
+	client := GetPostgresClient(config)
+	cis, err := client.CheckIn.
+		Query().
+		Where(checkin.AttendanceCode(attendanceCode)).
+		All(ctx)
+
+	defer client.Close()
+	if err != nil {
+		return nil, fmt.Errorf("failed querying checkins with attendence code: %w", err)
+	}
+	return cis, nil
+}
+
+func GetByStudentId(ctx context.Context, studentId string, config Configuration) ([]*ent.CheckIn, error) {
+	client := GetPostgresClient(config)
+	cis, err := client.CheckIn.
+		Query().Where(checkin.StudentId(studentId)).
+		All(ctx)
+
+	defer client.Close()
+	if err != nil {
+		return nil, fmt.Errorf("failed querying checkins with studentId: %w", err)
+	}
+	return cis, nil
+}
+
+func GetByTime(ctx context.Context, from int64, to int64, config Configuration) ([]*ent.CheckIn, error) {
+	client := GetPostgresClient(config)
+	cis, err := client.CheckIn.
+		Query().Where(checkin.CheckinTimeGTE(from), checkin.CheckinTimeLTE(to)).
+		All(ctx)
+
+	defer client.Close()
+	if err != nil {
+		return nil, fmt.Errorf("failed querying checkins with studentId: %w", err)
+	}
+	return cis, nil
 }
