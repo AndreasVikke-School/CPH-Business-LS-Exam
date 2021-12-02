@@ -9,9 +9,11 @@ import (
 )
 
 type CheckIn struct {
-	AttendanceCode  string `json:"attendanceCode"`
-	StudentID       string `json:"studentId"`
-	CurrentUnixTime int64  `json:"currentUnixTime"`
+	AttendanceCode  int64   `json:"attendanceCode"`
+	StudentID       string  `json:"studentId"`
+	CurrentUnixTime int64   `json:"currentUnixTime"`
+	Latitude        float64 `json:"lat"`
+	Longitude       float64 `json:"long"`
 }
 
 func ProduceCheckIn(c *gin.Context) {
