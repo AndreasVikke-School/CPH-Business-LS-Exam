@@ -52,6 +52,25 @@ func (ciu *CheckInUpdate) AddStudentId(i int64) *CheckInUpdate {
 	return ciu
 }
 
+// SetStatus sets the "status" field.
+func (ciu *CheckInUpdate) SetStatus(c checkin.Status) *CheckInUpdate {
+	ciu.mutation.SetStatus(c)
+	return ciu
+}
+
+// SetCheckinTime sets the "checkinTime" field.
+func (ciu *CheckInUpdate) SetCheckinTime(i int64) *CheckInUpdate {
+	ciu.mutation.ResetCheckinTime()
+	ciu.mutation.SetCheckinTime(i)
+	return ciu
+}
+
+// AddCheckinTime adds i to the "checkinTime" field.
+func (ciu *CheckInUpdate) AddCheckinTime(i int64) *CheckInUpdate {
+	ciu.mutation.AddCheckinTime(i)
+	return ciu
+}
+
 // Mutation returns the CheckInMutation object of the builder.
 func (ciu *CheckInUpdate) Mutation() *CheckInMutation {
 	return ciu.mutation
@@ -124,6 +143,11 @@ func (ciu *CheckInUpdate) check() error {
 			return &ValidationError{Name: "attendanceCode", err: fmt.Errorf("ent: validator failed for field \"attendanceCode\": %w", err)}
 		}
 	}
+	if v, ok := ciu.mutation.Status(); ok {
+		if err := checkin.StatusValidator(v); err != nil {
+			return &ValidationError{Name: "status", err: fmt.Errorf("ent: validator failed for field \"status\": %w", err)}
+		}
+	}
 	return nil
 }
 
@@ -173,6 +197,27 @@ func (ciu *CheckInUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: checkin.FieldStudentId,
 		})
 	}
+	if value, ok := ciu.mutation.Status(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeEnum,
+			Value:  value,
+			Column: checkin.FieldStatus,
+		})
+	}
+	if value, ok := ciu.mutation.CheckinTime(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: checkin.FieldCheckinTime,
+		})
+	}
+	if value, ok := ciu.mutation.AddedCheckinTime(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: checkin.FieldCheckinTime,
+		})
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, ciu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{checkin.Label}
@@ -215,6 +260,25 @@ func (ciuo *CheckInUpdateOne) SetStudentId(i int64) *CheckInUpdateOne {
 // AddStudentId adds i to the "studentId" field.
 func (ciuo *CheckInUpdateOne) AddStudentId(i int64) *CheckInUpdateOne {
 	ciuo.mutation.AddStudentId(i)
+	return ciuo
+}
+
+// SetStatus sets the "status" field.
+func (ciuo *CheckInUpdateOne) SetStatus(c checkin.Status) *CheckInUpdateOne {
+	ciuo.mutation.SetStatus(c)
+	return ciuo
+}
+
+// SetCheckinTime sets the "checkinTime" field.
+func (ciuo *CheckInUpdateOne) SetCheckinTime(i int64) *CheckInUpdateOne {
+	ciuo.mutation.ResetCheckinTime()
+	ciuo.mutation.SetCheckinTime(i)
+	return ciuo
+}
+
+// AddCheckinTime adds i to the "checkinTime" field.
+func (ciuo *CheckInUpdateOne) AddCheckinTime(i int64) *CheckInUpdateOne {
+	ciuo.mutation.AddCheckinTime(i)
 	return ciuo
 }
 
@@ -297,6 +361,11 @@ func (ciuo *CheckInUpdateOne) check() error {
 			return &ValidationError{Name: "attendanceCode", err: fmt.Errorf("ent: validator failed for field \"attendanceCode\": %w", err)}
 		}
 	}
+	if v, ok := ciuo.mutation.Status(); ok {
+		if err := checkin.StatusValidator(v); err != nil {
+			return &ValidationError{Name: "status", err: fmt.Errorf("ent: validator failed for field \"status\": %w", err)}
+		}
+	}
 	return nil
 }
 
@@ -361,6 +430,27 @@ func (ciuo *CheckInUpdateOne) sqlSave(ctx context.Context) (_node *CheckIn, err 
 			Type:   field.TypeInt64,
 			Value:  value,
 			Column: checkin.FieldStudentId,
+		})
+	}
+	if value, ok := ciuo.mutation.Status(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeEnum,
+			Value:  value,
+			Column: checkin.FieldStatus,
+		})
+	}
+	if value, ok := ciuo.mutation.CheckinTime(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: checkin.FieldCheckinTime,
+		})
+	}
+	if value, ok := ciuo.mutation.AddedCheckinTime(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: checkin.FieldCheckinTime,
 		})
 	}
 	_node = &CheckIn{config: ciuo.config}

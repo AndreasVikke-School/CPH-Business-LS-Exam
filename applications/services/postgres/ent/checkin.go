@@ -19,6 +19,10 @@ type CheckIn struct {
 	AttendanceCode int64 `json:"attendanceCode,omitempty"`
 	// StudentId holds the value of the "studentId" field.
 	StudentId int64 `json:"studentId,omitempty"`
+	// Status holds the value of the "status" field.
+	Status checkin.Status `json:"status,omitempty"`
+	// CheckinTime holds the value of the "checkinTime" field.
+	CheckinTime int64 `json:"checkinTime,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -26,8 +30,10 @@ func (*CheckIn) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case checkin.FieldID, checkin.FieldAttendanceCode, checkin.FieldStudentId:
+		case checkin.FieldID, checkin.FieldAttendanceCode, checkin.FieldStudentId, checkin.FieldCheckinTime:
 			values[i] = new(sql.NullInt64)
+		case checkin.FieldStatus:
+			values[i] = new(sql.NullString)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type CheckIn", columns[i])
 		}
@@ -61,6 +67,18 @@ func (ci *CheckIn) assignValues(columns []string, values []interface{}) error {
 			} else if value.Valid {
 				ci.StudentId = value.Int64
 			}
+		case checkin.FieldStatus:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field status", values[i])
+			} else if value.Valid {
+				ci.Status = checkin.Status(value.String)
+			}
+		case checkin.FieldCheckinTime:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field checkinTime", values[i])
+			} else if value.Valid {
+				ci.CheckinTime = value.Int64
+			}
 		}
 	}
 	return nil
@@ -93,6 +111,10 @@ func (ci *CheckIn) String() string {
 	builder.WriteString(fmt.Sprintf("%v", ci.AttendanceCode))
 	builder.WriteString(", studentId=")
 	builder.WriteString(fmt.Sprintf("%v", ci.StudentId))
+	builder.WriteString(", status=")
+	builder.WriteString(fmt.Sprintf("%v", ci.Status))
+	builder.WriteString(", checkinTime=")
+	builder.WriteString(fmt.Sprintf("%v", ci.CheckinTime))
 	builder.WriteByte(')')
 	return builder.String()
 }
