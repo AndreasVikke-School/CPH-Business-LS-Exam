@@ -98,7 +98,7 @@ func AttendanceCode(v int64) predicate.CheckIn {
 }
 
 // StudentId applies equality check predicate on the "studentId" field. It's identical to StudentIdEQ.
-func StudentId(v int64) predicate.CheckIn {
+func StudentId(v string) predicate.CheckIn {
 	return predicate.CheckIn(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldStudentId), v))
 	})
@@ -188,21 +188,21 @@ func AttendanceCodeLTE(v int64) predicate.CheckIn {
 }
 
 // StudentIdEQ applies the EQ predicate on the "studentId" field.
-func StudentIdEQ(v int64) predicate.CheckIn {
+func StudentIdEQ(v string) predicate.CheckIn {
 	return predicate.CheckIn(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldStudentId), v))
 	})
 }
 
 // StudentIdNEQ applies the NEQ predicate on the "studentId" field.
-func StudentIdNEQ(v int64) predicate.CheckIn {
+func StudentIdNEQ(v string) predicate.CheckIn {
 	return predicate.CheckIn(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldStudentId), v))
 	})
 }
 
 // StudentIdIn applies the In predicate on the "studentId" field.
-func StudentIdIn(vs ...int64) predicate.CheckIn {
+func StudentIdIn(vs ...string) predicate.CheckIn {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -219,7 +219,7 @@ func StudentIdIn(vs ...int64) predicate.CheckIn {
 }
 
 // StudentIdNotIn applies the NotIn predicate on the "studentId" field.
-func StudentIdNotIn(vs ...int64) predicate.CheckIn {
+func StudentIdNotIn(vs ...string) predicate.CheckIn {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -236,30 +236,65 @@ func StudentIdNotIn(vs ...int64) predicate.CheckIn {
 }
 
 // StudentIdGT applies the GT predicate on the "studentId" field.
-func StudentIdGT(v int64) predicate.CheckIn {
+func StudentIdGT(v string) predicate.CheckIn {
 	return predicate.CheckIn(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldStudentId), v))
 	})
 }
 
 // StudentIdGTE applies the GTE predicate on the "studentId" field.
-func StudentIdGTE(v int64) predicate.CheckIn {
+func StudentIdGTE(v string) predicate.CheckIn {
 	return predicate.CheckIn(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldStudentId), v))
 	})
 }
 
 // StudentIdLT applies the LT predicate on the "studentId" field.
-func StudentIdLT(v int64) predicate.CheckIn {
+func StudentIdLT(v string) predicate.CheckIn {
 	return predicate.CheckIn(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldStudentId), v))
 	})
 }
 
 // StudentIdLTE applies the LTE predicate on the "studentId" field.
-func StudentIdLTE(v int64) predicate.CheckIn {
+func StudentIdLTE(v string) predicate.CheckIn {
 	return predicate.CheckIn(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldStudentId), v))
+	})
+}
+
+// StudentIdContains applies the Contains predicate on the "studentId" field.
+func StudentIdContains(v string) predicate.CheckIn {
+	return predicate.CheckIn(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldStudentId), v))
+	})
+}
+
+// StudentIdHasPrefix applies the HasPrefix predicate on the "studentId" field.
+func StudentIdHasPrefix(v string) predicate.CheckIn {
+	return predicate.CheckIn(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldStudentId), v))
+	})
+}
+
+// StudentIdHasSuffix applies the HasSuffix predicate on the "studentId" field.
+func StudentIdHasSuffix(v string) predicate.CheckIn {
+	return predicate.CheckIn(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldStudentId), v))
+	})
+}
+
+// StudentIdEqualFold applies the EqualFold predicate on the "studentId" field.
+func StudentIdEqualFold(v string) predicate.CheckIn {
+	return predicate.CheckIn(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldStudentId), v))
+	})
+}
+
+// StudentIdContainsFold applies the ContainsFold predicate on the "studentId" field.
+func StudentIdContainsFold(v string) predicate.CheckIn {
+	return predicate.CheckIn(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldStudentId), v))
 	})
 }
 

@@ -26,8 +26,8 @@ func (cic *CheckInCreate) SetAttendanceCode(i int64) *CheckInCreate {
 }
 
 // SetStudentId sets the "studentId" field.
-func (cic *CheckInCreate) SetStudentId(i int64) *CheckInCreate {
-	cic.mutation.SetStudentId(i)
+func (cic *CheckInCreate) SetStudentId(s string) *CheckInCreate {
+	cic.mutation.SetStudentId(s)
 	return cic
 }
 
@@ -172,7 +172,7 @@ func (cic *CheckInCreate) createSpec() (*CheckIn, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := cic.mutation.StudentId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: checkin.FieldStudentId,
 		})

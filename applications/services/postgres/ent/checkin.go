@@ -18,7 +18,7 @@ type CheckIn struct {
 	// AttendanceCode holds the value of the "attendanceCode" field.
 	AttendanceCode int64 `json:"attendanceCode,omitempty"`
 	// StudentId holds the value of the "studentId" field.
-	StudentId int64 `json:"studentId,omitempty"`
+	StudentId string `json:"studentId,omitempty"`
 	// Status holds the value of the "status" field.
 	Status checkin.Status `json:"status,omitempty"`
 	// CheckinTime holds the value of the "checkinTime" field.
@@ -30,9 +30,9 @@ func (*CheckIn) scanValues(columns []string) ([]interface{}, error) {
 	values := make([]interface{}, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case checkin.FieldID, checkin.FieldAttendanceCode, checkin.FieldStudentId, checkin.FieldCheckinTime:
+		case checkin.FieldID, checkin.FieldAttendanceCode, checkin.FieldCheckinTime:
 			values[i] = new(sql.NullInt64)
-		case checkin.FieldStatus:
+		case checkin.FieldStudentId, checkin.FieldStatus:
 			values[i] = new(sql.NullString)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type CheckIn", columns[i])
@@ -62,10 +62,10 @@ func (ci *CheckIn) assignValues(columns []string, values []interface{}) error {
 				ci.AttendanceCode = value.Int64
 			}
 		case checkin.FieldStudentId:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
+			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field studentId", values[i])
 			} else if value.Valid {
-				ci.StudentId = value.Int64
+				ci.StudentId = value.String
 			}
 		case checkin.FieldStatus:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -110,7 +110,7 @@ func (ci *CheckIn) String() string {
 	builder.WriteString(", attendanceCode=")
 	builder.WriteString(fmt.Sprintf("%v", ci.AttendanceCode))
 	builder.WriteString(", studentId=")
-	builder.WriteString(fmt.Sprintf("%v", ci.StudentId))
+	builder.WriteString(ci.StudentId)
 	builder.WriteString(", status=")
 	builder.WriteString(fmt.Sprintf("%v", ci.Status))
 	builder.WriteString(", checkinTime=")

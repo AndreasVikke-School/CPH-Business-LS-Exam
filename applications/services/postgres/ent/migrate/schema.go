@@ -12,7 +12,7 @@ var (
 	CheckInsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "attendance_code", Type: field.TypeInt64},
-		{Name: "student_id", Type: field.TypeInt64},
+		{Name: "student_id", Type: field.TypeString},
 		{Name: "status", Type: field.TypeEnum, Enums: []string{"success", "outOfTime", "notFound", "error"}},
 		{Name: "checkin_time", Type: field.TypeInt64},
 	}

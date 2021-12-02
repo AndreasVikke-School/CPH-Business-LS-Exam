@@ -40,15 +40,8 @@ func (ciu *CheckInUpdate) AddAttendanceCode(i int64) *CheckInUpdate {
 }
 
 // SetStudentId sets the "studentId" field.
-func (ciu *CheckInUpdate) SetStudentId(i int64) *CheckInUpdate {
-	ciu.mutation.ResetStudentId()
-	ciu.mutation.SetStudentId(i)
-	return ciu
-}
-
-// AddStudentId adds i to the "studentId" field.
-func (ciu *CheckInUpdate) AddStudentId(i int64) *CheckInUpdate {
-	ciu.mutation.AddStudentId(i)
+func (ciu *CheckInUpdate) SetStudentId(s string) *CheckInUpdate {
+	ciu.mutation.SetStudentId(s)
 	return ciu
 }
 
@@ -185,14 +178,7 @@ func (ciu *CheckInUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := ciu.mutation.StudentId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: checkin.FieldStudentId,
-		})
-	}
-	if value, ok := ciu.mutation.AddedStudentId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: checkin.FieldStudentId,
 		})
@@ -251,15 +237,8 @@ func (ciuo *CheckInUpdateOne) AddAttendanceCode(i int64) *CheckInUpdateOne {
 }
 
 // SetStudentId sets the "studentId" field.
-func (ciuo *CheckInUpdateOne) SetStudentId(i int64) *CheckInUpdateOne {
-	ciuo.mutation.ResetStudentId()
-	ciuo.mutation.SetStudentId(i)
-	return ciuo
-}
-
-// AddStudentId adds i to the "studentId" field.
-func (ciuo *CheckInUpdateOne) AddStudentId(i int64) *CheckInUpdateOne {
-	ciuo.mutation.AddStudentId(i)
+func (ciuo *CheckInUpdateOne) SetStudentId(s string) *CheckInUpdateOne {
+	ciuo.mutation.SetStudentId(s)
 	return ciuo
 }
 
@@ -420,14 +399,7 @@ func (ciuo *CheckInUpdateOne) sqlSave(ctx context.Context) (_node *CheckIn, err 
 	}
 	if value, ok := ciuo.mutation.StudentId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: checkin.FieldStudentId,
-		})
-	}
-	if value, ok := ciuo.mutation.AddedStudentId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: checkin.FieldStudentId,
 		})
