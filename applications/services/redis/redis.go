@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
@@ -60,17 +61,30 @@ func CreateAttendanceCodeInRedis(in *pb.AttendanceCodeCreate, config Configurati
 	return code, unix, in.Lat, in.Long, nil
 }
 
-func GetAttendanceCodeFromRedis(code int64, config Configuration) (int64, int64, error) {
+type jsonData struct {
+	Unix int64   `json:"unix,omitempty"`
+	Lat  float64 `json:"lat,omitempty"`
+	Long float64 `json:"long,omitempty"`
+}
+
+func GetAttendanceCodeFromRedis(code int64, config Configuration) (int64, int64, float64, float64, error) {
 	rdb := GetRedisClient(config)
 	exists := rdb.HExists(redis_key, strconv.FormatInt(code, 10)).Val()
 	if !exists {
 		log.Printf("code not found in redis")
-		return 0, 0, errors.New("code not found in redis")
+		return 0, 0, 0, 0, errors.New("code not found in redis")
 	}
 
 	result := rdb.HGet(redis_key, strconv.FormatInt(code, 10)).Val()
-	unix, err := strconv.ParseInt(result, 10, 64)
-	eh.PanicOnError(err, "Error converting unix to int64")
 
-	return code, unix, nil
+	s, _ := strconv.Unquote(string(result))
+	var data jsonData
+	if err := json.Unmarshal([]byte(s), &data); err != nil {
+		eh.PanicOnError(err, "Couldn't convert json result to JSON data")
+	}
+
+	// unix, err := strconv.ParseInt(result, 10, 64)
+	// eh.PanicOnError(err, "Error converting unix to int64")
+
+	return code, data.Unix, data.Lat, data.Long, nil
 }
