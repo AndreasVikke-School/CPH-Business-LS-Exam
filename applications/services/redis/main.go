@@ -25,11 +25,11 @@ type server struct {
 }
 
 func (s *server) CreateAttendanceCode(ctx context.Context, in *pb.AttendanceCodeCreate) (*pb.AttendanceCode, error) {
-	code, unix, err := CreateAttendanceCodeInRedis(in.GetMinutesToLive(), configuration)
+	code, unix, lat, long, err := CreateAttendanceCodeInRedis(in, configuration)
 	if err != nil {
 		return nil, err
 	}
-	return &pb.AttendanceCode{Code: code, Unix: unix}, nil
+	return &pb.AttendanceCode{Code: code, Unix: unix, Lat: lat, Long: long}, nil
 }
 
 func (s *server) GetAttendanceCodeById(ctx context.Context, in *wrapperspb.Int64Value) (*pb.AttendanceCode, error) {

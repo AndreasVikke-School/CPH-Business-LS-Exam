@@ -2,12 +2,14 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"log"
 	"math/rand"
 	"strconv"
 	"time"
 
 	eh "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/redis/errorhandler"
+	pb "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/redis/rpc"
 
 	"github.com/go-redis/redis"
 )
@@ -26,6 +28,7 @@ func GetRedisClient(config Configuration) *redis.ClusterClient {
 func RandomCode() int64 {
 	low := 1000000
 	hi := 9999999
+	rand.Seed(time.Now().UnixNano())
 	return int64(low + rand.Intn(hi-low))
 }
 
@@ -42,18 +45,19 @@ func GetUniqueCode(config Configuration) int64 {
 	return code
 }
 
-func CreateAttendanceCodeInRedis(minsToLive int64, config Configuration) (int64, int64, error) {
+func CreateAttendanceCodeInRedis(in *pb.AttendanceCodeCreate, config Configuration) (int64, int64, float64, float64, error) {
 	rdb := GetRedisClient(config)
 	code := GetUniqueCode(config)
-	unix := time.Now().UnixNano()/1000000 + (minsToLive * 60 * 1000)
+	unix := time.Now().UnixNano()/1000000 + (in.MinutesToLive * 60 * 1000)
+	dataAsJson := fmt.Sprintf(`{"unix": %d, "lat": %f, "long": %f}`, unix, in.Lat, in.Long)
 
-	result := rdb.HSet(redis_key, strconv.FormatInt(code, 10), unix).Val()
+	result := rdb.HSet(redis_key, strconv.FormatInt(code, 10), dataAsJson).Val()
 	if !result {
 		log.Printf("error when adding code to redis")
-		return 0, 0, errors.New("error when adding code to redis")
+		return 0, 0, 0, 0, errors.New("error when adding code to redis")
 	}
 
-	return code, unix, nil
+	return code, unix, in.Lat, in.Long, nil
 }
 
 func GetAttendanceCodeFromRedis(code int64, config Configuration) (int64, int64, error) {
