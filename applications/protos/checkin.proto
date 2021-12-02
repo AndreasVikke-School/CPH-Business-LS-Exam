@@ -8,9 +8,13 @@ import "google/protobuf/wrappers.proto";
 import "google/protobuf/empty.proto";
 
 // The greeting service definition.
-service CheckInProto {
+service CheckInService {
   rpc GetCheckInById (google.protobuf.Int64Value) returns (CheckIn);
+  rpc GetCheckInsByAttendenceCode (google.protobuf.Int64Value) returns (CheckIns);
+  rpc GetCheckInsByStudentId (google.protobuf.StringValue) returns (CheckIns);
+  rpc GetCheckInsByTime (TimeInterval) returns (CheckIns);
   rpc GetAllCheckIns (google.protobuf.Empty) returns (CheckIns);
+  rpc InsertCheckIn (CheckIn) returns (google.protobuf.Empty);
 }
 
 message CheckIns {
@@ -18,7 +22,21 @@ message CheckIns {
 }
 
 message CheckIn {
-  int64 id = 2;
   int64 attendanceCode = 1;
-  int64 studentId = 3;
+  int64 id = 2;
+  string studentId = 3;
+  validity status = 4;
+  int64 checkinTime = 5;
+}
+
+message TimeInterval {
+  int64 fromTime = 1;
+  int64 toTime = 2;
+}
+
+enum validity {
+  SUCCESS = 0;
+  OUT_OF_TIME = 1;
+  NOT_FOUND = 2;
+  ERROR = 3;
 }
