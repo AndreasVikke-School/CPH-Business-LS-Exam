@@ -22,6 +22,10 @@ public class RedisConsumer
             AttendanceCode code = _redisClient.GetAttendanceCodeById(request);
 
             _logger.LogInformation($"Found matching attendance code: {code}");
+
+            if (code is { Code: -1, Unix: -1 })
+                return CodeValidity.NotFound;
+
             return attendanceEvent.CurrentUnixTime > code.Unix 
                 ? CodeValidity.OutOfTime 
                 : CodeValidity.Success;
@@ -33,11 +37,4 @@ public class RedisConsumer
             return CodeValidity.Error;
         }
     }
-}
-
-public enum CodeValidity
-{
-    Success,
-    OutOfTime,
-    Error
 }

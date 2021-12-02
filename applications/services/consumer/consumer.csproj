@@ -40,6 +40,9 @@
 		<Protobuf Include="..\..\protos\attendance_code.proto" OutputDir="Protos" GrpcServices="Client" CompileOutputs="false">
 			<Link>Protos\attendance_code.proto</Link>
 		</Protobuf>
+		<Protobuf Include="..\..\protos\checkin.proto" OutputDir="Protos" GrpcServices="Client" CompileOutputs="false">
+			<Link>Protos\checkin.proto</Link>
+		</Protobuf>
 	</ItemGroup>
 
 	<ItemGroup>
