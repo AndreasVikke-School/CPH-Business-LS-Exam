@@ -31,10 +31,10 @@ func CreateAttendanceCode(c *gin.Context) {
 
 	client := pb.NewAttendanceCodeProtoClient(conn)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
+	// ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	// defer cancel()
 	newAttendanceCode := &pb.AttendanceCodeCreate{MinutesToLive: codeCreate.MinutesToLive, Lat: codeCreate.Lat, Long: codeCreate.Long}
-	attendancecode, err := client.CreateAttendanceCode(ctx, newAttendanceCode)
+	attendancecode, err := client.CreateAttendanceCode(c, newAttendanceCode)
 	eh.PanicOnError(err, "Failed to create attendance code")
 
 	c.IndentedJSON(http.StatusOK, attendancecode)

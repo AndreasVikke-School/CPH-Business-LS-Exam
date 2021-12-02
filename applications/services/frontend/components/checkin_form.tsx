@@ -8,30 +8,26 @@ const CheckInForm = () => {
 
     const checkin = async (event: FormEvent) => {
         event.preventDefault()
-        var lat = 0, long = 0
 
         if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                lat = position.coords.latitude;
-                long = position.coords.longitude;
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_IP}/api/checkin/`, {
+                    body: JSON.stringify({
+                        "attendanceCode": Number((event.target as any).attendance_code.value),
+                        "studentId": session?.user?.email,
+                        "lat": position.coords.latitude,
+                        "long": position.coords.longitude
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'POST'
+                })
+                setStatus(res.status)
             });
         } else {
             console.log("GPS Not Available");
         }
-
-        const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_IP}/api/checkin/`, {
-            body: JSON.stringify({
-                attendanceCode: (event.target as any).attendance_code.value,
-                studentId: session?.user?.email,
-                lat: lat,
-                long: long
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: 'POST'
-        })
-        setStatus(res.status)
     }
 
     return (

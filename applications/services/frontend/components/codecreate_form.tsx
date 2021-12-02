@@ -7,31 +7,27 @@ const CodeCreateForm = () => {
 
     const checkin = async (event: FormEvent) => {
         event.preventDefault()
-        var lat = 0, long = 0
 
         if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                lat = position.coords.latitude;
-                long = position.coords.longitude;
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_IP}/api/attendance_code/`, {
+                    body: JSON.stringify({
+                        "minutesToLive": Number((event.target as any).minutesToLive.value),
+                        "lat": position.coords.latitude,
+                        "long": position.coords.longitude
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'POST'
+                })
+                const code = await res.json()
+                localStorage.setItem("code", JSON.stringify(code))
+                Router.push('/code_show')
             });
         } else {
             console.log("GPS Not Available");
         }
-
-        const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_IP}/api/attendance_code/`, {
-            body: JSON.stringify({
-                minutesToLive: (event.target as any).minutesToLive.value,
-                lat: lat,
-                long: long
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            method: 'POST'
-        })
-        const code = await res.json()
-        localStorage.setItem("code", JSON.stringify(code))
-        Router.push('/code_show')
     }
 
     return (

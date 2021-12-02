@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -12,7 +13,7 @@ import (
 	eh "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/redis/errorhandler"
 	pb "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/redis/rpc"
 
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v8"
 )
 
 var (
@@ -37,7 +38,7 @@ func GetUniqueCode(config Configuration) int64 {
 	rdb := GetRedisClient(config)
 	code := RandomCode()
 	for {
-		exists := rdb.HExists(redis_key, strconv.FormatInt(code, 10)).Val()
+		exists := rdb.HExists(rdb.Context(), redis_key, strconv.FormatInt(code, 10)).Val()
 		if !exists {
 			break
 		}
@@ -52,10 +53,10 @@ func CreateAttendanceCodeInRedis(in *pb.AttendanceCodeCreate, config Configurati
 	unix := time.Now().UnixNano()/1000000 + (in.MinutesToLive * 60 * 1000)
 	dataAsJson := fmt.Sprintf(`{"unix": %d, "lat": %f, "long": %f}`, unix, in.Lat, in.Long)
 
-	result := rdb.HSet(redis_key, strconv.FormatInt(code, 10), dataAsJson).Val()
-	if !result {
-		log.Printf("error when adding code to redis")
-		return 0, 0, 0, 0, errors.New("error when adding code to redis")
+	_, err := rdb.HSet(rdb.Context(), redis_key, strconv.FormatInt(code, 10), dataAsJson).Result()
+	if err != nil {
+		log.Printf("%s", err)
+		return 0, 0, 0, 0, err
 	}
 
 	return code, unix, in.Lat, in.Long, nil
@@ -69,22 +70,23 @@ type jsonData struct {
 
 func GetAttendanceCodeFromRedis(code int64, config Configuration) (int64, int64, float64, float64, error) {
 	rdb := GetRedisClient(config)
-	exists := rdb.HExists(redis_key, strconv.FormatInt(code, 10)).Val()
+	exists := rdb.HExists(context.Background(), redis_key, strconv.FormatInt(code, 10)).Val()
 	if !exists {
 		log.Printf("code not found in redis")
 		return 0, 0, 0, 0, errors.New("code not found in redis")
 	}
 
-	result := rdb.HGet(redis_key, strconv.FormatInt(code, 10)).Val()
+	result, err := rdb.HGet(rdb.Context(), redis_key, strconv.FormatInt(code, 10)).Result()
+	if err != nil {
+		log.Printf("%s", err)
+		return 0, 0, 0, 0, err
+	}
 
 	s, _ := strconv.Unquote(string(result))
 	var data jsonData
 	if err := json.Unmarshal([]byte(s), &data); err != nil {
 		eh.PanicOnError(err, "Couldn't convert json result to JSON data")
 	}
-
-	// unix, err := strconv.ParseInt(result, 10, 64)
-	// eh.PanicOnError(err, "Error converting unix to int64")
 
 	return code, data.Unix, data.Lat, data.Long, nil
 }
