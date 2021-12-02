@@ -61,11 +61,6 @@ module "frontend_service" {
   service_type           = "LoadBalancer"
   container_env = {
     NEXT_PUBLIC_API_IP = module.api_service.service_ip
-    NEXT_PUBLIC_GITHUB_CLIENT_ID="7445121f11882bb73c03"
-    NEXT_PUBLIC_GITHUB_CLIENT_SECRET="221be5cab715a0ba003d76805e74344da0043131"
-    NEXT_PUBLIC_AUTH_SECRET="oien723f982h3fb3490193fj093biowneg92"
-    NEXT_PUBLIC_JWT_SECRET="jwngkwenfiqnebivb2oifu124h092hfbq309vj23"
-    NEXTAUTH_URL="http://localhost:8888"
   }
   service_ports = {
     server = {
