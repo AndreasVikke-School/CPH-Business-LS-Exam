@@ -35,6 +35,9 @@ type CheckInMutation struct {
 	addattendanceCode *int64
 	studentId         *int64
 	addstudentId      *int64
+	status            *checkin.Status
+	checkinTime       *int64
+	addcheckinTime    *int64
 	clearedFields     map[string]struct{}
 	done              bool
 	oldValue          func(context.Context) (*CheckIn, error)
@@ -232,6 +235,98 @@ func (m *CheckInMutation) ResetStudentId() {
 	m.addstudentId = nil
 }
 
+// SetStatus sets the "status" field.
+func (m *CheckInMutation) SetStatus(c checkin.Status) {
+	m.status = &c
+}
+
+// Status returns the value of the "status" field in the mutation.
+func (m *CheckInMutation) Status() (r checkin.Status, exists bool) {
+	v := m.status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStatus returns the old "status" field's value of the CheckIn entity.
+// If the CheckIn object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CheckInMutation) OldStatus(ctx context.Context) (v checkin.Status, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldStatus is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStatus: %w", err)
+	}
+	return oldValue.Status, nil
+}
+
+// ResetStatus resets all changes to the "status" field.
+func (m *CheckInMutation) ResetStatus() {
+	m.status = nil
+}
+
+// SetCheckinTime sets the "checkinTime" field.
+func (m *CheckInMutation) SetCheckinTime(i int64) {
+	m.checkinTime = &i
+	m.addcheckinTime = nil
+}
+
+// CheckinTime returns the value of the "checkinTime" field in the mutation.
+func (m *CheckInMutation) CheckinTime() (r int64, exists bool) {
+	v := m.checkinTime
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCheckinTime returns the old "checkinTime" field's value of the CheckIn entity.
+// If the CheckIn object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *CheckInMutation) OldCheckinTime(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCheckinTime is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCheckinTime requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCheckinTime: %w", err)
+	}
+	return oldValue.CheckinTime, nil
+}
+
+// AddCheckinTime adds i to the "checkinTime" field.
+func (m *CheckInMutation) AddCheckinTime(i int64) {
+	if m.addcheckinTime != nil {
+		*m.addcheckinTime += i
+	} else {
+		m.addcheckinTime = &i
+	}
+}
+
+// AddedCheckinTime returns the value that was added to the "checkinTime" field in this mutation.
+func (m *CheckInMutation) AddedCheckinTime() (r int64, exists bool) {
+	v := m.addcheckinTime
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCheckinTime resets all changes to the "checkinTime" field.
+func (m *CheckInMutation) ResetCheckinTime() {
+	m.checkinTime = nil
+	m.addcheckinTime = nil
+}
+
 // Where appends a list predicates to the CheckInMutation builder.
 func (m *CheckInMutation) Where(ps ...predicate.CheckIn) {
 	m.predicates = append(m.predicates, ps...)
@@ -251,12 +346,18 @@ func (m *CheckInMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *CheckInMutation) Fields() []string {
-	fields := make([]string, 0, 2)
+	fields := make([]string, 0, 4)
 	if m.attendanceCode != nil {
 		fields = append(fields, checkin.FieldAttendanceCode)
 	}
 	if m.studentId != nil {
 		fields = append(fields, checkin.FieldStudentId)
+	}
+	if m.status != nil {
+		fields = append(fields, checkin.FieldStatus)
+	}
+	if m.checkinTime != nil {
+		fields = append(fields, checkin.FieldCheckinTime)
 	}
 	return fields
 }
@@ -270,6 +371,10 @@ func (m *CheckInMutation) Field(name string) (ent.Value, bool) {
 		return m.AttendanceCode()
 	case checkin.FieldStudentId:
 		return m.StudentId()
+	case checkin.FieldStatus:
+		return m.Status()
+	case checkin.FieldCheckinTime:
+		return m.CheckinTime()
 	}
 	return nil, false
 }
@@ -283,6 +388,10 @@ func (m *CheckInMutation) OldField(ctx context.Context, name string) (ent.Value,
 		return m.OldAttendanceCode(ctx)
 	case checkin.FieldStudentId:
 		return m.OldStudentId(ctx)
+	case checkin.FieldStatus:
+		return m.OldStatus(ctx)
+	case checkin.FieldCheckinTime:
+		return m.OldCheckinTime(ctx)
 	}
 	return nil, fmt.Errorf("unknown CheckIn field %s", name)
 }
@@ -306,6 +415,20 @@ func (m *CheckInMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetStudentId(v)
 		return nil
+	case checkin.FieldStatus:
+		v, ok := value.(checkin.Status)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStatus(v)
+		return nil
+	case checkin.FieldCheckinTime:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCheckinTime(v)
+		return nil
 	}
 	return fmt.Errorf("unknown CheckIn field %s", name)
 }
@@ -320,6 +443,9 @@ func (m *CheckInMutation) AddedFields() []string {
 	if m.addstudentId != nil {
 		fields = append(fields, checkin.FieldStudentId)
 	}
+	if m.addcheckinTime != nil {
+		fields = append(fields, checkin.FieldCheckinTime)
+	}
 	return fields
 }
 
@@ -332,6 +458,8 @@ func (m *CheckInMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedAttendanceCode()
 	case checkin.FieldStudentId:
 		return m.AddedStudentId()
+	case checkin.FieldCheckinTime:
+		return m.AddedCheckinTime()
 	}
 	return nil, false
 }
@@ -354,6 +482,13 @@ func (m *CheckInMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddStudentId(v)
+		return nil
+	case checkin.FieldCheckinTime:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCheckinTime(v)
 		return nil
 	}
 	return fmt.Errorf("unknown CheckIn numeric field %s", name)
@@ -387,6 +522,12 @@ func (m *CheckInMutation) ResetField(name string) error {
 		return nil
 	case checkin.FieldStudentId:
 		m.ResetStudentId()
+		return nil
+	case checkin.FieldStatus:
+		m.ResetStatus()
+		return nil
+	case checkin.FieldCheckinTime:
+		m.ResetCheckinTime()
 		return nil
 	}
 	return fmt.Errorf("unknown CheckIn field %s", name)
