@@ -1,14 +1,20 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import CodeCreateForm from '../components/codecreate_form'
 import Menu from '../components/menu'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
-import { Context } from 'vm';
+import React from 'react';
+import Home from '.';
 
 const Teacher: NextPage = () => {
     const { data: session } = useSession()
+
+    if (!session)
+        return (
+            <Home />
+        )
     return (
         <div className={styles.container}>
             <Head>
@@ -38,15 +44,3 @@ const Teacher: NextPage = () => {
 }
 
 export default Teacher
-
-export async function getServerSideProps({ req } : Context) {
-    const session = await getSession({ req })
-    if (!session?.user)
-        return {
-            redirect: {
-                permanent: false,
-                destination: "/"
-            }
-        }
-    return { props: {} }
-}
