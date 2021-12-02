@@ -1,19 +1,14 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import { getSession, useSession } from "next-auth/react";
 import CodeCreateForm from '../components/codecreate_form'
 import Menu from '../components/menu'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
+import { Context } from 'vm';
 
 const Teacher: NextPage = () => {
-    const [userId, setUserId] = useState("");
-
-    useEffect(() => {
-        setUserId(localStorage.getItem("studentId") || "")
-    }, []);
-    
+    const { data: session } = useSession()
     return (
         <div className={styles.container}>
             <Head>
@@ -31,7 +26,7 @@ const Teacher: NextPage = () => {
 
                 <p className={styles.description}>
                     Logged in as{' '}
-                    <code className={styles.code}>{userId}</code>
+                    <code className={styles.code}>{session?.user?.name}</code>
                 </p>
 
                 <div className={styles.table}>
@@ -43,3 +38,15 @@ const Teacher: NextPage = () => {
 }
 
 export default Teacher
+
+export async function getServerSideProps({ req } : Context) {
+    const session = await getSession({ req })
+    if (!session?.user)
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/"
+            }
+        }
+    return { props: {} }
+}

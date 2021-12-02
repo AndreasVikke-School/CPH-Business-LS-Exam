@@ -1,41 +1,25 @@
-import { FormEvent, useState } from "react"
-import Router from 'next/router'
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const LoginForm = () => {
-    const [userId, setUserId] = useState("")
-
-    const teacher = async (event: FormEvent) => {
-        localStorage.setItem("teacherId", userId)
-        Router.push("/teacher")
-    }
-
-    const student = async (event: FormEvent) => {
-        localStorage.setItem("studentId", userId)
-        Router.push("/student")
-    }
-    
+    const { data: session } = useSession()
     return (
-        <form>
-            <h3>Login</h3>
-            <hr />
-            <div className="row g-3 align-items-center">
-                <div className="col-auto">
-                    <label className="col-form-label">User Id:</label>
-                </div>
-                <div className="col-auto">
-                    <input onChange={(e) => setUserId(e.target.value)} required type="text" id="attendance_code" className="form-control" placeholder="user id" />
-                </div>
-            </div>
-            <br />
-            <div className="row g-3 align-items-center">
-                <div className="col-auto">
-                    <button type="submit" onClick={teacher} className="btn btn-primary">Login as Teacher</button>
-                </div>
-                <div className="col-auto">
-                    <button type="submit" onClick={student} className="btn btn-primary">Login as Student</button>
-                </div>
-            </div>
-        </form>
+        <div className="row g-3 align-items-center">
+        {!session ? (
+            <>
+                <button className="btn btn-primary" onClick={() => signIn("github")}>
+                    Sign in with Github <img width="25" src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GH"/>
+                </button>
+            </>
+        ) : (
+            <>
+                <p className="text-center">
+                    Not {session.user && (session.user.name || session.user.email)}? Then
+                    Logout and login again
+                </p>
+                <button className="btn btn-primary" onClick={() => signOut()}>Logout</button> <br />
+            </>
+        )}
+        </div>
     )
 }
 export default LoginForm

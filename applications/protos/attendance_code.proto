@@ -13,9 +13,13 @@ service AttendanceCodeProto {
 
 message AttendanceCodeCreate {
   int64 minutesToLive = 1;
+  double lat = 3;
+  double long = 4;
 }
 
 message AttendanceCode {
   int64 code = 1;
   int64 unix = 2;
+  double lat = 3;
+  double long = 4;
 }

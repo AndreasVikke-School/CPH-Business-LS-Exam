@@ -14,10 +14,16 @@ import (
 	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
+type CreateAttendanceCodeType struct {
+	MinutesToLive int64   `json:"minutesToLive"`
+	Lat           float64 `json:"lat"`
+	Long          float64 `json:"long"`
+}
+
 func CreateAttendanceCode(c *gin.Context) {
-	minutesToLiveStr := c.Param("minutesToLive")
-	minutesToLive, err := strconv.ParseInt(minutesToLiveStr, 10, 64)
-	eh.PanicOnError(err, "Minutes to live is not an int")
+	var codeCreate CreateAttendanceCodeType
+	err := c.BindJSON(&codeCreate)
+	eh.PanicOnError(err, "Couldn't bind JSON")
 
 	conn, err := grpc.Dial(configuration.Redis.Service, grpc.WithInsecure())
 	eh.PanicOnError(err, "fail to dial")
@@ -27,7 +33,7 @@ func CreateAttendanceCode(c *gin.Context) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	newAttendanceCode := &pb.AttendanceCodeCreate{MinutesToLive: minutesToLive}
+	newAttendanceCode := &pb.AttendanceCodeCreate{MinutesToLive: codeCreate.MinutesToLive, Lat: codeCreate.Lat, Long: codeCreate.Long}
 	attendancecode, err := client.CreateAttendanceCode(ctx, newAttendanceCode)
 	eh.PanicOnError(err, "Failed to create attendance code")
 
