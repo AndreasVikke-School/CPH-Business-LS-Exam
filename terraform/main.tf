@@ -64,7 +64,7 @@ module "frontend_service" {
   }
   service_ports = {
     server = {
-      port        = 80,
+      port        = 8888,
       target_port = 3000
     }
   }
