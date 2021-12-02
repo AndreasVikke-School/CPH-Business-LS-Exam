@@ -5,14 +5,16 @@ import CodeCreateForm from '../components/codecreate_form'
 import Menu from '../components/menu'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
-import Router from 'next/router'
+import React from 'react';
+import Home from '.';
 
 const Teacher: NextPage = () => {
     const { data: session } = useSession()
 
-    if (!session?.user)
-        Router.push("/")
-
+    if (!session)
+        return (
+            <Home />
+        )
     return (
         <div className={styles.container}>
             <Head>
