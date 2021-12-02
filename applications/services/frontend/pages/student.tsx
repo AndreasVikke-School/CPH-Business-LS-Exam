@@ -1,13 +1,13 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import CheckInTable from '../components/checkins_table'
 import CheckInForm from '../components/checkin_form'
 import Menu from '../components/menu'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
-import Router from 'next/router';
-import { Context } from 'vm';
+import React from 'react';
+import Home from '.';
 
 const data = [
     {
@@ -40,6 +40,10 @@ const data = [
 const Student: NextPage = () => {
     const { data: session } = useSession()
 
+    if (!session)
+        return (
+            <Home />
+        )
     return (
         <div className={styles.container}>
             <Head>
@@ -72,15 +76,3 @@ const Student: NextPage = () => {
 }
 
 export default Student
-
-export async function getServerSideProps({ req }: Context) {
-    const session = await getSession({ req })
-    if (!session?.user)
-        return {
-            redirect: {
-                permanent: false,
-                destination: "/"
-            }
-        }
-    return { props: {} }
-}

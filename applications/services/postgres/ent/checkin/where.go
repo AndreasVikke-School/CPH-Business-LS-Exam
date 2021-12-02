@@ -104,6 +104,13 @@ func StudentId(v int64) predicate.CheckIn {
 	})
 }
 
+// CheckinTime applies equality check predicate on the "checkinTime" field. It's identical to CheckinTimeEQ.
+func CheckinTime(v int64) predicate.CheckIn {
+	return predicate.CheckIn(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCheckinTime), v))
+	})
+}
+
 // AttendanceCodeEQ applies the EQ predicate on the "attendanceCode" field.
 func AttendanceCodeEQ(v int64) predicate.CheckIn {
 	return predicate.CheckIn(func(s *sql.Selector) {
@@ -253,6 +260,130 @@ func StudentIdLT(v int64) predicate.CheckIn {
 func StudentIdLTE(v int64) predicate.CheckIn {
 	return predicate.CheckIn(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldStudentId), v))
+	})
+}
+
+// StatusEQ applies the EQ predicate on the "status" field.
+func StatusEQ(v Status) predicate.CheckIn {
+	return predicate.CheckIn(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldStatus), v))
+	})
+}
+
+// StatusNEQ applies the NEQ predicate on the "status" field.
+func StatusNEQ(v Status) predicate.CheckIn {
+	return predicate.CheckIn(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldStatus), v))
+	})
+}
+
+// StatusIn applies the In predicate on the "status" field.
+func StatusIn(vs ...Status) predicate.CheckIn {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CheckIn(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldStatus), v...))
+	})
+}
+
+// StatusNotIn applies the NotIn predicate on the "status" field.
+func StatusNotIn(vs ...Status) predicate.CheckIn {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CheckIn(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldStatus), v...))
+	})
+}
+
+// CheckinTimeEQ applies the EQ predicate on the "checkinTime" field.
+func CheckinTimeEQ(v int64) predicate.CheckIn {
+	return predicate.CheckIn(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCheckinTime), v))
+	})
+}
+
+// CheckinTimeNEQ applies the NEQ predicate on the "checkinTime" field.
+func CheckinTimeNEQ(v int64) predicate.CheckIn {
+	return predicate.CheckIn(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCheckinTime), v))
+	})
+}
+
+// CheckinTimeIn applies the In predicate on the "checkinTime" field.
+func CheckinTimeIn(vs ...int64) predicate.CheckIn {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CheckIn(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldCheckinTime), v...))
+	})
+}
+
+// CheckinTimeNotIn applies the NotIn predicate on the "checkinTime" field.
+func CheckinTimeNotIn(vs ...int64) predicate.CheckIn {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CheckIn(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldCheckinTime), v...))
+	})
+}
+
+// CheckinTimeGT applies the GT predicate on the "checkinTime" field.
+func CheckinTimeGT(v int64) predicate.CheckIn {
+	return predicate.CheckIn(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCheckinTime), v))
+	})
+}
+
+// CheckinTimeGTE applies the GTE predicate on the "checkinTime" field.
+func CheckinTimeGTE(v int64) predicate.CheckIn {
+	return predicate.CheckIn(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCheckinTime), v))
+	})
+}
+
+// CheckinTimeLT applies the LT predicate on the "checkinTime" field.
+func CheckinTimeLT(v int64) predicate.CheckIn {
+	return predicate.CheckIn(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCheckinTime), v))
+	})
+}
+
+// CheckinTimeLTE applies the LTE predicate on the "checkinTime" field.
+func CheckinTimeLTE(v int64) predicate.CheckIn {
+	return predicate.CheckIn(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCheckinTime), v))
 	})
 }
 

@@ -31,6 +31,18 @@ func (cic *CheckInCreate) SetStudentId(i int64) *CheckInCreate {
 	return cic
 }
 
+// SetStatus sets the "status" field.
+func (cic *CheckInCreate) SetStatus(c checkin.Status) *CheckInCreate {
+	cic.mutation.SetStatus(c)
+	return cic
+}
+
+// SetCheckinTime sets the "checkinTime" field.
+func (cic *CheckInCreate) SetCheckinTime(i int64) *CheckInCreate {
+	cic.mutation.SetCheckinTime(i)
+	return cic
+}
+
 // Mutation returns the CheckInMutation object of the builder.
 func (cic *CheckInCreate) Mutation() *CheckInMutation {
 	return cic.mutation
@@ -112,6 +124,17 @@ func (cic *CheckInCreate) check() error {
 	if _, ok := cic.mutation.StudentId(); !ok {
 		return &ValidationError{Name: "studentId", err: errors.New(`ent: missing required field "studentId"`)}
 	}
+	if _, ok := cic.mutation.Status(); !ok {
+		return &ValidationError{Name: "status", err: errors.New(`ent: missing required field "status"`)}
+	}
+	if v, ok := cic.mutation.Status(); ok {
+		if err := checkin.StatusValidator(v); err != nil {
+			return &ValidationError{Name: "status", err: fmt.Errorf(`ent: validator failed for field "status": %w`, err)}
+		}
+	}
+	if _, ok := cic.mutation.CheckinTime(); !ok {
+		return &ValidationError{Name: "checkinTime", err: errors.New(`ent: missing required field "checkinTime"`)}
+	}
 	return nil
 }
 
@@ -154,6 +177,22 @@ func (cic *CheckInCreate) createSpec() (*CheckIn, *sqlgraph.CreateSpec) {
 			Column: checkin.FieldStudentId,
 		})
 		_node.StudentId = value
+	}
+	if value, ok := cic.mutation.Status(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeEnum,
+			Value:  value,
+			Column: checkin.FieldStatus,
+		})
+		_node.Status = value
+	}
+	if value, ok := cic.mutation.CheckinTime(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: checkin.FieldCheckinTime,
+		})
+		_node.CheckinTime = value
 	}
 	return _node, _spec
 }

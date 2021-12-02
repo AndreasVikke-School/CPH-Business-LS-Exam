@@ -2,6 +2,10 @@
 
 package checkin
 
+import (
+	"fmt"
+)
+
 const (
 	// Label holds the string label denoting the checkin type in the database.
 	Label = "check_in"
@@ -11,6 +15,10 @@ const (
 	FieldAttendanceCode = "attendance_code"
 	// FieldStudentId holds the string denoting the studentid field in the database.
 	FieldStudentId = "student_id"
+	// FieldStatus holds the string denoting the status field in the database.
+	FieldStatus = "status"
+	// FieldCheckinTime holds the string denoting the checkintime field in the database.
+	FieldCheckinTime = "checkin_time"
 	// Table holds the table name of the checkin in the database.
 	Table = "check_ins"
 )
@@ -20,6 +28,8 @@ var Columns = []string{
 	FieldID,
 	FieldAttendanceCode,
 	FieldStudentId,
+	FieldStatus,
+	FieldCheckinTime,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -36,3 +46,28 @@ var (
 	// AttendanceCodeValidator is a validator for the "attendanceCode" field. It is called by the builders before save.
 	AttendanceCodeValidator func(int64) error
 )
+
+// Status defines the type for the "status" enum field.
+type Status string
+
+// Status values.
+const (
+	StatusSuccess   Status = "success"
+	StatusOutOfTime Status = "outOfTime"
+	StatusNotFound  Status = "notFound"
+	StatusError     Status = "error"
+)
+
+func (s Status) String() string {
+	return string(s)
+}
+
+// StatusValidator is a validator for the "status" field enum values. It is called by the builders before save.
+func StatusValidator(s Status) error {
+	switch s {
+	case StatusSuccess, StatusOutOfTime, StatusNotFound, StatusError:
+		return nil
+	default:
+		return fmt.Errorf("checkin: invalid enum value for status field: %q", s)
+	}
+}
