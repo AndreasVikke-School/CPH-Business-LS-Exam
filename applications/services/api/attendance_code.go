@@ -34,7 +34,7 @@ func CreateAttendanceCode(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	newAttendanceCode := &pb.AttendanceCodeCreate{MinutesToLive: codeCreate.MinutesToLive, Lat: codeCreate.Lat, Long: codeCreate.Long}
-	attendancecode, err := client.CreateAttendanceCode(c, newAttendanceCode)
+	attendancecode, err := client.CreateAttendanceCode(ctx, newAttendanceCode)
 	eh.PanicOnError(err, "Failed to create attendance code")
 
 	c.IndentedJSON(http.StatusOK, attendancecode)
