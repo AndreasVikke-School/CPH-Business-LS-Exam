@@ -44,7 +44,7 @@ func main() {
 	router.Use(cors.Default())
 
 	router.GET("/api/attendance_code/:code", GetAttendanceCodeById)
-	router.POST("/api/attendance_code/:minutesToLive", CreateAttendanceCode)
+	router.POST("/api/attendance_code/", CreateAttendanceCode)
 	router.GET("/api/checkin/:id", GetCheckInById)
 	router.POST("/api/checkin/", ProduceCheckIn)
 

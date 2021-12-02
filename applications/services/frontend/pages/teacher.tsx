@@ -1,19 +1,18 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import { useSession } from "next-auth/react";
 import CodeCreateForm from '../components/codecreate_form'
 import Menu from '../components/menu'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
+import Router from 'next/router'
 
 const Teacher: NextPage = () => {
-    const [userId, setUserId] = useState("");
+    const { data: session } = useSession()
 
-    useEffect(() => {
-        setUserId(localStorage.getItem("studentId") || "")
-    }, []);
-    
+    if (!session?.user)
+        Router.push("/")
+
     return (
         <div className={styles.container}>
             <Head>
@@ -31,7 +30,7 @@ const Teacher: NextPage = () => {
 
                 <p className={styles.description}>
                     Logged in as{' '}
-                    <code className={styles.code}>{userId}</code>
+                    <code className={styles.code}>{session?.user?.name}</code>
                 </p>
 
                 <div className={styles.table}>

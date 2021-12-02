@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Menu from '../components/menu'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
@@ -23,11 +22,9 @@ const Home: NextPage = () => {
           Welcome to <Link href="/"><a>Attendance App</a></Link>
         </h1>
         <p className={styles.description}>
-          Login as teacher or student
+          Use GitHub OAuth to authenticate
         </p>
-        <div className={styles.table}>
           <LoginForm />
-        </div>
       </main>
     </div>
   )

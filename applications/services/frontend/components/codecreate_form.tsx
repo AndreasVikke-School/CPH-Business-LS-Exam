@@ -1,7 +1,39 @@
 import { FormEvent } from "react"
 import Router from 'next/router'
+import { useSession } from "next-auth/react";
 
 const CodeCreateForm = () => {
+    const { data: session } = useSession()
+
+    const checkin = async (event: FormEvent) => {
+        event.preventDefault()
+        var lat = 0, long = 0
+
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                lat = position.coords.latitude;
+                long = position.coords.longitude;
+            });
+        } else {
+            console.log("GPS Not Available");
+        }
+
+        const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_IP}/api/attendance_code/`, {
+            body: JSON.stringify({
+                minutesToLive: (event.target as any).minutesToLive.value,
+                lat: lat,
+                long: long
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST'
+        })
+        const code = await res.json()
+        localStorage.setItem("code", JSON.stringify(code))
+        Router.push('/code_show')
+    }
+
     return (
         <form onSubmit={checkin}>
             <h3>Create New Attendance Code</h3>
@@ -11,7 +43,7 @@ const CodeCreateForm = () => {
                     <label className="col-form-label">Minutes to live:</label>
                 </div>
                 <div className="col-auto">
-                    <input type="number" id="attendance_code" className="form-control" placeholder="minutes must be a number" />
+                    <input type="number" id="minutesToLive" className="form-control" placeholder="minutes must be a number" />
                 </div>
                 <div className="col-auto">
                     <button type="submit" className="btn btn-primary">Generate Code</button>
@@ -21,17 +53,3 @@ const CodeCreateForm = () => {
     )
 }
 export default CodeCreateForm
-
-const checkin = async (event: FormEvent) => {
-    event.preventDefault()
-
-    const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_IP}/api/attendance_code/${(event.target as any).attendance_code.value}`, {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        method: 'POST'
-    })
-    const code = await res.json()
-    localStorage.setItem("code", JSON.stringify(code))
-    Router.push('/code_show')
-}
