@@ -5,8 +5,6 @@ import React from "react";
 import { SessionProvider } from "next-auth/react";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  console.log(require('dotenv').config())
-  
   return (
     <>
       <Head>
