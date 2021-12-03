@@ -84,11 +84,5 @@ func GetAttendanceCodeFromRedis(code int64, config Configuration) (int64, int64,
 	var data jsonData
 	json.Unmarshal([]byte(result), &data)
 
-	// s, _ := strconv.Unquote(string(result))
-	// var data jsonData
-	// if err := json.Unmarshal([]byte(s), &data); err != nil {
-	// 	eh.PanicOnError(err, "Couldn't convert json result to JSON data")
-	// }
-
 	return code, data.Unix, data.Lat, data.Long, nil
 }
