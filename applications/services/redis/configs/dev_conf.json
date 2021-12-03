@@ -1,5 +1,5 @@
 {
     "redis": {
-        "broker": "localhost:9999"
+        "broker": "localhost:6379"
     }
 }
