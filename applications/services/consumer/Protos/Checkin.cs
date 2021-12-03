@@ -26,22 +26,43 @@ namespace Protos {
           string.Concat(
             "Cg1jaGVja2luLnByb3RvEgNycGMaHmdvb2dsZS9wcm90b2J1Zi93cmFwcGVy",
             "cy5wcm90bxobZ29vZ2xlL3Byb3RvYnVmL2VtcHR5LnByb3RvIikKCENoZWNr",
-            "SW5zEh0KB2NoZWNrSW4YASADKAsyDC5ycGMuQ2hlY2tJbiJACgdDaGVja0lu",
-            "EgoKAmlkGAIgASgDEhYKDmF0dGVuZGFuY2VDb2RlGAEgASgDEhEKCXN0dWRl",
-            "bnRJZBgDIAEoAzKEAQoMQ2hlY2tJblByb3RvEjsKDkdldENoZWNrSW5CeUlk",
-            "EhsuZ29vZ2xlLnByb3RvYnVmLkludDY0VmFsdWUaDC5ycGMuQ2hlY2tJbhI3",
-            "Cg5HZXRBbGxDaGVja0lucxIWLmdvb2dsZS5wcm90b2J1Zi5FbXB0eRoNLnJw",
-            "Yy5DaGVja0luc0IJqgIGUHJvdG9zYgZwcm90bzM="));
+            "SW5zEh0KB2NoZWNrSW4YASADKAsyDC5ycGMuQ2hlY2tJbiJ0CgdDaGVja0lu",
+            "EhYKDmF0dGVuZGFuY2VDb2RlGAEgASgDEgoKAmlkGAIgASgDEhEKCXN0dWRl",
+            "bnRJZBgDIAEoCRIdCgZzdGF0dXMYBCABKA4yDS5ycGMudmFsaWRpdHkSEwoL",
+            "Y2hlY2tpblRpbWUYBSABKAMiMAoMVGltZUludGVydmFsEhAKCGZyb21UaW1l",
+            "GAEgASgDEg4KBnRvVGltZRgCIAEoAypCCgh2YWxpZGl0eRILCgdTVUNDRVNT",
+            "EAASDwoLT1VUX09GX1RJTUUQARINCglOT1RfRk9VTkQQAhIJCgVFUlJPUhAD",
+            "MoYDCg5DaGVja0luU2VydmljZRI7Cg5HZXRDaGVja0luQnlJZBIbLmdvb2ds",
+            "ZS5wcm90b2J1Zi5JbnQ2NFZhbHVlGgwucnBjLkNoZWNrSW4SSQobR2V0Q2hl",
+            "Y2tJbnNCeUF0dGVuZGVuY2VDb2RlEhsuZ29vZ2xlLnByb3RvYnVmLkludDY0",
+            "VmFsdWUaDS5ycGMuQ2hlY2tJbnMSRQoWR2V0Q2hlY2tJbnNCeVN0dWRlbnRJ",
+            "ZBIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZRoNLnJwYy5DaGVja0lu",
+            "cxI1ChFHZXRDaGVja0luc0J5VGltZRIRLnJwYy5UaW1lSW50ZXJ2YWwaDS5y",
+            "cGMuQ2hlY2tJbnMSNwoOR2V0QWxsQ2hlY2tJbnMSFi5nb29nbGUucHJvdG9i",
+            "dWYuRW1wdHkaDS5ycGMuQ2hlY2tJbnMSNQoNSW5zZXJ0Q2hlY2tJbhIMLnJw",
+            "Yy5DaGVja0luGhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5Qg9aBC9ycGOqAgZQ",
+            "cm90b3NiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.WrappersReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protos.validity), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protos.CheckIns), global::Protos.CheckIns.Parser, new[]{ "CheckIn" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protos.CheckIn), global::Protos.CheckIn.Parser, new[]{ "Id", "AttendanceCode", "StudentId" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protos.CheckIn), global::Protos.CheckIn.Parser, new[]{ "AttendanceCode", "Id", "StudentId", "Status", "CheckinTime" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protos.TimeInterval), global::Protos.TimeInterval.Parser, new[]{ "FromTime", "ToTime" }, null, null, null, null)
           }));
     }
     #endregion
 
   }
+  #region Enums
+  public enum validity {
+    [pbr::OriginalName("SUCCESS")] Success = 0,
+    [pbr::OriginalName("OUT_OF_TIME")] OutOfTime = 1,
+    [pbr::OriginalName("NOT_FOUND")] NotFound = 2,
+    [pbr::OriginalName("ERROR")] Error = 3,
+  }
+
+  #endregion
+
   #region Messages
   public sealed partial class CheckIns : pb::IMessage<CheckIns>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
@@ -233,26 +254,17 @@ namespace Protos {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public CheckIn(CheckIn other) : this() {
-      id_ = other.id_;
       attendanceCode_ = other.attendanceCode_;
+      id_ = other.id_;
       studentId_ = other.studentId_;
+      status_ = other.status_;
+      checkinTime_ = other.checkinTime_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public CheckIn Clone() {
       return new CheckIn(this);
-    }
-
-    /// <summary>Field number for the "id" field.</summary>
-    public const int IdFieldNumber = 2;
-    private long id_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long Id {
-      get { return id_; }
-      set {
-        id_ = value;
-      }
     }
 
     /// <summary>Field number for the "attendanceCode" field.</summary>
@@ -266,14 +278,47 @@ namespace Protos {
       }
     }
 
+    /// <summary>Field number for the "id" field.</summary>
+    public const int IdFieldNumber = 2;
+    private long id_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long Id {
+      get { return id_; }
+      set {
+        id_ = value;
+      }
+    }
+
     /// <summary>Field number for the "studentId" field.</summary>
     public const int StudentIdFieldNumber = 3;
-    private long studentId_;
+    private string studentId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long StudentId {
+    public string StudentId {
       get { return studentId_; }
       set {
-        studentId_ = value;
+        studentId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "status" field.</summary>
+    public const int StatusFieldNumber = 4;
+    private global::Protos.validity status_ = global::Protos.validity.Success;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Protos.validity Status {
+      get { return status_; }
+      set {
+        status_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "checkinTime" field.</summary>
+    public const int CheckinTimeFieldNumber = 5;
+    private long checkinTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long CheckinTime {
+      get { return checkinTime_; }
+      set {
+        checkinTime_ = value;
       }
     }
 
@@ -290,18 +335,22 @@ namespace Protos {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Id != other.Id) return false;
       if (AttendanceCode != other.AttendanceCode) return false;
+      if (Id != other.Id) return false;
       if (StudentId != other.StudentId) return false;
+      if (Status != other.Status) return false;
+      if (CheckinTime != other.CheckinTime) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Id != 0L) hash ^= Id.GetHashCode();
       if (AttendanceCode != 0L) hash ^= AttendanceCode.GetHashCode();
-      if (StudentId != 0L) hash ^= StudentId.GetHashCode();
+      if (Id != 0L) hash ^= Id.GetHashCode();
+      if (StudentId.Length != 0) hash ^= StudentId.GetHashCode();
+      if (Status != global::Protos.validity.Success) hash ^= Status.GetHashCode();
+      if (CheckinTime != 0L) hash ^= CheckinTime.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -326,9 +375,17 @@ namespace Protos {
         output.WriteRawTag(16);
         output.WriteInt64(Id);
       }
-      if (StudentId != 0L) {
-        output.WriteRawTag(24);
-        output.WriteInt64(StudentId);
+      if (StudentId.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(StudentId);
+      }
+      if (Status != global::Protos.validity.Success) {
+        output.WriteRawTag(32);
+        output.WriteEnum((int) Status);
+      }
+      if (CheckinTime != 0L) {
+        output.WriteRawTag(40);
+        output.WriteInt64(CheckinTime);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -347,9 +404,17 @@ namespace Protos {
         output.WriteRawTag(16);
         output.WriteInt64(Id);
       }
-      if (StudentId != 0L) {
-        output.WriteRawTag(24);
-        output.WriteInt64(StudentId);
+      if (StudentId.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(StudentId);
+      }
+      if (Status != global::Protos.validity.Success) {
+        output.WriteRawTag(32);
+        output.WriteEnum((int) Status);
+      }
+      if (CheckinTime != 0L) {
+        output.WriteRawTag(40);
+        output.WriteInt64(CheckinTime);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -360,14 +425,20 @@ namespace Protos {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Id != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Id);
-      }
       if (AttendanceCode != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(AttendanceCode);
       }
-      if (StudentId != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(StudentId);
+      if (Id != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Id);
+      }
+      if (StudentId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(StudentId);
+      }
+      if (Status != global::Protos.validity.Success) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
+      }
+      if (CheckinTime != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(CheckinTime);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -380,14 +451,20 @@ namespace Protos {
       if (other == null) {
         return;
       }
-      if (other.Id != 0L) {
-        Id = other.Id;
-      }
       if (other.AttendanceCode != 0L) {
         AttendanceCode = other.AttendanceCode;
       }
-      if (other.StudentId != 0L) {
+      if (other.Id != 0L) {
+        Id = other.Id;
+      }
+      if (other.StudentId.Length != 0) {
         StudentId = other.StudentId;
+      }
+      if (other.Status != global::Protos.validity.Success) {
+        Status = other.Status;
+      }
+      if (other.CheckinTime != 0L) {
+        CheckinTime = other.CheckinTime;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -411,8 +488,16 @@ namespace Protos {
             Id = input.ReadInt64();
             break;
           }
-          case 24: {
-            StudentId = input.ReadInt64();
+          case 26: {
+            StudentId = input.ReadString();
+            break;
+          }
+          case 32: {
+            Status = (global::Protos.validity) input.ReadEnum();
+            break;
+          }
+          case 40: {
+            CheckinTime = input.ReadInt64();
             break;
           }
         }
@@ -437,8 +522,224 @@ namespace Protos {
             Id = input.ReadInt64();
             break;
           }
-          case 24: {
-            StudentId = input.ReadInt64();
+          case 26: {
+            StudentId = input.ReadString();
+            break;
+          }
+          case 32: {
+            Status = (global::Protos.validity) input.ReadEnum();
+            break;
+          }
+          case 40: {
+            CheckinTime = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class TimeInterval : pb::IMessage<TimeInterval>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<TimeInterval> _parser = new pb::MessageParser<TimeInterval>(() => new TimeInterval());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<TimeInterval> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Protos.CheckinReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TimeInterval() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TimeInterval(TimeInterval other) : this() {
+      fromTime_ = other.fromTime_;
+      toTime_ = other.toTime_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TimeInterval Clone() {
+      return new TimeInterval(this);
+    }
+
+    /// <summary>Field number for the "fromTime" field.</summary>
+    public const int FromTimeFieldNumber = 1;
+    private long fromTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long FromTime {
+      get { return fromTime_; }
+      set {
+        fromTime_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "toTime" field.</summary>
+    public const int ToTimeFieldNumber = 2;
+    private long toTime_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long ToTime {
+      get { return toTime_; }
+      set {
+        toTime_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as TimeInterval);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(TimeInterval other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (FromTime != other.FromTime) return false;
+      if (ToTime != other.ToTime) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (FromTime != 0L) hash ^= FromTime.GetHashCode();
+      if (ToTime != 0L) hash ^= ToTime.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (FromTime != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(FromTime);
+      }
+      if (ToTime != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(ToTime);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (FromTime != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(FromTime);
+      }
+      if (ToTime != 0L) {
+        output.WriteRawTag(16);
+        output.WriteInt64(ToTime);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (FromTime != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(FromTime);
+      }
+      if (ToTime != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(ToTime);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(TimeInterval other) {
+      if (other == null) {
+        return;
+      }
+      if (other.FromTime != 0L) {
+        FromTime = other.FromTime;
+      }
+      if (other.ToTime != 0L) {
+        ToTime = other.ToTime;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            FromTime = input.ReadInt64();
+            break;
+          }
+          case 16: {
+            ToTime = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            FromTime = input.ReadInt64();
+            break;
+          }
+          case 16: {
+            ToTime = input.ReadInt64();
             break;
           }
         }

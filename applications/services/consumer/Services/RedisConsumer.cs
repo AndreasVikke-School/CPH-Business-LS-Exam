@@ -16,7 +16,7 @@ public class RedisConsumer
 
     public CodeValidity CheckCodeValidity(AttendanceEvent attendanceEvent)
     {
-        long attandanceCode = long.Parse(attendanceEvent.AttendanceCode);
+        long attandanceCode = attendanceEvent.AttendanceCode;
         Int64Value request = new() { Value = attandanceCode };
         try
         {

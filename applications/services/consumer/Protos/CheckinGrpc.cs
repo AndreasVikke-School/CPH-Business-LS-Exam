@@ -11,9 +11,9 @@ namespace Protos {
   /// <summary>
   /// The greeting service definition.
   /// </summary>
-  public static partial class CheckInProto
+  public static partial class CheckInService
   {
-    static readonly string __ServiceName = "rpc.CheckInProto";
+    static readonly string __ServiceName = "rpc.CheckInService";
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static void __Helper_SerializeMessage(global::Google.Protobuf.IMessage message, grpc::SerializationContext context)
@@ -53,9 +53,13 @@ namespace Protos {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Protos.CheckIn> __Marshaller_rpc_CheckIn = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Protos.CheckIn.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-    static readonly grpc::Marshaller<global::Google.Protobuf.WellKnownTypes.Empty> __Marshaller_google_protobuf_Empty = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Google.Protobuf.WellKnownTypes.Empty.Parser));
-    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Protos.CheckIns> __Marshaller_rpc_CheckIns = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Protos.CheckIns.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Google.Protobuf.WellKnownTypes.StringValue> __Marshaller_google_protobuf_StringValue = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Google.Protobuf.WellKnownTypes.StringValue.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Protos.TimeInterval> __Marshaller_rpc_TimeInterval = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Protos.TimeInterval.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Google.Protobuf.WellKnownTypes.Empty> __Marshaller_google_protobuf_Empty = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Google.Protobuf.WellKnownTypes.Empty.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Int64Value, global::Protos.CheckIn> __Method_GetCheckInById = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Int64Value, global::Protos.CheckIn>(
@@ -66,6 +70,30 @@ namespace Protos {
         __Marshaller_rpc_CheckIn);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Int64Value, global::Protos.CheckIns> __Method_GetCheckInsByAttendenceCode = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Int64Value, global::Protos.CheckIns>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetCheckInsByAttendenceCode",
+        __Marshaller_google_protobuf_Int64Value,
+        __Marshaller_rpc_CheckIns);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.StringValue, global::Protos.CheckIns> __Method_GetCheckInsByStudentId = new grpc::Method<global::Google.Protobuf.WellKnownTypes.StringValue, global::Protos.CheckIns>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetCheckInsByStudentId",
+        __Marshaller_google_protobuf_StringValue,
+        __Marshaller_rpc_CheckIns);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Protos.TimeInterval, global::Protos.CheckIns> __Method_GetCheckInsByTime = new grpc::Method<global::Protos.TimeInterval, global::Protos.CheckIns>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetCheckInsByTime",
+        __Marshaller_rpc_TimeInterval,
+        __Marshaller_rpc_CheckIns);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Protos.CheckIns> __Method_GetAllCheckIns = new grpc::Method<global::Google.Protobuf.WellKnownTypes.Empty, global::Protos.CheckIns>(
         grpc::MethodType.Unary,
         __ServiceName,
@@ -73,36 +101,44 @@ namespace Protos {
         __Marshaller_google_protobuf_Empty,
         __Marshaller_rpc_CheckIns);
 
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Protos.CheckIn, global::Google.Protobuf.WellKnownTypes.Empty> __Method_InsertCheckIn = new grpc::Method<global::Protos.CheckIn, global::Google.Protobuf.WellKnownTypes.Empty>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "InsertCheckIn",
+        __Marshaller_rpc_CheckIn,
+        __Marshaller_google_protobuf_Empty);
+
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
       get { return global::Protos.CheckinReflection.Descriptor.Services[0]; }
     }
 
-    /// <summary>Client for CheckInProto</summary>
-    public partial class CheckInProtoClient : grpc::ClientBase<CheckInProtoClient>
+    /// <summary>Client for CheckInService</summary>
+    public partial class CheckInServiceClient : grpc::ClientBase<CheckInServiceClient>
     {
-      /// <summary>Creates a new client for CheckInProto</summary>
+      /// <summary>Creates a new client for CheckInService</summary>
       /// <param name="channel">The channel to use to make remote calls.</param>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public CheckInProtoClient(grpc::ChannelBase channel) : base(channel)
+      public CheckInServiceClient(grpc::ChannelBase channel) : base(channel)
       {
       }
-      /// <summary>Creates a new client for CheckInProto that uses a custom <c>CallInvoker</c>.</summary>
+      /// <summary>Creates a new client for CheckInService that uses a custom <c>CallInvoker</c>.</summary>
       /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      public CheckInProtoClient(grpc::CallInvoker callInvoker) : base(callInvoker)
+      public CheckInServiceClient(grpc::CallInvoker callInvoker) : base(callInvoker)
       {
       }
       /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      protected CheckInProtoClient() : base()
+      protected CheckInServiceClient() : base()
       {
       }
       /// <summary>Protected constructor to allow creation of configured clients.</summary>
       /// <param name="configuration">The client configuration.</param>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      protected CheckInProtoClient(ClientBaseConfiguration configuration) : base(configuration)
+      protected CheckInServiceClient(ClientBaseConfiguration configuration) : base(configuration)
       {
       }
 
@@ -127,6 +163,66 @@ namespace Protos {
         return CallInvoker.AsyncUnaryCall(__Method_GetCheckInById, null, options, request);
       }
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Protos.CheckIns GetCheckInsByAttendenceCode(global::Google.Protobuf.WellKnownTypes.Int64Value request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetCheckInsByAttendenceCode(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Protos.CheckIns GetCheckInsByAttendenceCode(global::Google.Protobuf.WellKnownTypes.Int64Value request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetCheckInsByAttendenceCode, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Protos.CheckIns> GetCheckInsByAttendenceCodeAsync(global::Google.Protobuf.WellKnownTypes.Int64Value request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetCheckInsByAttendenceCodeAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Protos.CheckIns> GetCheckInsByAttendenceCodeAsync(global::Google.Protobuf.WellKnownTypes.Int64Value request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetCheckInsByAttendenceCode, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Protos.CheckIns GetCheckInsByStudentId(global::Google.Protobuf.WellKnownTypes.StringValue request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetCheckInsByStudentId(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Protos.CheckIns GetCheckInsByStudentId(global::Google.Protobuf.WellKnownTypes.StringValue request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetCheckInsByStudentId, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Protos.CheckIns> GetCheckInsByStudentIdAsync(global::Google.Protobuf.WellKnownTypes.StringValue request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetCheckInsByStudentIdAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Protos.CheckIns> GetCheckInsByStudentIdAsync(global::Google.Protobuf.WellKnownTypes.StringValue request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetCheckInsByStudentId, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Protos.CheckIns GetCheckInsByTime(global::Protos.TimeInterval request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetCheckInsByTime(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Protos.CheckIns GetCheckInsByTime(global::Protos.TimeInterval request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetCheckInsByTime, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Protos.CheckIns> GetCheckInsByTimeAsync(global::Protos.TimeInterval request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetCheckInsByTimeAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Protos.CheckIns> GetCheckInsByTimeAsync(global::Protos.TimeInterval request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetCheckInsByTime, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::Protos.CheckIns GetAllCheckIns(global::Google.Protobuf.WellKnownTypes.Empty request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return GetAllCheckIns(request, new grpc::CallOptions(headers, deadline, cancellationToken));
@@ -146,11 +242,31 @@ namespace Protos {
       {
         return CallInvoker.AsyncUnaryCall(__Method_GetAllCheckIns, null, options, request);
       }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Google.Protobuf.WellKnownTypes.Empty InsertCheckIn(global::Protos.CheckIn request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return InsertCheckIn(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Google.Protobuf.WellKnownTypes.Empty InsertCheckIn(global::Protos.CheckIn request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_InsertCheckIn, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> InsertCheckInAsync(global::Protos.CheckIn request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return InsertCheckInAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Google.Protobuf.WellKnownTypes.Empty> InsertCheckInAsync(global::Protos.CheckIn request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_InsertCheckIn, null, options, request);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
-      protected override CheckInProtoClient NewInstance(ClientBaseConfiguration configuration)
+      protected override CheckInServiceClient NewInstance(ClientBaseConfiguration configuration)
       {
-        return new CheckInProtoClient(configuration);
+        return new CheckInServiceClient(configuration);
       }
     }
 
