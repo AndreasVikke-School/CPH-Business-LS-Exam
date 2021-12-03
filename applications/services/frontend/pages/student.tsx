@@ -1,43 +1,43 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import CheckInTable from '../components/checkins_table'
 import CheckInForm from '../components/checkin_form'
 import Menu from '../components/menu'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Home from '.';
 
-const data = [
-    {
-        attendance_code: "6453785",
-        unix: "1638187500",
-        status: "not found"
-    },
-    {
-        attendance_code: "7564873",
-        unix: "1638183900",
-        status: "success"
-    },
-    {
-        attendance_code: "1364859",
-        unix: "1638180300",
-        status: "oot"
-    },
-    {
-        attendance_code: "2341562",
-        unix: "1638176700",
-        status: "error"
-    },
-    {
-        attendance_code: "7564859",
-        unix: "	1638173100",
-        status: "success"
-    }
-]
+// const data = [
+//     {
+//         attendance_code: "6453785",
+//         unix: "1638187500",
+//         status: "not found"
+//     },
+//     {
+//         attendance_code: "7564873",
+//         unix: "1638183900",
+//         status: "success"
+//     },
+//     {
+//         attendance_code: "1364859",
+//         unix: "1638180300",
+//         status: "oot"
+//     },
+//     {
+//         attendance_code: "2341562",
+//         unix: "1638176700",
+//         status: "error"
+//     },
+//     {
+//         attendance_code: "7564859",
+//         unix: "	1638173100",
+//         status: "success"
+//     }
+// ]
 
-const Student: NextPage = () => {
+const Student: NextPage = ({ data }) => {
     const { data: session } = useSession()
 
     if (!session)
@@ -68,7 +68,7 @@ const Student: NextPage = () => {
                 </div>
 
                 <div className={styles.table}>
-                    <CheckInTable data={data} />
+                    <CheckInTable data={data.checkIn} />
                 </div>
             </main>
         </div>
@@ -76,3 +76,13 @@ const Student: NextPage = () => {
 }
 
 export default Student
+
+export async function getServerSideProps(ctx) {
+    var session = await getSession(ctx)
+
+    const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_IP}/api/checkins/student/${session?.user?.email}`);
+    const data = await res.json();
+    return {
+        props: { data },
+    };
+}
