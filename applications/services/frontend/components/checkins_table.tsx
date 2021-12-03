@@ -1,4 +1,13 @@
+type tplotOptions = {
+    [key: string]: string
+}
 
+const statuses: tplotOptions = {
+    "1": "success",
+    "2": "outOfTime",
+    "3": "notFound",
+    "4": "error"
+}
 
 const CheckInTable = ({ data }: { data: any }) => {
     return (
@@ -12,13 +21,14 @@ const CheckInTable = ({ data }: { data: any }) => {
             </thead>
             <tbody>
                 {data.map((d:any) => {
-                    var c = d.status == "success" ? "success" : d.status == "oot" ? "warning" : "danger"
-                    var date = new Date(d.unix * 1000)
+                    d.status = 2
+                    var c = d.status == 1 ? "success" : d.status == 2 ? "warning" : "danger"
+                    var date = new Date(d.checkinTime)
                     return (
                         <tr key={d.attendance_code}>
-                            <th scope="row">{d.attendance_code}</th>
+                            <th scope="row">{d.attendanceCode}</th>
                             <td>{date.toDateString()} - {date.getHours()}:{date.getMinutes()}</td>
-                            <td><span className={"badge bg-" + c}>{d.status}</span></td>
+                            <td><span className={"badge bg-" + c}>{statuses[d.status]}</span></td>
                         </tr>
                     )
                 })}
