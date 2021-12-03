@@ -10,7 +10,6 @@ import (
 	"strconv"
 	"time"
 
-	eh "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/redis/errorhandler"
 	pb "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/redis/rpc"
 
 	"github.com/go-redis/redis/v8"
@@ -82,14 +81,14 @@ func GetAttendanceCodeFromRedis(code int64, config Configuration) (int64, int64,
 		return 0, 0, 0, 0, err
 	}
 
-	fmt.Printf("DETTE ER RESULT: %s", result)
-	s, _ := strconv.Unquote(string(result))
-	fmt.Printf("DETTE ER S: %s", s)
 	var data jsonData
-	fmt.Println(data)
-	if err := json.Unmarshal([]byte(s), &data); err != nil {
-		eh.PanicOnError(err, "Couldn't convert json result to JSON data")
-	}
+	json.Unmarshal([]byte(result), &data)
+
+	// s, _ := strconv.Unquote(string(result))
+	// var data jsonData
+	// if err := json.Unmarshal([]byte(s), &data); err != nil {
+	// 	eh.PanicOnError(err, "Couldn't convert json result to JSON data")
+	// }
 
 	return code, data.Unix, data.Lat, data.Long, nil
 }
