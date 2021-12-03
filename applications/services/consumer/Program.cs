@@ -27,21 +27,25 @@ public class ConsumerService : BackgroundService
     private readonly KafkaConsumer _kafkaConsumer;
     private readonly RedisConsumer _redisConsumer;
     private readonly PostgresConsumer _postgresConsumer;
+    private readonly ILogger<ConsumerService> _logger;
 
-    public ConsumerService(KafkaConsumer kafkaConsumer, RedisConsumer redisConsumer, PostgresConsumer postgresConsumer)
+    public ConsumerService(KafkaConsumer kafkaConsumer, RedisConsumer redisConsumer, PostgresConsumer postgresConsumer, ILogger<ConsumerService> logger)
     {
         _kafkaConsumer = kafkaConsumer;
         _redisConsumer = redisConsumer;
         _postgresConsumer = postgresConsumer;
+        _logger = logger;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         => await Task.Run(async () 
             => {
+                _logger.LogInformation("Started polling kafka broker for new attendance events");
+
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    var attendance = _kafkaConsumer.Poll(stoppingToken);
-                    var codeValidity = _redisConsumer.CheckCodeValidity(attendance);
+                    AttendanceEvent attendance = _kafkaConsumer.Poll(stoppingToken);
+                    CodeValidity codeValidity = _redisConsumer.CheckCodeValidity(attendance);
                     await _postgresConsumer.SaveAttendanceEvent(attendance, codeValidity);
                 }
             }, stoppingToken);

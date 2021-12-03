@@ -19,7 +19,9 @@ public class KafkaConsumer
             BootstrapServers = option.kafkaBrokers,
             GroupId = "consumer",
             AllowAutoCreateTopics = true,
-            AutoOffsetReset = AutoOffsetReset.Latest
+            AutoOffsetReset = AutoOffsetReset.Earliest,
+            SecurityProtocol = SecurityProtocol.Plaintext,
+            EnableAutoCommit = false
         };
         _topic = option.CheckinTopic;
 
@@ -35,9 +37,12 @@ public class KafkaConsumer
         var result = consumer.Consume(ct);
         var message = result.Message;
 
-        _logger.LogInformation($"Consumed attandance event: {message.Value}");
+        consumer.Commit(result);
 
-        return JsonSerializer.Deserialize<AttendanceEvent>(message.Value) ?? new();
+        AttendanceEvent value = JsonSerializer.Deserialize<AttendanceEvent>(message.Value) ?? new();
+        _logger.LogInformation($"Consumed attandance event: {value}");
+
+        return value;
     }
 }
 
