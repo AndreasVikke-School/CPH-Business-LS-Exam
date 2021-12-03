@@ -82,8 +82,9 @@ func GetAttendanceCodeFromRedis(code int64, config Configuration) (int64, int64,
 		return 0, 0, 0, 0, err
 	}
 
+	fmt.Printf("DETTE ER RESULT: %s", result)
 	s, _ := strconv.Unquote(string(result))
-	fmt.Printf(fmt.Sprintf("DETTE ER S: %s", s))
+	fmt.Printf("DETTE ER S: %s", s)
 	var data jsonData
 	fmt.Println(data)
 	if err := json.Unmarshal([]byte(s), &data); err != nil {
