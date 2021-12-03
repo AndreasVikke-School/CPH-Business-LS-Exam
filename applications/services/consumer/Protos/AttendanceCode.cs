@@ -25,18 +25,19 @@ namespace Protos {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChVhdHRlbmRhbmNlX2NvZGUucHJvdG8SA3JwYxoeZ29vZ2xlL3Byb3RvYnVm",
-            "L3dyYXBwZXJzLnByb3RvIi0KFEF0dGVuZGFuY2VDb2RlQ3JlYXRlEhUKDW1p",
-            "bnV0ZXNUb0xpdmUYASABKAMiLAoOQXR0ZW5kYW5jZUNvZGUSDAoEY29kZRgB",
-            "IAEoAxIMCgR1bml4GAIgASgDMqgBChNBdHRlbmRhbmNlQ29kZVByb3RvEkkK",
-            "FUdldEF0dGVuZGFuY2VDb2RlQnlJZBIbLmdvb2dsZS5wcm90b2J1Zi5JbnQ2",
-            "NFZhbHVlGhMucnBjLkF0dGVuZGFuY2VDb2RlEkYKFENyZWF0ZUF0dGVuZGFu",
-            "Y2VDb2RlEhkucnBjLkF0dGVuZGFuY2VDb2RlQ3JlYXRlGhMucnBjLkF0dGVu",
-            "ZGFuY2VDb2RlQgmqAgZQcm90b3NiBnByb3RvMw=="));
+            "L3dyYXBwZXJzLnByb3RvIkgKFEF0dGVuZGFuY2VDb2RlQ3JlYXRlEhUKDW1p",
+            "bnV0ZXNUb0xpdmUYASABKAMSCwoDbGF0GAMgASgBEgwKBGxvbmcYBCABKAEi",
+            "RwoOQXR0ZW5kYW5jZUNvZGUSDAoEY29kZRgBIAEoAxIMCgR1bml4GAIgASgD",
+            "EgsKA2xhdBgDIAEoARIMCgRsb25nGAQgASgBMqgBChNBdHRlbmRhbmNlQ29k",
+            "ZVByb3RvEkkKFUdldEF0dGVuZGFuY2VDb2RlQnlJZBIbLmdvb2dsZS5wcm90",
+            "b2J1Zi5JbnQ2NFZhbHVlGhMucnBjLkF0dGVuZGFuY2VDb2RlEkYKFENyZWF0",
+            "ZUF0dGVuZGFuY2VDb2RlEhkucnBjLkF0dGVuZGFuY2VDb2RlQ3JlYXRlGhMu",
+            "cnBjLkF0dGVuZGFuY2VDb2RlQg9aBC9ycGOqAgZQcm90b3NiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.WrappersReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protos.AttendanceCodeCreate), global::Protos.AttendanceCodeCreate.Parser, new[]{ "MinutesToLive" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protos.AttendanceCode), global::Protos.AttendanceCode.Parser, new[]{ "Code", "Unix" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protos.AttendanceCodeCreate), global::Protos.AttendanceCodeCreate.Parser, new[]{ "MinutesToLive", "Lat", "Long" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protos.AttendanceCode), global::Protos.AttendanceCode.Parser, new[]{ "Code", "Unix", "Lat", "Long" }, null, null, null, null)
           }));
     }
     #endregion
@@ -73,6 +74,8 @@ namespace Protos {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public AttendanceCodeCreate(AttendanceCodeCreate other) : this() {
       minutesToLive_ = other.minutesToLive_;
+      lat_ = other.lat_;
+      long_ = other.long_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -92,6 +95,28 @@ namespace Protos {
       }
     }
 
+    /// <summary>Field number for the "lat" field.</summary>
+    public const int LatFieldNumber = 3;
+    private double lat_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double Lat {
+      get { return lat_; }
+      set {
+        lat_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "long" field.</summary>
+    public const int LongFieldNumber = 4;
+    private double long_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double Long {
+      get { return long_; }
+      set {
+        long_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as AttendanceCodeCreate);
@@ -106,6 +131,8 @@ namespace Protos {
         return true;
       }
       if (MinutesToLive != other.MinutesToLive) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Lat, other.Lat)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Long, other.Long)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -113,6 +140,8 @@ namespace Protos {
     public override int GetHashCode() {
       int hash = 1;
       if (MinutesToLive != 0L) hash ^= MinutesToLive.GetHashCode();
+      if (Lat != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Lat);
+      if (Long != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Long);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -133,6 +162,14 @@ namespace Protos {
         output.WriteRawTag(8);
         output.WriteInt64(MinutesToLive);
       }
+      if (Lat != 0D) {
+        output.WriteRawTag(25);
+        output.WriteDouble(Lat);
+      }
+      if (Long != 0D) {
+        output.WriteRawTag(33);
+        output.WriteDouble(Long);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -146,6 +183,14 @@ namespace Protos {
         output.WriteRawTag(8);
         output.WriteInt64(MinutesToLive);
       }
+      if (Lat != 0D) {
+        output.WriteRawTag(25);
+        output.WriteDouble(Lat);
+      }
+      if (Long != 0D) {
+        output.WriteRawTag(33);
+        output.WriteDouble(Long);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -157,6 +202,12 @@ namespace Protos {
       int size = 0;
       if (MinutesToLive != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(MinutesToLive);
+      }
+      if (Lat != 0D) {
+        size += 1 + 8;
+      }
+      if (Long != 0D) {
+        size += 1 + 8;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -171,6 +222,12 @@ namespace Protos {
       }
       if (other.MinutesToLive != 0L) {
         MinutesToLive = other.MinutesToLive;
+      }
+      if (other.Lat != 0D) {
+        Lat = other.Lat;
+      }
+      if (other.Long != 0D) {
+        Long = other.Long;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -190,6 +247,14 @@ namespace Protos {
             MinutesToLive = input.ReadInt64();
             break;
           }
+          case 25: {
+            Lat = input.ReadDouble();
+            break;
+          }
+          case 33: {
+            Long = input.ReadDouble();
+            break;
+          }
         }
       }
     #endif
@@ -206,6 +271,14 @@ namespace Protos {
             break;
           case 8: {
             MinutesToLive = input.ReadInt64();
+            break;
+          }
+          case 25: {
+            Lat = input.ReadDouble();
+            break;
+          }
+          case 33: {
+            Long = input.ReadDouble();
             break;
           }
         }
@@ -246,6 +319,8 @@ namespace Protos {
     public AttendanceCode(AttendanceCode other) : this() {
       code_ = other.code_;
       unix_ = other.unix_;
+      lat_ = other.lat_;
+      long_ = other.long_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -276,6 +351,28 @@ namespace Protos {
       }
     }
 
+    /// <summary>Field number for the "lat" field.</summary>
+    public const int LatFieldNumber = 3;
+    private double lat_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double Lat {
+      get { return lat_; }
+      set {
+        lat_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "long" field.</summary>
+    public const int LongFieldNumber = 4;
+    private double long_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public double Long {
+      get { return long_; }
+      set {
+        long_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as AttendanceCode);
@@ -291,6 +388,8 @@ namespace Protos {
       }
       if (Code != other.Code) return false;
       if (Unix != other.Unix) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Lat, other.Lat)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(Long, other.Long)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -299,6 +398,8 @@ namespace Protos {
       int hash = 1;
       if (Code != 0L) hash ^= Code.GetHashCode();
       if (Unix != 0L) hash ^= Unix.GetHashCode();
+      if (Lat != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Lat);
+      if (Long != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(Long);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -323,6 +424,14 @@ namespace Protos {
         output.WriteRawTag(16);
         output.WriteInt64(Unix);
       }
+      if (Lat != 0D) {
+        output.WriteRawTag(25);
+        output.WriteDouble(Lat);
+      }
+      if (Long != 0D) {
+        output.WriteRawTag(33);
+        output.WriteDouble(Long);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -340,6 +449,14 @@ namespace Protos {
         output.WriteRawTag(16);
         output.WriteInt64(Unix);
       }
+      if (Lat != 0D) {
+        output.WriteRawTag(25);
+        output.WriteDouble(Lat);
+      }
+      if (Long != 0D) {
+        output.WriteRawTag(33);
+        output.WriteDouble(Long);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -354,6 +471,12 @@ namespace Protos {
       }
       if (Unix != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Unix);
+      }
+      if (Lat != 0D) {
+        size += 1 + 8;
+      }
+      if (Long != 0D) {
+        size += 1 + 8;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -371,6 +494,12 @@ namespace Protos {
       }
       if (other.Unix != 0L) {
         Unix = other.Unix;
+      }
+      if (other.Lat != 0D) {
+        Lat = other.Lat;
+      }
+      if (other.Long != 0D) {
+        Long = other.Long;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -394,6 +523,14 @@ namespace Protos {
             Unix = input.ReadInt64();
             break;
           }
+          case 25: {
+            Lat = input.ReadDouble();
+            break;
+          }
+          case 33: {
+            Long = input.ReadDouble();
+            break;
+          }
         }
       }
     #endif
@@ -414,6 +551,14 @@ namespace Protos {
           }
           case 16: {
             Unix = input.ReadInt64();
+            break;
+          }
+          case 25: {
+            Lat = input.ReadDouble();
+            break;
+          }
+          case 33: {
+            Long = input.ReadDouble();
             break;
           }
         }
