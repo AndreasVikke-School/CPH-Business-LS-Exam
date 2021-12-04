@@ -17,7 +17,7 @@ public class KafkaConsumer
         ConsumerConfig config = new()
         {
             BootstrapServers = option.kafkaBrokers,
-            GroupId = "consumer",
+            GroupId = option.GroupId,
             AllowAutoCreateTopics = true,
             AutoOffsetReset = AutoOffsetReset.Earliest,
             SecurityProtocol = SecurityProtocol.Plaintext,

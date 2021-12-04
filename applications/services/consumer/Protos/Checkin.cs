@@ -30,18 +30,18 @@ namespace Protos {
             "EhYKDmF0dGVuZGFuY2VDb2RlGAEgASgDEgoKAmlkGAIgASgDEhEKCXN0dWRl",
             "bnRJZBgDIAEoCRIdCgZzdGF0dXMYBCABKA4yDS5ycGMudmFsaWRpdHkSEwoL",
             "Y2hlY2tpblRpbWUYBSABKAMiMAoMVGltZUludGVydmFsEhAKCGZyb21UaW1l",
-            "GAEgASgDEg4KBnRvVGltZRgCIAEoAypCCgh2YWxpZGl0eRILCgdTVUNDRVNT",
-            "EAASDwoLT1VUX09GX1RJTUUQARINCglOT1RfRk9VTkQQAhIJCgVFUlJPUhAD",
-            "MoYDCg5DaGVja0luU2VydmljZRI7Cg5HZXRDaGVja0luQnlJZBIbLmdvb2ds",
-            "ZS5wcm90b2J1Zi5JbnQ2NFZhbHVlGgwucnBjLkNoZWNrSW4SSQobR2V0Q2hl",
-            "Y2tJbnNCeUF0dGVuZGVuY2VDb2RlEhsuZ29vZ2xlLnByb3RvYnVmLkludDY0",
-            "VmFsdWUaDS5ycGMuQ2hlY2tJbnMSRQoWR2V0Q2hlY2tJbnNCeVN0dWRlbnRJ",
-            "ZBIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZRoNLnJwYy5DaGVja0lu",
-            "cxI1ChFHZXRDaGVja0luc0J5VGltZRIRLnJwYy5UaW1lSW50ZXJ2YWwaDS5y",
-            "cGMuQ2hlY2tJbnMSNwoOR2V0QWxsQ2hlY2tJbnMSFi5nb29nbGUucHJvdG9i",
-            "dWYuRW1wdHkaDS5ycGMuQ2hlY2tJbnMSNQoNSW5zZXJ0Q2hlY2tJbhIMLnJw",
-            "Yy5DaGVja0luGhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5Qg9aBC9ycGOqAgZQ",
-            "cm90b3NiBnByb3RvMw=="));
+            "GAEgASgDEg4KBnRvVGltZRgCIAEoAypUCgh2YWxpZGl0eRILCgdTVUNDRVNT",
+            "EAASDwoLT1VUX09GX1RJTUUQARINCglOT1RfRk9VTkQQAhIQCgxPVVRfT0Zf",
+            "UkFOR0UQAxIJCgVFUlJPUhAEMoYDCg5DaGVja0luU2VydmljZRI7Cg5HZXRD",
+            "aGVja0luQnlJZBIbLmdvb2dsZS5wcm90b2J1Zi5JbnQ2NFZhbHVlGgwucnBj",
+            "LkNoZWNrSW4SSQobR2V0Q2hlY2tJbnNCeUF0dGVuZGVuY2VDb2RlEhsuZ29v",
+            "Z2xlLnByb3RvYnVmLkludDY0VmFsdWUaDS5ycGMuQ2hlY2tJbnMSRQoWR2V0",
+            "Q2hlY2tJbnNCeVN0dWRlbnRJZBIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdW",
+            "YWx1ZRoNLnJwYy5DaGVja0lucxI1ChFHZXRDaGVja0luc0J5VGltZRIRLnJw",
+            "Yy5UaW1lSW50ZXJ2YWwaDS5ycGMuQ2hlY2tJbnMSNwoOR2V0QWxsQ2hlY2tJ",
+            "bnMSFi5nb29nbGUucHJvdG9idWYuRW1wdHkaDS5ycGMuQ2hlY2tJbnMSNQoN",
+            "SW5zZXJ0Q2hlY2tJbhIMLnJwYy5DaGVja0luGhYuZ29vZ2xlLnByb3RvYnVm",
+            "LkVtcHR5Qg9aBC9ycGOqAgZQcm90b3NiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.WrappersReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protos.validity), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -58,7 +58,8 @@ namespace Protos {
     [pbr::OriginalName("SUCCESS")] Success = 0,
     [pbr::OriginalName("OUT_OF_TIME")] OutOfTime = 1,
     [pbr::OriginalName("NOT_FOUND")] NotFound = 2,
-    [pbr::OriginalName("ERROR")] Error = 3,
+    [pbr::OriginalName("OUT_OF_RANGE")] OutOfRange = 3,
+    [pbr::OriginalName("ERROR")] Error = 4,
   }
 
   #endregion

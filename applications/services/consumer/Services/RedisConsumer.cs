@@ -27,13 +27,12 @@ public class RedisConsumer
                 _logger.LogInformation($"Could not find any attendance code for: {attendanceEvent}");
                 return CodeValidity.NotFound;
             }
-               
 
             _logger.LogInformation($"Found matching attendance code: {code}");
 
-            double distanceInMeters = GeoCalculator.GetDistance(code.Lat, attendanceEvent.Latitude, code.Long, attendanceEvent.Longitude, distanceUnit: DistanceUnit.Meters);
+            double distanceInMeters = GeoCalculator.GetDistance(code.Lat, code.Long, attendanceEvent.Latitude, attendanceEvent.Longitude, distanceUnit: DistanceUnit.Meters);
             if (distanceInMeters > 100d)
-                return CodeValidity.Error;
+                return CodeValidity.OutOfRange;
 
             return attendanceEvent.CurrentUnixTime > code.Unix 
                 ? CodeValidity.OutOfTime 

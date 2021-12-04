@@ -27,6 +27,7 @@ public static class Helper
             CodeValidity.Success => validity.Success,
             CodeValidity.OutOfTime => validity.OutOfTime,
             CodeValidity.NotFound => validity.NotFound,
+            CodeValidity.OutOfRange => validity.OutOfRange,
             CodeValidity.Error => validity.Error,
             _ => throw new NotImplementedException()
         };

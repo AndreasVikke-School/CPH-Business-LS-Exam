@@ -13,7 +13,7 @@ var (
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "attendance_code", Type: field.TypeInt64},
 		{Name: "student_id", Type: field.TypeString},
-		{Name: "status", Type: field.TypeEnum, Enums: []string{"success", "outOfTime", "notFound", "error"}},
+		{Name: "status", Type: field.TypeEnum, Enums: []string{"success", "outOfTime", "notFound", "outOfRange", "error"}},
 		{Name: "checkin_time", Type: field.TypeInt64},
 	}
 	// CheckInsTable holds the schema information for the "check_ins" table.
