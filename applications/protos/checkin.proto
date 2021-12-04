@@ -38,5 +38,7 @@ enum validity {
   SUCCESS = 0;
   OUT_OF_TIME = 1;
   NOT_FOUND = 2;
-  ERROR = 3;
+  OUT_OF_RANGE = 3;
+  ERROR = 4;
+  
 }

@@ -52,10 +52,11 @@ type Status string
 
 // Status values.
 const (
-	StatusSuccess   Status = "success"
-	StatusOutOfTime Status = "outOfTime"
-	StatusNotFound  Status = "notFound"
-	StatusError     Status = "error"
+	StatusSuccess    Status = "success"
+	StatusOutOfTime  Status = "outOfTime"
+	StatusNotFound   Status = "notFound"
+	StatusOutOfRange Status = "outOfRange"
+	StatusError      Status = "error"
 )
 
 func (s Status) String() string {
@@ -65,7 +66,7 @@ func (s Status) String() string {
 // StatusValidator is a validator for the "status" field enum values. It is called by the builders before save.
 func StatusValidator(s Status) error {
 	switch s {
-	case StatusSuccess, StatusOutOfTime, StatusNotFound, StatusError:
+	case StatusSuccess, StatusOutOfTime, StatusNotFound, StatusOutOfRange, StatusError:
 		return nil
 	default:
 		return fmt.Errorf("checkin: invalid enum value for status field: %q", s)

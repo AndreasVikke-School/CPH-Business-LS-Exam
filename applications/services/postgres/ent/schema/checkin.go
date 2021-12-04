@@ -17,7 +17,7 @@ func (CheckIn) Fields() []ent.Field {
 			Positive().Min(1000000).Max(9999999),
 		field.String("studentId"),
 		field.Enum("status").
-			Values("success", "outOfTime", "notFound", "error"),
+			Values("success", "outOfTime", "notFound", "outOfRange", "error"),
 		field.Int64("checkinTime"),
 	}
 }

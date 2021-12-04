@@ -86,6 +86,8 @@ func MapValidityToStatus(validity pb.Validity) checkin.Status {
 		return checkin.StatusOutOfTime
 	case pb.Validity_NOT_FOUND:
 		return checkin.StatusNotFound
+	case pb.Validity_OUT_OF_RANGE:
+		return checkin.StatusOutOfRange
 	default:
 		return checkin.StatusError
 	}
@@ -99,6 +101,8 @@ func MapStatusToValidity(status checkin.Status) pb.Validity {
 		return pb.Validity_OUT_OF_TIME
 	case checkin.StatusNotFound:
 		return pb.Validity_NOT_FOUND
+	case checkin.StatusOutOfRange:
+		return pb.Validity_OUT_OF_RANGE
 	default:
 		return pb.Validity_ERROR
 	}
