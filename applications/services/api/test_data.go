@@ -29,7 +29,7 @@ func ProduceCheckInTestData(c *gin.Context) {
 			checkins = append(checkins, CheckIn{
 				AttendanceCode:  attendancecode.GetCode(),
 				StudentID:       "azv@efio.dk",
-				CurrentUnixTime: 12345,
+				CurrentUnixTime: 999999999999999999,
 				Latitude:        attendancecode.GetLat(),
 				Longitude:       attendancecode.GetLong(),
 			})

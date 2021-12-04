@@ -26,7 +26,7 @@ export const options = {
 const TeacherChart = ({ checkins } : any) => {
     checkins = "checkIn" in checkins ? checkins : { checkIn: []}
 
-    const labels = checkins.checkIn.map((d: any) => d.attendanceCode)
+    const labels = Array.from(new Set(checkins.checkIn.map((d: any) => d.attendanceCode)))
 
     const data = {
         labels,
