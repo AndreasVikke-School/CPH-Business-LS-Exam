@@ -63,7 +63,6 @@ func GetCheckInByIdFromPostgres(ctx context.Context, id int64, config Configurat
 func GetCheckIns(ctx context.Context, config Configuration) ([]*ent.CheckIn, error) {
 	client := GetPostgresClient(config)
 	cis, err := client.CheckIn.Query().All(ctx)
-	// fmt.Println(cis)
 
 	defer client.Close()
 	if err != nil {

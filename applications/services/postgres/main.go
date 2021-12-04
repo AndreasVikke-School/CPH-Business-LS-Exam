@@ -38,7 +38,6 @@ func (s *server) GetCheckInById(ctx context.Context, in *wrapperspb.Int64Value) 
 func (s *server) GetAllCheckIns(ctx context.Context, empt *emptypb.Empty) (*pb.CheckIns, error) {
 	checkIns, err := GetCheckIns(ctx, configuration)
 	c, e := GetGrpcCheckIns(checkIns, err)
-	// fmt.Println(c.CheckIn)
 	return c, e
 }
 
@@ -66,7 +65,6 @@ func GetGrpcCheckIns(checkIns []*ent.CheckIn, err error) (*pb.CheckIns, error) {
 	for _, ci := range checkIns {
 		result = append(result, &pb.CheckIn{Id: int64(ci.ID), AttendanceCode: ci.AttendanceCode, StudentId: ci.StudentId, CheckinTime: ci.CheckinTime, Status: MapStatusToValidity(ci.Status)})
 	}
-	fmt.Println(result)
 
 	return &pb.CheckIns{CheckIn: result}, nil
 }
