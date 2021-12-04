@@ -45,7 +45,7 @@ const Student = () => {
         const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_IP}/api/checkins/student/${session?.user?.email}`);
         const data = await res.json();
         setData(data)
-    }, [data])
+    }, [])
 
     useEffect(() => {
         fetchData()
