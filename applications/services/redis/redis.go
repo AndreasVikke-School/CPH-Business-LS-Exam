@@ -35,6 +35,7 @@ func RandomCode() int64 {
 
 func GetUniqueCode(config Configuration) int64 {
 	rdb := GetRedisClient(config)
+	defer rdb.Close()
 	code := RandomCode()
 	for {
 		exists := rdb.HExists(rdb.Context(), redis_key, strconv.FormatInt(code, 10)).Val()
@@ -48,6 +49,7 @@ func GetUniqueCode(config Configuration) int64 {
 
 func CreateAttendanceCodeInRedis(in *pb.AttendanceCodeCreate, config Configuration) (int64, int64, float64, float64, error) {
 	rdb := GetRedisClient(config)
+	defer rdb.Close()
 	code := GetUniqueCode(config)
 	unix := time.Now().UnixNano()/1000000 + (in.MinutesToLive * 60 * 1000)
 	dataAsJson := fmt.Sprintf(`{"unix": %d, "lat": %f, "long": %f}`, unix, in.Lat, in.Long)
@@ -69,6 +71,7 @@ type jsonData struct {
 
 func GetAttendanceCodeFromRedis(code int64, config Configuration) (int64, int64, float64, float64, error) {
 	rdb := GetRedisClient(config)
+	defer rdb.Close()
 	exists := rdb.HExists(context.Background(), redis_key, strconv.FormatInt(code, 10)).Val()
 	if !exists {
 		log.Printf("code not found in redis")
