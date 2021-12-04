@@ -6,7 +6,7 @@ import CheckInForm from '../components/checkin_form'
 import Menu from '../components/menu'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Home from '.';
 
 // const data = [
@@ -37,8 +37,19 @@ import Home from '.';
 //     }
 // ]
 
-const Student = ({ data }: { data: any }) => {
+const Student = () => {
+    const [data, setData] = useState({})
     const { data: session } = useSession()
+
+    const fetchData = useCallback(async () => {
+        const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_IP}/api/checkins/student/${session?.user?.email}`);
+        const data = await res.json();
+        setData(data)
+    }, [data])
+
+    useEffect(() => {
+        fetchData()
+    }, [fetchData])
 
     if (!session)
         return (
@@ -76,13 +87,3 @@ const Student = ({ data }: { data: any }) => {
 }
 
 export default Student
-
-export async function getServerSideProps(ctx : any) {
-    var session = await getSession(ctx)
-
-    const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_IP}/api/checkins/student/${session?.user?.email}`);
-    const data = await res.json();
-    return {
-        props: { data },
-    };
-}
