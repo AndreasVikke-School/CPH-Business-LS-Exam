@@ -25,6 +25,7 @@ public class RedisConsumer
             if (code is { Code: -1, Unix: -1 })
             {
                 _logger.LogInformation($"Could not find any attendance code for: {attendanceEvent}");
+                _logger.LogInformation($"Redis returned attendance code: {code}");
                 return CodeValidity.NotFound;
             }
 
