@@ -1,4 +1,4 @@
-api_service_image_version      = "sha256-e9c9dcddec39"
+api_service_image_version      = "sha256-3bd3c5a97f7a"
 redis_service_image_version    = "sha256-cf82044b284a"
 postgres_service_image_version = "sha256-da5a8bdc4f89"
 frontend_service_image_version = "sha256-2ecfaa5fca97"

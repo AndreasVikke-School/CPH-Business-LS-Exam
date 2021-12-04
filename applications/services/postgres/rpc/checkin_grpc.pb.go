@@ -4,11 +4,11 @@ package rpc
 
 import (
 	context "context"
+	empty "github.com/golang/protobuf/ptypes/empty"
+	wrappers "github.com/golang/protobuf/ptypes/wrappers"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
-	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -20,12 +20,12 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CheckInServiceClient interface {
-	GetCheckInById(ctx context.Context, in *wrapperspb.Int64Value, opts ...grpc.CallOption) (*CheckIn, error)
-	GetCheckInsByAttendenceCode(ctx context.Context, in *wrapperspb.Int64Value, opts ...grpc.CallOption) (*CheckIns, error)
-	GetCheckInsByStudentId(ctx context.Context, in *wrapperspb.StringValue, opts ...grpc.CallOption) (*CheckIns, error)
+	GetCheckInById(ctx context.Context, in *wrappers.Int64Value, opts ...grpc.CallOption) (*CheckIn, error)
+	GetCheckInsByAttendenceCode(ctx context.Context, in *wrappers.Int64Value, opts ...grpc.CallOption) (*CheckIns, error)
+	GetCheckInsByStudentId(ctx context.Context, in *wrappers.StringValue, opts ...grpc.CallOption) (*CheckIns, error)
 	GetCheckInsByTime(ctx context.Context, in *TimeInterval, opts ...grpc.CallOption) (*CheckIns, error)
-	GetAllCheckIns(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CheckIns, error)
-	InsertCheckIn(ctx context.Context, in *CheckIn, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetAllCheckIns(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*CheckIns, error)
+	InsertCheckIn(ctx context.Context, in *CheckIn, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type checkInServiceClient struct {
@@ -36,7 +36,7 @@ func NewCheckInServiceClient(cc grpc.ClientConnInterface) CheckInServiceClient {
 	return &checkInServiceClient{cc}
 }
 
-func (c *checkInServiceClient) GetCheckInById(ctx context.Context, in *wrapperspb.Int64Value, opts ...grpc.CallOption) (*CheckIn, error) {
+func (c *checkInServiceClient) GetCheckInById(ctx context.Context, in *wrappers.Int64Value, opts ...grpc.CallOption) (*CheckIn, error) {
 	out := new(CheckIn)
 	err := c.cc.Invoke(ctx, "/rpc.CheckInService/GetCheckInById", in, out, opts...)
 	if err != nil {
@@ -45,7 +45,7 @@ func (c *checkInServiceClient) GetCheckInById(ctx context.Context, in *wrappersp
 	return out, nil
 }
 
-func (c *checkInServiceClient) GetCheckInsByAttendenceCode(ctx context.Context, in *wrapperspb.Int64Value, opts ...grpc.CallOption) (*CheckIns, error) {
+func (c *checkInServiceClient) GetCheckInsByAttendenceCode(ctx context.Context, in *wrappers.Int64Value, opts ...grpc.CallOption) (*CheckIns, error) {
 	out := new(CheckIns)
 	err := c.cc.Invoke(ctx, "/rpc.CheckInService/GetCheckInsByAttendenceCode", in, out, opts...)
 	if err != nil {
@@ -54,7 +54,7 @@ func (c *checkInServiceClient) GetCheckInsByAttendenceCode(ctx context.Context, 
 	return out, nil
 }
 
-func (c *checkInServiceClient) GetCheckInsByStudentId(ctx context.Context, in *wrapperspb.StringValue, opts ...grpc.CallOption) (*CheckIns, error) {
+func (c *checkInServiceClient) GetCheckInsByStudentId(ctx context.Context, in *wrappers.StringValue, opts ...grpc.CallOption) (*CheckIns, error) {
 	out := new(CheckIns)
 	err := c.cc.Invoke(ctx, "/rpc.CheckInService/GetCheckInsByStudentId", in, out, opts...)
 	if err != nil {
@@ -72,7 +72,7 @@ func (c *checkInServiceClient) GetCheckInsByTime(ctx context.Context, in *TimeIn
 	return out, nil
 }
 
-func (c *checkInServiceClient) GetAllCheckIns(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*CheckIns, error) {
+func (c *checkInServiceClient) GetAllCheckIns(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*CheckIns, error) {
 	out := new(CheckIns)
 	err := c.cc.Invoke(ctx, "/rpc.CheckInService/GetAllCheckIns", in, out, opts...)
 	if err != nil {
@@ -81,8 +81,8 @@ func (c *checkInServiceClient) GetAllCheckIns(ctx context.Context, in *emptypb.E
 	return out, nil
 }
 
-func (c *checkInServiceClient) InsertCheckIn(ctx context.Context, in *CheckIn, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
+func (c *checkInServiceClient) InsertCheckIn(ctx context.Context, in *CheckIn, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
 	err := c.cc.Invoke(ctx, "/rpc.CheckInService/InsertCheckIn", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -94,12 +94,12 @@ func (c *checkInServiceClient) InsertCheckIn(ctx context.Context, in *CheckIn, o
 // All implementations must embed UnimplementedCheckInServiceServer
 // for forward compatibility
 type CheckInServiceServer interface {
-	GetCheckInById(context.Context, *wrapperspb.Int64Value) (*CheckIn, error)
-	GetCheckInsByAttendenceCode(context.Context, *wrapperspb.Int64Value) (*CheckIns, error)
-	GetCheckInsByStudentId(context.Context, *wrapperspb.StringValue) (*CheckIns, error)
+	GetCheckInById(context.Context, *wrappers.Int64Value) (*CheckIn, error)
+	GetCheckInsByAttendenceCode(context.Context, *wrappers.Int64Value) (*CheckIns, error)
+	GetCheckInsByStudentId(context.Context, *wrappers.StringValue) (*CheckIns, error)
 	GetCheckInsByTime(context.Context, *TimeInterval) (*CheckIns, error)
-	GetAllCheckIns(context.Context, *emptypb.Empty) (*CheckIns, error)
-	InsertCheckIn(context.Context, *CheckIn) (*emptypb.Empty, error)
+	GetAllCheckIns(context.Context, *empty.Empty) (*CheckIns, error)
+	InsertCheckIn(context.Context, *CheckIn) (*empty.Empty, error)
 	mustEmbedUnimplementedCheckInServiceServer()
 }
 
@@ -107,22 +107,22 @@ type CheckInServiceServer interface {
 type UnimplementedCheckInServiceServer struct {
 }
 
-func (UnimplementedCheckInServiceServer) GetCheckInById(context.Context, *wrapperspb.Int64Value) (*CheckIn, error) {
+func (UnimplementedCheckInServiceServer) GetCheckInById(context.Context, *wrappers.Int64Value) (*CheckIn, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCheckInById not implemented")
 }
-func (UnimplementedCheckInServiceServer) GetCheckInsByAttendenceCode(context.Context, *wrapperspb.Int64Value) (*CheckIns, error) {
+func (UnimplementedCheckInServiceServer) GetCheckInsByAttendenceCode(context.Context, *wrappers.Int64Value) (*CheckIns, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCheckInsByAttendenceCode not implemented")
 }
-func (UnimplementedCheckInServiceServer) GetCheckInsByStudentId(context.Context, *wrapperspb.StringValue) (*CheckIns, error) {
+func (UnimplementedCheckInServiceServer) GetCheckInsByStudentId(context.Context, *wrappers.StringValue) (*CheckIns, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCheckInsByStudentId not implemented")
 }
 func (UnimplementedCheckInServiceServer) GetCheckInsByTime(context.Context, *TimeInterval) (*CheckIns, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCheckInsByTime not implemented")
 }
-func (UnimplementedCheckInServiceServer) GetAllCheckIns(context.Context, *emptypb.Empty) (*CheckIns, error) {
+func (UnimplementedCheckInServiceServer) GetAllCheckIns(context.Context, *empty.Empty) (*CheckIns, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllCheckIns not implemented")
 }
-func (UnimplementedCheckInServiceServer) InsertCheckIn(context.Context, *CheckIn) (*emptypb.Empty, error) {
+func (UnimplementedCheckInServiceServer) InsertCheckIn(context.Context, *CheckIn) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InsertCheckIn not implemented")
 }
 func (UnimplementedCheckInServiceServer) mustEmbedUnimplementedCheckInServiceServer() {}
@@ -139,7 +139,7 @@ func RegisterCheckInServiceServer(s grpc.ServiceRegistrar, srv CheckInServiceSer
 }
 
 func _CheckInService_GetCheckInById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(wrapperspb.Int64Value)
+	in := new(wrappers.Int64Value)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -151,13 +151,13 @@ func _CheckInService_GetCheckInById_Handler(srv interface{}, ctx context.Context
 		FullMethod: "/rpc.CheckInService/GetCheckInById",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CheckInServiceServer).GetCheckInById(ctx, req.(*wrapperspb.Int64Value))
+		return srv.(CheckInServiceServer).GetCheckInById(ctx, req.(*wrappers.Int64Value))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _CheckInService_GetCheckInsByAttendenceCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(wrapperspb.Int64Value)
+	in := new(wrappers.Int64Value)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -169,13 +169,13 @@ func _CheckInService_GetCheckInsByAttendenceCode_Handler(srv interface{}, ctx co
 		FullMethod: "/rpc.CheckInService/GetCheckInsByAttendenceCode",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CheckInServiceServer).GetCheckInsByAttendenceCode(ctx, req.(*wrapperspb.Int64Value))
+		return srv.(CheckInServiceServer).GetCheckInsByAttendenceCode(ctx, req.(*wrappers.Int64Value))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _CheckInService_GetCheckInsByStudentId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(wrapperspb.StringValue)
+	in := new(wrappers.StringValue)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -187,7 +187,7 @@ func _CheckInService_GetCheckInsByStudentId_Handler(srv interface{}, ctx context
 		FullMethod: "/rpc.CheckInService/GetCheckInsByStudentId",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CheckInServiceServer).GetCheckInsByStudentId(ctx, req.(*wrapperspb.StringValue))
+		return srv.(CheckInServiceServer).GetCheckInsByStudentId(ctx, req.(*wrappers.StringValue))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -211,7 +211,7 @@ func _CheckInService_GetCheckInsByTime_Handler(srv interface{}, ctx context.Cont
 }
 
 func _CheckInService_GetAllCheckIns_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(empty.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -223,7 +223,7 @@ func _CheckInService_GetAllCheckIns_Handler(srv interface{}, ctx context.Context
 		FullMethod: "/rpc.CheckInService/GetAllCheckIns",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CheckInServiceServer).GetAllCheckIns(ctx, req.(*emptypb.Empty))
+		return srv.(CheckInServiceServer).GetAllCheckIns(ctx, req.(*empty.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }

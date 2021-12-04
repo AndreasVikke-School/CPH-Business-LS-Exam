@@ -35,10 +35,10 @@ message TimeInterval {
 }
 
 enum validity {
-  SUCCESS = 0;
-  OUT_OF_TIME = 1;
-  NOT_FOUND = 2;
-  OUT_OF_RANGE = 3;
-  ERROR = 4;
-  
+  NULL = 0;
+  SUCCESS = 1;
+  OUT_OF_TIME = 2;
+  NOT_FOUND = 3;
+  OUT_OF_RANGE = 4;
+  ERROR = 5;
 }
