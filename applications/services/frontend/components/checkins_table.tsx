@@ -21,17 +21,17 @@ const CheckInTable = ({ data }: { data: any }) => {
                 </tr>
             </thead>
             <tbody>
-                {"checkIn" in data ? data.checkIn.map((d:any) => {
+                {"checkIn" in data ? data.checkIn.sort((a: any, b: any) => (a.checkinTime < b.checkinTime) ? 1 : -1).map((d: any) => {
                     var c = d.status == 1 ? "success" : d.status == 2 || d.status == 4 ? "warning" : "danger"
                     var date = new Date(d.checkinTime)
                     return (
-                        <tr key={d.attendanceCode}>
+                        <tr key={d.checkinTime}>
                             <th scope="row">{d.attendanceCode}</th>
                             <td>{date.toDateString()} - {date.getHours()}:{date.getMinutes()}</td>
                             <td><span className={"badge bg-" + c}>{statuses[d.status]}</span></td>
                         </tr>
                     )
-                }) : ""}
+                }) : null}
             </tbody>
         </table>
     )
