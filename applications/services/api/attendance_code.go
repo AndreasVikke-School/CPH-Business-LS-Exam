@@ -25,6 +25,12 @@ func CreateAttendanceCode(c *gin.Context) {
 	err := c.BindJSON(&codeCreate)
 	eh.PanicOnError(err, "Couldn't bind JSON")
 
+	attendancecode := CreateAttendanceCodeInRedis(codeCreate)
+
+	c.IndentedJSON(http.StatusOK, attendancecode)
+}
+
+func CreateAttendanceCodeInRedis(codeCreate CreateAttendanceCodeType) *pb.AttendanceCode {
 	conn, err := grpc.Dial(configuration.Redis.Service, grpc.WithInsecure())
 	eh.PanicOnError(err, "fail to dial")
 	defer conn.Close()
@@ -36,8 +42,7 @@ func CreateAttendanceCode(c *gin.Context) {
 	newAttendanceCode := &pb.AttendanceCodeCreate{MinutesToLive: codeCreate.MinutesToLive, Lat: codeCreate.Lat, Long: codeCreate.Long}
 	attendancecode, err := client.CreateAttendanceCode(ctx, newAttendanceCode)
 	eh.PanicOnError(err, "Failed to create attendance code")
-
-	c.IndentedJSON(http.StatusOK, attendancecode)
+	return attendancecode
 }
 
 func GetAttendanceCodeById(c *gin.Context) {

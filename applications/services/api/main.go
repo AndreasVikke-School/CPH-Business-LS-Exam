@@ -19,6 +19,7 @@ func main() {
 	router.GET("/api/attendance_code/:code", GetAttendanceCodeById)
 	router.POST("/api/attendance_code/", CreateAttendanceCode)
 
+	router.GET("/api/checkins/create_test_data", ProduceCheckInTestData)
 	router.GET("/api/checkin/id/:id", GetCheckInById)
 	router.GET("/api/checkins/", GetAllCheckIns)
 	router.GET("/api/checkins/att/:attCode", GetCheckInsByAttendenceCode)
