@@ -18,7 +18,5 @@ COPY . /usr/src/app
 # Building app
 RUN npm run build
 
-ENV NEXT_PUBLIC_API_IP=localhost:8081
-
 # Running the app
 ENTRYPOINT [ "/bin/sh", "-c" , "npm run build && npm run start" ]
