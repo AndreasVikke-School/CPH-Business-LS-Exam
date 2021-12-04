@@ -30,18 +30,18 @@ namespace Protos {
             "EhYKDmF0dGVuZGFuY2VDb2RlGAEgASgDEgoKAmlkGAIgASgDEhEKCXN0dWRl",
             "bnRJZBgDIAEoCRIdCgZzdGF0dXMYBCABKA4yDS5ycGMudmFsaWRpdHkSEwoL",
             "Y2hlY2tpblRpbWUYBSABKAMiMAoMVGltZUludGVydmFsEhAKCGZyb21UaW1l",
-            "GAEgASgDEg4KBnRvVGltZRgCIAEoAypUCgh2YWxpZGl0eRILCgdTVUNDRVNT",
-            "EAASDwoLT1VUX09GX1RJTUUQARINCglOT1RfRk9VTkQQAhIQCgxPVVRfT0Zf",
-            "UkFOR0UQAxIJCgVFUlJPUhAEMoYDCg5DaGVja0luU2VydmljZRI7Cg5HZXRD",
-            "aGVja0luQnlJZBIbLmdvb2dsZS5wcm90b2J1Zi5JbnQ2NFZhbHVlGgwucnBj",
-            "LkNoZWNrSW4SSQobR2V0Q2hlY2tJbnNCeUF0dGVuZGVuY2VDb2RlEhsuZ29v",
-            "Z2xlLnByb3RvYnVmLkludDY0VmFsdWUaDS5ycGMuQ2hlY2tJbnMSRQoWR2V0",
-            "Q2hlY2tJbnNCeVN0dWRlbnRJZBIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdW",
-            "YWx1ZRoNLnJwYy5DaGVja0lucxI1ChFHZXRDaGVja0luc0J5VGltZRIRLnJw",
-            "Yy5UaW1lSW50ZXJ2YWwaDS5ycGMuQ2hlY2tJbnMSNwoOR2V0QWxsQ2hlY2tJ",
-            "bnMSFi5nb29nbGUucHJvdG9idWYuRW1wdHkaDS5ycGMuQ2hlY2tJbnMSNQoN",
-            "SW5zZXJ0Q2hlY2tJbhIMLnJwYy5DaGVja0luGhYuZ29vZ2xlLnByb3RvYnVm",
-            "LkVtcHR5Qg9aBC9ycGOqAgZQcm90b3NiBnByb3RvMw=="));
+            "GAEgASgDEg4KBnRvVGltZRgCIAEoAypeCgh2YWxpZGl0eRIICgROVUxMEAAS",
+            "CwoHU1VDQ0VTUxABEg8KC09VVF9PRl9USU1FEAISDQoJTk9UX0ZPVU5EEAMS",
+            "EAoMT1VUX09GX1JBTkdFEAQSCQoFRVJST1IQBTKGAwoOQ2hlY2tJblNlcnZp",
+            "Y2USOwoOR2V0Q2hlY2tJbkJ5SWQSGy5nb29nbGUucHJvdG9idWYuSW50NjRW",
+            "YWx1ZRoMLnJwYy5DaGVja0luEkkKG0dldENoZWNrSW5zQnlBdHRlbmRlbmNl",
+            "Q29kZRIbLmdvb2dsZS5wcm90b2J1Zi5JbnQ2NFZhbHVlGg0ucnBjLkNoZWNr",
+            "SW5zEkUKFkdldENoZWNrSW5zQnlTdHVkZW50SWQSHC5nb29nbGUucHJvdG9i",
+            "dWYuU3RyaW5nVmFsdWUaDS5ycGMuQ2hlY2tJbnMSNQoRR2V0Q2hlY2tJbnNC",
+            "eVRpbWUSES5ycGMuVGltZUludGVydmFsGg0ucnBjLkNoZWNrSW5zEjcKDkdl",
+            "dEFsbENoZWNrSW5zEhYuZ29vZ2xlLnByb3RvYnVmLkVtcHR5Gg0ucnBjLkNo",
+            "ZWNrSW5zEjUKDUluc2VydENoZWNrSW4SDC5ycGMuQ2hlY2tJbhoWLmdvb2ds",
+            "ZS5wcm90b2J1Zi5FbXB0eUIPWgQvcnBjqgIGUHJvdG9zYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.WrappersReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.EmptyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protos.validity), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -55,11 +55,12 @@ namespace Protos {
   }
   #region Enums
   public enum validity {
-    [pbr::OriginalName("SUCCESS")] Success = 0,
-    [pbr::OriginalName("OUT_OF_TIME")] OutOfTime = 1,
-    [pbr::OriginalName("NOT_FOUND")] NotFound = 2,
-    [pbr::OriginalName("OUT_OF_RANGE")] OutOfRange = 3,
-    [pbr::OriginalName("ERROR")] Error = 4,
+    [pbr::OriginalName("NULL")] Null = 0,
+    [pbr::OriginalName("SUCCESS")] Success = 1,
+    [pbr::OriginalName("OUT_OF_TIME")] OutOfTime = 2,
+    [pbr::OriginalName("NOT_FOUND")] NotFound = 3,
+    [pbr::OriginalName("OUT_OF_RANGE")] OutOfRange = 4,
+    [pbr::OriginalName("ERROR")] Error = 5,
   }
 
   #endregion
@@ -303,7 +304,7 @@ namespace Protos {
 
     /// <summary>Field number for the "status" field.</summary>
     public const int StatusFieldNumber = 4;
-    private global::Protos.validity status_ = global::Protos.validity.Success;
+    private global::Protos.validity status_ = global::Protos.validity.Null;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Protos.validity Status {
       get { return status_; }
@@ -350,7 +351,7 @@ namespace Protos {
       if (AttendanceCode != 0L) hash ^= AttendanceCode.GetHashCode();
       if (Id != 0L) hash ^= Id.GetHashCode();
       if (StudentId.Length != 0) hash ^= StudentId.GetHashCode();
-      if (Status != global::Protos.validity.Success) hash ^= Status.GetHashCode();
+      if (Status != global::Protos.validity.Null) hash ^= Status.GetHashCode();
       if (CheckinTime != 0L) hash ^= CheckinTime.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -380,7 +381,7 @@ namespace Protos {
         output.WriteRawTag(26);
         output.WriteString(StudentId);
       }
-      if (Status != global::Protos.validity.Success) {
+      if (Status != global::Protos.validity.Null) {
         output.WriteRawTag(32);
         output.WriteEnum((int) Status);
       }
@@ -409,7 +410,7 @@ namespace Protos {
         output.WriteRawTag(26);
         output.WriteString(StudentId);
       }
-      if (Status != global::Protos.validity.Success) {
+      if (Status != global::Protos.validity.Null) {
         output.WriteRawTag(32);
         output.WriteEnum((int) Status);
       }
@@ -435,7 +436,7 @@ namespace Protos {
       if (StudentId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(StudentId);
       }
-      if (Status != global::Protos.validity.Success) {
+      if (Status != global::Protos.validity.Null) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Status);
       }
       if (CheckinTime != 0L) {
@@ -461,7 +462,7 @@ namespace Protos {
       if (other.StudentId.Length != 0) {
         StudentId = other.StudentId;
       }
-      if (other.Status != global::Protos.validity.Success) {
+      if (other.Status != global::Protos.validity.Null) {
         Status = other.Status;
       }
       if (other.CheckinTime != 0L) {
