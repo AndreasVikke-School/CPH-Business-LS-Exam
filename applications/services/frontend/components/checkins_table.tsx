@@ -14,24 +14,23 @@ const CheckInTable = ({ data }: { data: any }) => {
         <table className="table">
             <thead>
                 <tr>
-                    <th scope="col">Attendance Code</th>
-                    <th scope="col">CheckIn Time</th>
-                    <th scope="col">Status</th>
+                    <th key="1" scope="col">Attendance Code</th>
+                    <th key="2" scope="col">CheckIn Time</th>
+                    <th key="3" scope="col">Status</th>
                 </tr>
             </thead>
             <tbody>
-                {data.map((d:any) => {
-                    d.status = 2
+                {"checkIn" in data ? data.checkIn.map((d:any) => {
                     var c = d.status == 1 ? "success" : d.status == 2 ? "warning" : "danger"
                     var date = new Date(d.checkinTime)
                     return (
-                        <tr key={d.attendance_code}>
+                        <tr key={d.attendanceCode}>
                             <th scope="row">{d.attendanceCode}</th>
                             <td>{date.toDateString()} - {date.getHours()}:{date.getMinutes()}</td>
                             <td><span className={"badge bg-" + c}>{statuses[d.status]}</span></td>
                         </tr>
                     )
-                })}
+                }) : ""}
             </tbody>
         </table>
     )

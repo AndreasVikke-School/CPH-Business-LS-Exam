@@ -37,7 +37,7 @@ import Home from '.';
 //     }
 // ]
 
-const Student: NextPage = ({ data }) => {
+const Student = ({ data }: { data: any }) => {
     const { data: session } = useSession()
 
     if (!session)
@@ -68,7 +68,7 @@ const Student: NextPage = ({ data }) => {
                 </div>
 
                 <div className={styles.table}>
-                    <CheckInTable data={data.checkIn} />
+                    <CheckInTable data={data} />
                 </div>
             </main>
         </div>
@@ -77,7 +77,7 @@ const Student: NextPage = ({ data }) => {
 
 export default Student
 
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps(ctx : any) {
     var session = await getSession(ctx)
 
     const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_IP}/api/checkins/student/${session?.user?.email}`);
