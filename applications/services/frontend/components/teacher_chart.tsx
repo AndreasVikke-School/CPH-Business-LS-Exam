@@ -75,7 +75,7 @@ const TeacherChart = ({ checkins }: any) => {
                         },
                         {
                             label: 'Error',
-                            data: label.map((l: any) => checkins.checkIn.filter((d: any) => d.attendanceCode == l && d.status <= 5).length),
+                            data: label.map((l: any) => checkins.checkIn.filter((d: any) => d.attendanceCode == l && d.status >= 5).length),
                             backgroundColor: 'rgba(255, 19, 19, 0.5)',
                         },
                     ],

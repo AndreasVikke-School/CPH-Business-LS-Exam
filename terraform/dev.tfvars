@@ -1,5 +1,5 @@
 api_service_image_version      = "sha256-4587f6a9c389"
 redis_service_image_version    = "sha256-f6c64f612618"
 postgres_service_image_version = "sha256-880e2d009e3b"
-frontend_service_image_version = "sha256-510c5e52c576"
+frontend_service_image_version = "sha256-36c58698dc01"
 consumer_service_image_version = "sha256-73b5b92db2ad"
