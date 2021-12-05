@@ -34,6 +34,15 @@ func ProduceCheckInTestData(c *gin.Context) {
 				Longitude:       attendancecode.GetLong(),
 			})
 		}
+		for a := 0; a < rand.Intn(5); a++ {
+			checkins = append(checkins, CheckIn{
+				AttendanceCode:  attendancecode.GetCode(),
+				StudentID:       "azv@efio.dk",
+				CurrentUnixTime: attendancecode.GetUnix(),
+				Latitude:        0,
+				Longitude:       99,
+			})
+		}
 	}
 
 	for _, checkin := range checkins {
