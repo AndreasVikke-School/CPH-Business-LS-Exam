@@ -8,7 +8,7 @@ on:
 jobs: 
   call-workflow-build-push-api-image:
     name: Build and Push api service Docker Image
-    uses: andreasvikke/CPH-Business-LS-Exam/.github/workflows/template_build_push.yaml@main
+    uses: AndreasVikke-School/CPH-Business-LS-Exam/.github/workflows/template_build_push.yaml@main
     with:
       image_name: api_service
       image_path: "applications/services/api"
@@ -17,7 +17,7 @@ jobs:
 
   call-workflow-build-push-redis-service:
     name: Build and Push redis service Docker Image
-    uses: andreasvikke/CPH-Business-LS-Exam/.github/workflows/template_build_push.yaml@main
+    uses: AndreasVikke-School/CPH-Business-LS-Exam/.github/workflows/template_build_push.yaml@main
     with:
       image_name: redis_service
       image_path: "applications/services/redis"
@@ -26,7 +26,7 @@ jobs:
 
   call-workflow-build-push-postgres-service:
     name: Build and Push postgres service Docker Image
-    uses: andreasvikke/CPH-Business-LS-Exam/.github/workflows/template_build_push.yaml@main
+    uses: AndreasVikke-School/CPH-Business-LS-Exam/.github/workflows/template_build_push.yaml@main
     with:
       image_name: postgres_service
       image_path: "applications/services/postgres"
@@ -35,7 +35,7 @@ jobs:
 
   call-workflow-build-push-frontend-service:
     name: Build and Push frontend service Docker Image
-    uses: andreasvikke/CPH-Business-LS-Exam/.github/workflows/template_build_push.yaml@main
+    uses: AndreasVikke-School/CPH-Business-LS-Exam/.github/workflows/template_build_push.yaml@main
     with:
       image_name: frontend_service
       image_path: "applications/services/frontend"
@@ -44,7 +44,7 @@ jobs:
   
   call-workflow-build-push-consumer-service:
     name: Build and Push consumer service Docker Image
-    uses: andreasvikke/CPH-Business-LS-Exam/.github/workflows/template_build_push.yaml@main
+    uses: AndreasVikke-School/CPH-Business-LS-Exam/.github/workflows/template_build_push.yaml@main
     with:
       image_name: consumer_service
       image_path: "applications/services/consumer"

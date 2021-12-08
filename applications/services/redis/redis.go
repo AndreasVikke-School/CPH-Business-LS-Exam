@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"time"
 
-	pb "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/redis/rpc"
+	pb "github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/redis/rpc"
 
 	"github.com/go-redis/redis/v8"
 )

@@ -3,8 +3,8 @@
 package ent
 
 import (
-	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
-	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/schema"
+	"github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
+	"github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/postgres/ent/schema"
 )
 
 // The init function reads all schema descriptors with runtime code

@@ -9,8 +9,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
-	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/predicate"
+	"github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
+	"github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/postgres/ent/predicate"
 )
 
 // CheckInUpdate is the builder for updating CheckIn entities.

@@ -1,6 +1,6 @@
 FROM node:12
 
-LABEL org.opencontainers.image.source https://github.com/andreasvikke/cph-business-ls-exam
+LABEL org.opencontainers.image.source https://github.com/AndreasVikke-School/cph-business-ls-exam
 
 EXPOSE 3000
 

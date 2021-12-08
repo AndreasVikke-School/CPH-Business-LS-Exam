@@ -8,10 +8,10 @@ import (
 	"net"
 	"os"
 
-	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent"
-	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
-	eh "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/errorhandler"
-	pb "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/rpc"
+	"github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/postgres/ent"
+	"github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
+	eh "github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/postgres/errorhandler"
+	pb "github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/postgres/rpc"
 
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"

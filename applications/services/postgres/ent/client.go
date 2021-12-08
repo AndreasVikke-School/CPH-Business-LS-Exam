@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/migrate"
+	"github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/postgres/ent/migrate"
 
-	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
+	"github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"

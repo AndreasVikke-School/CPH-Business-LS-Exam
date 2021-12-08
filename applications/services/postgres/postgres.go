@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent"
-	"github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
+	"github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/postgres/ent"
+	"github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/postgres/ent/checkin"
 
 	_ "github.com/lib/pq"
 )

@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"time"
 
-	eh "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/api/errorhandler"
-	pb "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/api/rpc"
+	eh "github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/api/errorhandler"
+	pb "github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/api/rpc"
 
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"

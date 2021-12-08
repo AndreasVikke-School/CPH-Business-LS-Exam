@@ -1,4 +1,4 @@
-module github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/redis
+module github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/redis
 
 go 1.17
 

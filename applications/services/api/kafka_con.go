@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"time"
 
-	eh "github.com/andreasvikke/CPH-Bussines-LS-Exam/applications/services/api/errorhandler"
+	eh "github.com/AndreasVikke-School/CPH-Bussines-LS-Exam/applications/services/api/errorhandler"
 	"github.com/segmentio/kafka-go"
 )
 
