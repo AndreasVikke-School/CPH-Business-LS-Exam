@@ -19,7 +19,7 @@ resource "kubernetes_deployment" "service" {
       }
       spec {
         container {
-          image = "ghcr.io/AndreasVikke-School/cph-business-ls-exam/${var.image_name}:${var.image_version}"
+          image = "ghcr.io/andreasvikke-school/cph-business-ls-exam/${var.image_name}:${var.image_version}"
           name  = "${var.name_prefix}service-container"
           port {
             container_port = var.container_port
